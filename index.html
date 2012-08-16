@@ -22,46 +22,37 @@
     <link rel="stylesheet" type="text/css" href="css/buttons.css"/>
 
     <script type="text/javascript" src="js/game-icons.js"></script>
+    <script type="text/javascript" src="js/create-game.js"></script>
     <!--<link rel="template" href="create-form-template.html" id="createFormTpl"/>-->
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
     <link rel="stylesheet" type="text/css" href="css/pagination.css"/>
     <link rel="stylesheet" type="text/css" href="css/game-icons.css"/>
     <link rel="stylesheet" type="text/css" href="css/create-game.css"/>
 
     <style type="text/css">
-        body {
-            background: #c5fffd
-        }
-
-        #gamesArea {
-            width: 90%;
-            height: 90%;
-            top: 5%;
-            left: 7%;
-            position: absolute;
-        }
-
-        .anythingSlider-default {
-            width: 90%;
-            height: 90%;
-            top: 5%;
-            left: 0;
-            margin: auto;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: auto;
-            margin-bottom: auto;
-            position: relative;
-        }
-        .anythingSlider-default .anythingWindow {
-            border: 0;
-        }
-
     </style>
 
 </head>
 
 
 <body>
+
+<div id="gamesArea">
+    <ul id="gamesSliderPaged" class="pagination">
+    </ul>
+</div>
+<div id="createPanel">
+    <button id="createButton" class="button orange glossy">CREATE</button>
+    <div id="createFormsPanel">
+        <form action="action" style="height: 100%">
+            <ul id="createGamePaged" class="pagination">
+            </ul>
+            <a id="nextForm" href="#">>></a>
+        </form>
+    </div>
+</div>
+
+
 <script id="createFormTpl" type="text/x-handlebars-template">
     {{#forms}}
     <li>
@@ -71,8 +62,7 @@
             <div>
                 {{#options}}
                 <div class="createGameOptionLine">
-                    <label for="option-{{id}}">{{text}}<input type="radio" id="option-{{id}}" value="option-{{id}}" name="form-{{../id}}"/></label>
-
+                    <label for="option-{{id}}" class="shadow">{{text}}<input type="radio" id="option-{{id}}" value="option-{{id}}" name="form-{{../id}}"/></label>
                 </div>
                 {{/options}}
             </div>
@@ -80,22 +70,6 @@
     </li>
     {{/forms}}
 </script>
-
-
-<div id="gamesArea">
-    <ul id="gamesSliderPaged" class="pagination">
-    </ul>
-</div>
-<div id="createPanel">
-    <button id="createButton" class="button blue glossy">CREATE</button>
-    <div id="createFormsPanel">
-        <form action="action" style="height: 100%">
-            <ul id="createGamePaged" class="pagination">
-            </ul>
-        </form>
-    </div>
-</div>
-
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -133,8 +107,11 @@
             width:'500%',
             infiniteSlides:false
             ,buildNavigation:false
+            ,stopAtEnd:true
+            ,theme: "forms"
         });
         $("#createFormsPanel").hide();
+        navigation();
 
         /*
          $.get('create-form-template.html', function(template) {

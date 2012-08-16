@@ -7,4 +7,11 @@
  */
 function CreateGame() {
 
+
+}
+
+function navigation() {
+    $("#nextForm").click(function(event){
+        $("#createGamePaged").data('AnythingSlider').goForward();
+    })
 }

@@ -19,7 +19,7 @@ function GameIcons() {
         col = (iconsCount % GAMES_COLS) + 1;
         var cellId = "#" + page + "_" + row + "_" + col;
         var imgId = page + "_" + row + "_" + col + "_img";
-        $('<img src="images/game-icon.png" alt="gme" id="' + imgId + '" />').appendTo(cellId);
+        $('<img src="images/game-icon.png" class="shadow" alt="gme" id="' + imgId + '" />').appendTo(cellId);
         var manager = new jsAnimManager();
         var anim = manager.createAnimObject(imgId);
         anim.add({property:Prop.opacity, from:0.1, to:1, duration:2000});

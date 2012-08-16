@@ -140,8 +140,11 @@ p, h1, form, button{border:0; margin:0; padding:0;}
     border: 0;
 }
 /* Navigation buttons + start/stop button, default state */
+/*
 .anythingSlider-forms .anythingControls a {
-    /* top shadow */
+    */
+/* top shadow *//*
+
     background: #777 url(../images/default.png) center -288px repeat-x;
     color: #000;
     border-radius: 0 0 5px 5px;
@@ -149,6 +152,7 @@ p, h1, form, button{border:0; margin:0; padding:0;}
     -webkit-border-radius: 0 0 5px 5px;
     border: 0;
 }
+*/
 /* Make sure navigation text is visible */
 .anythingSlider-forms .anythingControls a span {
     visibility: visible;
@@ -227,24 +231,24 @@ p, h1, form, button{border:0; margin:0; padding:0;}
 
 .anythingSlider-forms .arrow a {
     display: block;
-    width: 45px;
-    height: 140px;
-    margin: -70px 0 0 0; /* half height of image */
+    width: 30px;
+    height: 40px;
+    margin: -20px 0 0 0; /* half height of image */
     text-align: center;
     outline: 0;
-    background: url(../images/default.png) no-repeat;
+    background: url(../images/arrows-minimalist.png) no-repeat;
 }
 
 /* back arrow */
 .anythingSlider-forms .back { left: 0; }
-.anythingSlider-forms .back a { background-position: left top; }
+.anythingSlider-forms .back a { background-position: left bottom; }
 .anythingSlider-forms .back a:hover,
-.anythingSlider-forms .back a.hover { background-position: left -140px; }
+.anythingSlider-forms .back a.hover { background-position: left top; }
 /* forward arrow */
 .anythingSlider-forms .forward { right: 0; }
-.anythingSlider-forms .forward a { background-position: right top; }
+.anythingSlider-forms .forward a { background-position: right bottom; }
 .anythingSlider-forms .forward a:hover,
-.anythingSlider-forms .forward a.hover { background-position: right -140px; }
+.anythingSlider-forms .forward a.hover { background-position: right top; }
 
 /* Navigation Links */
 .anythingSlider-forms .anythingControls { outline: 0; display: none; }

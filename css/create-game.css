@@ -104,3 +104,205 @@ p, h1, form, button{border:0; margin:0; padding:0;}
     font-size:11px;
     font-weight:bold;
 }
+
+
+
+
+
+
+
+
+
+/******************
+  SET STYLING HERE
+ ******************
+ =================================
+ Default state (no keyboard focus)
+ ==================================*/
+/* Overall Wrapper */
+.anythingSlider-forms {
+    width: 90%;
+    height: 90%;
+    top: 5%;
+    left: 0;
+    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: relative;
+
+    /* 45px right & left padding for the arrows, 28px @ bottom for navigation */
+    padding: 0 45px 28px 45px;
+}
+/* slider window - top & bottom borders, default state */
+.anythingSlider-forms .anythingWindow {
+    border: 0;
+}
+/* Navigation buttons + start/stop button, default state */
+.anythingSlider-forms .anythingControls a {
+    /* top shadow */
+    background: #777 url(../images/default.png) center -288px repeat-x;
+    color: #000;
+    border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    -webkit-border-radius: 0 0 5px 5px;
+    border: 0;
+}
+/* Make sure navigation text is visible */
+.anythingSlider-forms .anythingControls a span {
+    visibility: visible;
+}
+/* Navigation current button, default state */
+.anythingSlider-forms .anythingControls a.cur {
+    background: #888;
+    color: #000;
+}
+
+/* start-stop button, stopped, default state */
+.anythingSlider-forms .anythingControls a.start-stop {
+    background-color: #040;
+    color: #ddd;
+}
+/* start-stop button, playing, default state */
+.anythingSlider-forms .anythingControls a.start-stop.playing {
+    background-color: #800;
+}
+
+/* start-stop button, default hovered text color (when visible) */
+/* hide nav/start-stop background image shadow on hover - makes the button appear to come forward */
+.anythingSlider-forms .anythingControls a.start-stop:hover,
+.anythingSlider-forms .anythingControls a.start-stop.hover,
+.anythingSlider-forms .anythingControls a.start-stop .anythingControls ul a:hover {
+    background-image: none;
+    color: #ddd;
+}
+
+/*
+ =================================
+ Active State (has keyboard focus)
+ =================================
+*/
+/* slider window - top & bottom borders, active state */
+.anythingSlider-forms.activeSlider .anythingWindow {
+    border-color: #7C9127;
+}
+/* Navigation buttons, active state */
+.anythingSlider-forms.activeSlider .anythingControls a {
+    /* background image = top shadow */
+    background-color: #7C9127;
+}
+/* Navigation current & hovered button, active state */
+.anythingSlider-forms.activeSlider .anythingControls a.cur,
+.anythingSlider-forms.activeSlider .anythingControls a:hover {
+    /* background image removed */
+    background: #7C9127;
+}
+
+/* start-stop button, stopped, active state */
+.anythingSlider-forms.activeSlider .anythingControls a.start-stop {
+    background-color: #080;
+    color: #fff;
+}
+/* start-stop button, playing, active state */
+.anythingSlider-forms.activeSlider .anythingControls a.start-stop.playing {
+    background-color: #d00;
+    color: #fff;
+}
+/* start-stop button, active slider hovered text color (when visible) */
+.anythingSlider-forms.activeSlider .start-stop:hover,
+.anythingSlider-forms.activeSlider .start-stop.hover {
+    color: #fff;
+}
+
+/************************
+  NAVIGATION POSITIONING
+ ************************/
+/* Navigation Arrows */
+.anythingSlider-forms .arrow {
+    top: 50%;
+    position: absolute;
+    display: block;
+}
+
+.anythingSlider-forms .arrow a {
+    display: block;
+    width: 45px;
+    height: 140px;
+    margin: -70px 0 0 0; /* half height of image */
+    text-align: center;
+    outline: 0;
+    background: url(../images/default.png) no-repeat;
+}
+
+/* back arrow */
+.anythingSlider-forms .back { left: 0; }
+.anythingSlider-forms .back a { background-position: left top; }
+.anythingSlider-forms .back a:hover,
+.anythingSlider-forms .back a.hover { background-position: left -140px; }
+/* forward arrow */
+.anythingSlider-forms .forward { right: 0; }
+.anythingSlider-forms .forward a { background-position: right top; }
+.anythingSlider-forms .forward a:hover,
+.anythingSlider-forms .forward a.hover { background-position: right -140px; }
+
+/* Navigation Links */
+.anythingSlider-forms .anythingControls { outline: 0; display: none; }
+.anythingSlider-forms .anythingControls ul { margin: 0; padding: 0; float: left; }
+.anythingSlider-forms .anythingControls ul li { display: inline; }
+.anythingSlider-forms .anythingControls ul a {
+    font: 11px/18px Georgia, Serif;
+    display: inline-block;
+    text-decoration: none;
+    padding: 2px 8px;
+    height: 18px;
+    margin: 0 5px 0 0;
+    text-align: center;
+    outline: 0;
+}
+
+/* navigationSize window */
+.anythingSlider-forms .anythingControls .anythingNavWindow {
+    overflow: hidden;
+    float: left;
+}
+
+/* Autoplay Start/Stop button */
+.anythingSlider-forms .anythingControls .start-stop {
+    padding: 2px 5px;
+    width: 40px;
+    text-align: center;
+    text-decoration: none;
+    float: right;
+    z-index: 100;
+    outline: 0;
+}
+
+/***********************
+  IE8 AND OLDER STYLING
+ ***********************/
+
+/* Navigation Arrows */
+.as-oldie .anythingSlider-forms .arrow {
+    top: 30%;
+}
+.as-oldie .anythingSlider-forms .arrow a {
+    margin: 0;
+}
+
+/* margin between nav buttons just looks better */
+.as-oldie .anythingSlider-forms .anythingControls li {
+    margin-left: 3px;
+}
+
+/* When using the navigationSize option, the side margins need to be zero
+	None of the navigation panels look good in IE7 now =( */
+.as-oldie .anythingSlider-forms .anythingControls a {
+    margin: 0;
+}
+.as-oldie .anythingSlider-forms .anythingNavWindow {
+    margin: 0 2px;
+}
+.as-oldie .anythingSlider-forms .anythingNavWindow li {
+    padding: 3px 0 0 0;
+}

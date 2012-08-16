@@ -1,0 +1,13 @@
+    <div class="createGameForm">
+        <div class="formTitle">{{title}}</div>
+        <div>
+            <form class="createGameForm" action="action">
+                {{#options}}
+                <label for="{{id}}">{{text}}</label>
+                <input type="radio" id="{{id}}" value="{{id}}" checked="checked"/>
+                {{/options}}
+            </form>
+        </div>
+    </div>
+
+

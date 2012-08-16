@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Untitled Document</title>
+
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.22.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery.timers.js"></script>
+    <script type="text/javascript" src="js/handlebars-1.0.0.beta.6.js"></script>
+    <!--<script type="text/javascript" src="js/chevron.js"></script>-->
+    <script type="text/javascript" src="js/jsAnim.js"></script>
+    <script type="text/javascript" src="js/jquery.transit.js"></script>
+    <script type="text/javascript" src="js/jquery.jrumble.1.3.js"></script>
+
+    <!-- Anything Slider -->
+    <script type="text/javascript" src="js/jquery.easing.1.2.js"></script>
+    <script type="text/javascript" src="js/jquery.anythingslider.js"></script>
+    <link href="css/anythingslider.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/buttons.css"/>
+
+    <script type="text/javascript" src="js/game-icons.js"></script>
+    <!--<link rel="template" href="create-form-template.html" id="createFormTpl"/>-->
+    <link rel="stylesheet" type="text/css" href="css/pagination.css"/>
+    <link rel="stylesheet" type="text/css" href="css/game-icons.css"/>
+    <link rel="stylesheet" type="text/css" href="css/create-game.css"/>
+
+    <style type="text/css">
+        body {
+            background: #c5fffd
+        }
+
+        #gamesArea {
+            width: 90%;
+            height: 90%;
+            top: 5%;
+            left: 7%;
+            position: absolute;
+        }
+
+        .anythingSlider-default {
+            width: 90%;
+            height: 90%;
+            top: 5%;
+            left: 0;
+            margin: auto;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            position: relative;
+        }
+        .anythingSlider-default .anythingWindow {
+            border: 0;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+<script id="createFormTpl" type="text/x-handlebars-template">
+    {{#forms}}
+    <li>
+        <div class="createGameForm">
+            <h1>{{title}}</h1>
+
+            <div>
+                {{#options}}
+                <div class="createGameOptionLine">
+                    <label for="option-{{id}}">{{text}}<input type="radio" id="option-{{id}}" value="option-{{id}}" name="form-{{../id}}"/></label>
+
+                </div>
+                {{/options}}
+            </div>
+        </div>
+    </li>
+    {{/forms}}
+</script>
+
+
+<div id="gamesArea">
+    <ul id="gamesSliderPaged" class="pagination">
+    </ul>
+</div>
+<div id="createPanel">
+    <button id="createButton" class="button blue glossy">CREATE</button>
+    <div id="createFormsPanel">
+        <form action="action" style="height: 100%">
+            <ul id="createGamePaged" class="pagination">
+            </ul>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var manager = new jsAnimManager();
+        var gameIcons = new GameIcons();
+
+        var template = $('#createFormTpl').html();
+        template = Handlebars.compile(template);
+        html = template(data);
+        $(html).appendTo("#createGamePaged");
+
+
+        $("#createButton").click(function (event) {
+            if ($("#createFormsPanel").is(':hidden')) {
+                $("#createFormsPanel").show();
+                $("#createPanel").transition({ x:'120%' });
+            } else {
+                $("#createPanel").transition({ x:'0%' }, function () {
+                    $("#createFormsPanel").hide();
+                });
+            }
+        });
+
+
+        $('#gamesSliderPaged').anythingSlider({
+            buildStartStop:false, // This turns off the entire slideshow FUNCTIONALY, not just if it starts running or not
+            width:50,
+            infiniteSlides:false
+        });
+        gameIcons.createPageIfNeeded(0);
+
+        $('#createGamePaged').anythingSlider({
+            buildStartStop:false, // This turns off the entire slideshow FUNCTIONALY, not just if it starts running or not
+
+            width:'500%',
+            infiniteSlides:false
+            ,buildNavigation:false
+        });
+        $("#createFormsPanel").hide();
+
+        /*
+         $.get('create-form-template.html', function(template) {
+         var html = Mustache.to_html(template, data);
+         // and now append the html anywhere you like
+         $(html).appendTo("#createFormsPanel");
+         });
+         $("#createFormTpl").Chevron("render", data, function(result){
+         $(result).appendTo("#createFormsPanel");
+         });
+         */
+
+
+        //testing
+        gameIcons.addIcon();
+        $(gameIcons).everyTime(5000, "", gameIcons.addIcon);//todo: probably it isn't correct
+        $("#createButton").click();
+    });
+</script>
+
+<script type="text/javascript">
+    data = {
+        "forms":[
+            {
+                "title":"ttt",
+                id:0,
+                "options":[
+                    {id:0, "text":"Heh?"}
+                    ,
+                    {id:1, "text":"Orrr?"}
+                    ,
+                    {id:2, "text":"Mmmm?"}
+                ]
+            }
+            ,
+            {
+                "title":"ttttTTttiitle",
+                id:1,
+                "options":[
+                    {id:3, "text":"Oh?"}
+                    ,
+                    {id:4, "text":"ili?"}
+                    ,
+                    {id:5, "text":"aaaa!"}
+                ]
+            }
+
+        ]
+    };
+</script>
+</body>
+</html>

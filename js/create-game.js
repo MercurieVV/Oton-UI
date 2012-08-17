@@ -10,7 +10,7 @@ function CreateGame() {
 
 }
 
-function navigation() {
+function applyNavigationRules() {
     $("#nextForm").click(function(event){
         $("#createGamePaged").data('AnythingSlider').goForward();
     })

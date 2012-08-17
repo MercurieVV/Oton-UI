@@ -19,6 +19,8 @@
     <script type="text/javascript" src="js/jquery.anythingslider.js"></script>
     <link href="css/anythingslider.css" rel="stylesheet">
 
+    <link rel="stylesheet" type="text/css" href="css/ui-progress-bar.css"/>
+
     <link rel="stylesheet" type="text/css" href="css/buttons.css"/>
 
     <script type="text/javascript" src="js/game-icons.js"></script>
@@ -75,6 +77,17 @@
         <button class="button gray glossy">Play with friends</button>
         </div>
     </li>
+    <li>
+        <div class="error transition ui-progress-bar ui-container" id="progress_bar">
+            <div class="ui-progress" style="width: 17%;">
+              <span class="ui-label">
+                Creating Game
+                <b class="value">7%</b>
+              </span>
+            </div>
+        </div>
+
+    </li>
 </script>
 
 <script type="text/javascript">
@@ -117,8 +130,13 @@
             ,stopAtEnd:true
             ,theme: "forms"
         });
+        applyNavigationRules();
+
+        $("#gameCreationPB").progressBar(65, {width: 350});
+
+
+        //finalizing preparing
         $("#createFormsPanel").hide();
-        navigation();
 
         /*
          $.get('create-form-template.html', function(template) {

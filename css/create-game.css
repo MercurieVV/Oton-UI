@@ -54,8 +54,18 @@ p, h1, form, button{border:0; margin:0; padding:0;}
 .createGameForm {
     margin:0 auto;
     width:400px;
-    padding:0px;
+    padding:0;
     height: 100%;
+}
+.finishCreateGameForm {
+    margin:0 auto;
+    width:90%;
+    padding:0;
+    height: 100%;
+}
+.finishCreateGameForm button {
+    margin: 2%;
+    top: 65%;
 }
 
 /* ----------- stylized ----------- */

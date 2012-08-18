@@ -20,6 +20,7 @@
     <link href="css/anythingslider.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="css/ui-progress-bar.css"/>
+    <script type="text/javascript" src="js/progres-bar.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/buttons.css"/>
 
@@ -39,19 +40,23 @@
 
 <body>
 
+<button id="loginButton" class="button orange glass">Login</button>
+<button id="signInButton" class="button orange glassy">Sign In</button>
+
 <div id="gamesArea">
     <ul id="gamesSliderPaged" class="pagination">
     </ul>
 </div>
 <div id="createPanel">
-    <button id="createButton" class="button orange glossy">CREATE</button>
+    <button id="createButton" class="button orange glossy skew">CREATE</button>
     <div id="createFormsPanel">
-        <form action="action" style="height: 100%">
+        <form style="height: 100%">
             <ul id="createGamePaged" class="pagination">
             </ul>
         </form>
     </div>
 </div>
+<input id="search" placeholder="Search..."/>
 
 
 <script id="createFormTpl" type="text/x-handlebars-template">
@@ -63,7 +68,9 @@
             <div>
                 {{#options}}
                 <div class="createGameOptionLine">
-                    <label for="option-{{id}}" class="shadow">{{text}}<input type="radio" id="option-{{id}}" value="option-{{id}}" name="form-{{../id}}"/></label>
+                    <label for="option-{{id}}" class="shadow">{{text}}<input type="radio" id="option-{{id}}"
+                                                                             value="option-{{id}}"
+                                                                             name="form-{{../id}}"/></label>
                 </div>
                 {{/options}}
             </div>
@@ -72,21 +79,20 @@
     {{/forms}}
     <li>
         <div class="finishCreateGameForm" style="text-align:center; vertical-align:middle">
-        <button class="button gray glossy">Save to cloud</button>
-        <button class="button gray glossy">Play</button>
-        <button class="button gray glossy">Play with friends</button>
+            <button id="saveToCloudButton" class="button gray glossy" type="button">Save to cloud</button>
+            <button id="playCreatedButton" class="button gray glossy" type="button">Play</button>
+            <button id="playCreatedWithFriendsButton" class="button gray glossy" type="button">Play with friends</button>
         </div>
     </li>
     <li>
-        <div class="error transition ui-progress-bar ui-container" id="progress_bar">
-            <div class="ui-progress" style="width: 17%;">
+        <div class="error ui-progress-bar ui-container" id="progress_bar">
+            <div class="ui-progress" style="width: 1%;">
               <span class="ui-label">
                 Creating Game
-                <b class="value">7%</b>
+                <b class="value">0%</b>
               </span>
             </div>
         </div>
-
     </li>
 </script>
 
@@ -112,6 +118,19 @@
             }
         });
 
+        $("#saveToCloudButton").click(function (event) {
+            $('#createGamePaged').data("AnythingSlider").goForward();
+            emulateLoading();
+        });
+        $("#playCreatedButton").click(function (event) {
+            $('#createGamePaged').data("AnythingSlider").goForward();
+            emulateLoading();
+        });
+        $("#playCreatedWithFriendsButton").click(function (event) {
+            $('#createGamePaged').data("AnythingSlider").goForward();
+            emulateLoading();
+        });
+
 
         $('#gamesSliderPaged').anythingSlider({
             buildStartStop:false, // This turns off the entire slideshow FUNCTIONALY, not just if it starts running or not
@@ -124,30 +143,17 @@
             buildStartStop:false, // This turns off the entire slideshow FUNCTIONALY, not just if it starts running or not
 
             width:'500%',
-            infiniteSlides:false
-            ,resizeContents:false
-            ,buildNavigation:false
-            ,stopAtEnd:true
-            ,theme: "forms"
+            infiniteSlides:false,
+            resizeContents:false,
+            buildNavigation:false,
+            stopAtEnd:true,
+            theme:"forms"
         });
         applyNavigationRules();
-
-        $("#gameCreationPB").progressBar(65, {width: 350});
 
 
         //finalizing preparing
         $("#createFormsPanel").hide();
-
-        /*
-         $.get('create-form-template.html', function(template) {
-         var html = Mustache.to_html(template, data);
-         // and now append the html anywhere you like
-         $(html).appendTo("#createFormsPanel");
-         });
-         $("#createFormTpl").Chevron("render", data, function(result){
-         $(result).appendTo("#createFormsPanel");
-         });
-         */
 
 
         //testing

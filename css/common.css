@@ -4,3 +4,35 @@ body {
 .shadow {
     box-shadow: 15px 15px 15px 2px rgba(80,80,80,0.2);
 }
+
+#search {
+    position: absolute;
+    bottom: 3%;
+    right: 15%;
+    width: 14%;
+    height: 35px;
+    font-size:30px;
+    padding: 3px;
+    border-radius: 10px;
+    border: 2px solid #80321d;
+    /*border-color:;*/
+    background: #d0aa0d;
+}
+
+::-webkit-input-placeholder {
+    color:    #866;
+}
+
+#loginButton, #signInButton {
+    position: absolute;
+    right: 20%;
+    top: 0;
+    z-index: 2;
+    padding: 10px;
+}
+#loginButton {
+    right: 20%;
+}
+#signInButton {
+    right: 10%;
+}

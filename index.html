@@ -31,17 +31,17 @@
     <link rel="stylesheet" type="text/css" href="css/pagination.css"/>
     <link rel="stylesheet" type="text/css" href="css/game-icons.css"/>
     <link rel="stylesheet" type="text/css" href="css/create-game.css"/>
-
-    <style type="text/css">
-    </style>
-
 </head>
 
 
 <body>
 
-<button id="loginButton" class="button orange glass">Login</button>
-<button id="signInButton" class="button orange glassy">Sign In</button>
+<form action="login.html">
+    <button id="loginFormButton" class="button orange glass">Login</button>
+</form>
+<form action="sign-in.html">
+    <button id="signInFormButton" class="button orange glassy">Sign In</button>
+</form>
 
 <div id="gamesArea">
     <ul id="gamesSliderPaged" class="pagination">
@@ -68,9 +68,11 @@
             <div>
                 {{#options}}
                 <div class="createGameOptionLine">
-                    <label for="option-{{id}}" class="shadow">{{text}}<input type="radio" id="option-{{id}}"
-                                                                             value="option-{{id}}"
-                                                                             name="form-{{../id}}"/></label>
+                    <label for="option-{{id}}" class="shadow">{{text}}
+                        <input type="radio" id="option-{{id}}"
+                               value="option-{{id}}"
+                               name="form-{{../id}}"/>
+                    </label>
                 </div>
                 {{/options}}
             </div>
@@ -81,7 +83,8 @@
         <div class="finishCreateGameForm" style="text-align:center; vertical-align:middle">
             <button id="saveToCloudButton" class="button gray glossy" type="button">Save to cloud</button>
             <button id="playCreatedButton" class="button gray glossy" type="button">Play</button>
-            <button id="playCreatedWithFriendsButton" class="button gray glossy" type="button">Play with friends</button>
+            <button id="playCreatedWithFriendsButton" class="button gray glossy" type="button">Play with friends
+            </button>
         </div>
     </li>
     <li>

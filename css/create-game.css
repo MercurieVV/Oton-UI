@@ -74,19 +74,34 @@ p, h1, form, button{border:0; margin:0; padding:0;}
     font-size:17px;
     font-weight:bold;
     margin-bottom:8px;
+    padding:6px;
 }
+.createGameForm label, .createGameForm input{
+    font-size:15px;
+    margin:5px;
+    height: 17px;
+}
+.createGameForm label{
+    font-weight:bold;
+    text-align:right;
+    width:70%;
+}
+.createGameForm input{
+    width:18px;
+    margin-left: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 3px;
+    float: right;
+}
+/*
 .createGameForm p{
     font-size:11px;
     margin-bottom:20px;
     padding-bottom:10px;
 }
-.createGameForm label{
-    display:block;
-    font-weight:bold;
-    text-align:right;
-    width:80%;
-    float:left;
-}
+*/
+/*
 .createGameForm .small{
     display:block;
     font-size:11px;
@@ -94,25 +109,19 @@ p, h1, form, button{border:0; margin:0; padding:0;}
     text-align:right;
     width:140px;
 }
-.createGameForm input{
-    float:left;
-    font-size:12px;
-    padding:2px 2px;
-    width:15px;
-    margin:5px;
-}
-.createGameForm button{
+*/
+/*.createGameForm button{
     clear:both;
     margin-left:150px;
     width:125px;
     height:31px;
-    /*background:#666666 url(img/button.png) no-repeat;*/
+    *//*background:#666666 url(img/button.png) no-repeat;*//*
     text-align:center;
     line-height:31px;
     color:#FFFFFF;
     font-size:11px;
     font-weight:bold;
-}
+}*/
 
 
 

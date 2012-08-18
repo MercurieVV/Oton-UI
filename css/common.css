@@ -1,3 +1,8 @@
+html,body {
+    height:100%;
+    margin: 0; padding: 0; border: 0;
+    position:absolute; display: table; width: 100%; height: 100%;
+}
 body {
     background-image: url(../images/background.png);
 }
@@ -5,34 +10,59 @@ body {
     box-shadow: 15px 15px 15px 2px rgba(80,80,80,0.2);
 }
 
+input, label {
+    height: 35px;
+    font-size:30px;
+}
+input {
+    display: block;
+    background: #d0aa0d;
+    float:left;
+    border-radius: 10px;
+    border: 2px solid #80321d;
+}
+label {
+    display: inline-block;
+    text-align: right;
+    float:left;
+}
+
+.login label, .login input {
+    padding: 3px;
+    margin: 2%;
+    width: 40%;
+}
+.login button.button {
+    float:right;
+    margin: 8%;
+}
+
 #search {
     position: absolute;
     bottom: 3%;
     right: 15%;
-    width: 14%;
-    height: 35px;
-    font-size:30px;
-    padding: 3px;
-    border-radius: 10px;
-    border: 2px solid #80321d;
-    /*border-color:;*/
-    background: #d0aa0d;
 }
+
+/*
+.center{
+    display: table-cell; vertical-align: middle; position:absolute; margin: 0 auto; right:0; left: 0;
+}
+*/
 
 ::-webkit-input-placeholder {
     color:    #866;
 }
 
-#loginButton, #signInButton {
+#loginFormButton, #signInFormButton {
     position: absolute;
     right: 20%;
     top: 0;
     z-index: 2;
     padding: 10px;
 }
-#loginButton {
+#loginFormButton {
     right: 20%;
 }
-#signInButton {
+#signInFormButton {
     right: 10%;
 }

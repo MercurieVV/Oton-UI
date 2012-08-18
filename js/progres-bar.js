@@ -62,7 +62,7 @@ function emulateLoading() {
                 $("#progress_bar").removeClass("warning");
                 return setTimeout((function () {
                     return $("#progress_bar .ui-progress").animateProgress(100, function () {
-                        return $('footer').fadeIn(1000);
+                        return $('#createGamePaged').data("AnythingSlider").goForward();
                     });
                 }), 2000);
             });

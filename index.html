@@ -56,35 +56,51 @@
         </form>
     </div>
 </div>
-<input id="search" placeholder="Search..." class="shadow"/>
+<input id="search" placeholder="Search..." class="
+dow"/>
 
 
 <script id="createFormTpl" type="text/x-handlebars-template">
     {{#forms}}
     <li>
         <div class="createGameForm">
-            <h1>{{title}}</h1>
 
-            <div>
-                {{#options}}
-                <div class="createGameOptionLine">
-                    <label for="option-{{id}}" class="shadow">{{text}}
-                        <input type="radio" id="option-{{id}}"
-                               value="option-{{id}}"
-                               name="form-{{../id}}"/>
-                    </label>
-                </div>
-                {{/options}}
-            </div>
+            <table>
+                <tr>
+                    <td class="goBack">&lt;&lt;</td>
+                    <td width="100%">
+                        <h1>{{title}}</h1>
+                        {{#options}}
+                        <div class="createGameOptionLine">
+                            <label for="option-{{id}}" class="shadow">{{text}}
+                                <input type="radio" id="option-{{id}}" value="option-{{id}}" name="form-{{../id}}"/>
+                            </label>
+                        </div>
+                        {{/options}}
+                    </td>
+
+                    <td class="goForward">&gt;&gt;</td>
+                </tr>
+            </table>
         </div>
     </li>
     {{/forms}}
     <li>
-        <div class="finishCreateGameForm" style="text-align:center; vertical-align:middle">
-            <button id="saveToCloudButton" class="button gray glossy" type="button">Save to cloud</button>
-            <button id="playCreatedButton" class="button gray glossy" type="button">Play</button>
-            <button id="playCreatedWithFriendsButton" class="button gray glossy" type="button">Play with friends
-            </button>
+        <div class="createGameForm" style="text-align:center; vertical-align:middle">
+            <table>
+                <tr>
+                    <td class="goBack">&lt;&lt;</td>
+                    <td width="100%">
+                        <button id="saveToCloudButton" class="button gray glossy" type="button">Save to cloud</button>
+                        <button id="playCreatedButton" class="button gray glossy" type="button">Play</button>
+                        <button id="playCreatedWithFriendsButton" class="button gray glossy" type="button">Play with
+                            friends
+                        </button>
+                    </td>
+
+                    <td class="goForward">&nbsp;&nbsp;</td>
+                </tr>
+            </table>
         </div>
     </li>
     <li>
@@ -98,7 +114,7 @@
         </div>
     </li>
     <li id="gamePanel">
-        Game!!
+        <img src="images/game1.png" alt="game">
     </li>
 </script>
 
@@ -152,6 +168,7 @@
             infiniteSlides:false,
             resizeContents:false,
             buildNavigation:false,
+            buildArrows:false,
             stopAtEnd:true,
             theme:"forms"
         });

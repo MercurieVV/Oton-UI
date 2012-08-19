@@ -11,7 +11,10 @@ function CreateGame() {
 }
 
 function applyNavigationRules() {
-    $("#nextForm").click(function(event){
+    $(".goForward").click(function(event){
         $("#createGamePaged").data('AnythingSlider').goForward();
+    });
+    $(".goBack").click(function(event){
+        $("#createGamePaged").data('AnythingSlider').goBack();
     })
 }

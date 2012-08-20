@@ -8,65 +8,70 @@
 
 function GameIcons() {
     gamesArray = [];
-    GAMES_COLS = 7;
+    GAMES_COLS = 8;
     GAMES_ROWS = 4;
+    filterString = "";
 
-    this.addIcon = function () {
-        var iconsCount = gamesArray.length;
-        gamesArray.push(iconsCount);
-        page = this.createPageIfNeeded(iconsCount);
-        row = Math.floor(iconsCount / GAMES_COLS) % GAMES_ROWS + 1;
-        col = (iconsCount % GAMES_COLS) + 1;
-        var cellId = "#" + page + "_" + row + "_" + col;
-        var imgId = page + "_" + row + "_" + col + "_img";
-        $('<img src="images/game-icon.png" class="shadow" alt="gme" id="' + imgId + '" />').appendTo(cellId);
-        var manager = new jsAnimManager();
-        var anim = manager.createAnimObject(imgId);
-        anim.add({property:Prop.opacity, from:0.1, to:1, duration:2000});
-
-        //$("#" + imgId).effect("scale", { percent: 1000 }, 300);
-        //    $("#" + imgId).transition({ scale: 100 });
+    this.search = function (searchString) {
+        filterString = searchString;
+        $("#gamesSliderPaged li").remove();
+        for (var i in gamesArray) {
+            var gameData = gamesArray[i];
+            addGameIcon(gameData);
+        }
     };
 
-    this.createPageIfNeeded = function (iconsCount) {
-        page = Math.floor(iconsCount / (GAMES_ROWS * GAMES_COLS)) + 1;
+    this.addGame = function () {
+        var iconUrl = "images/game-icon.png";
+        var iconsCount = gamesArray.length;
+        var gameData = {gameId:iconsCount, iconUrl:iconUrl};
+
+        gamesArray.push(gameData);
+        addGameIcon(gameData);
+
+/*
+        var manager = new jsAnimManager();
+        var anim = manager.createAnimObject(iconsCount);
+        anim.add({property:Prop.opacity, from:0.1, to:1, duration:2000});
+*/
+    };
+
+    function showIcon(gameData) {
+        var text = gameData["gameId"].toString().replace(/\s+/g, ' ').toLowerCase();
+        return (filterString == "" || ~text.indexOf(filterString));
+    }
+
+    function addGameIcon(gameData) {
+        if (!showIcon(gameData)) {
+            return;
+        }
+        var page = createPageIfNeeded();
+        var cellId = "#gamesPage_" + page;
+        addNewGameIcon(cellId, gameData);
+    }
+
+    function createPageIfNeeded() {
+        var iconsCount = $("#gamesSliderPaged li img").length;
+        page = Math.floor(iconsCount / (GAMES_ROWS * GAMES_COLS));
         if ((iconsCount % (GAMES_ROWS * GAMES_COLS)) == 0) {
             jQuery.fn.exists = function () {
                 return this.length > 0;
             };
-            if (!$("#" + page).exists())
+            if (!$("#gamesPage_" + page).exists())
                 addNewPage(page);
         }
         return page;
-    };
-
-
-    function createPage(pageNr, html) {
-        html = "<li id='gamesPage_" + pageNr + "'>" + html + "</li>";
-        return html;
     }
 
-    function createTable(id, cols, rows, classes) {
-        var html = '<table id="' + id + '" class="' + classes + '">';
-
-        //loop for rows
-        for (row = 1; row <= rows; row++) {
-            html += '<tr id="' + id + '_' + row + '">';
-            //loop for columns
-            for (col = 1; col <= cols; col++) {
-                html += '<td id="' + id + '_' + row + '_' + col + '"></td>';
-            }
-            html += '</tr>';
-        }
-
-        html += '</table>';
-        return html;
+    function addNewGameIcon(destinationElement, data) {
+        var template = '<img src="{{iconUrl}}" class="shadow gameIcon" title="{{gameId}}" alt="{{gameId}}" id="{{gameId}}" />';
+        template = Handlebars.compile(template);
+        var html = template(data);
+        $(html).appendTo(destinationElement);
     }
 
-    function addNewPage (pageNr) {
-        html = createTable(pageNr, GAMES_COLS, GAMES_ROWS, "gameIcons");
-
-        html = createPage(pageNr, html);
+    function addNewPage(pageNr) {
+        var html = "<li id='gamesPage_" + pageNr + "'></li>";
         $(html).appendTo("#gamesSliderPaged");
         $('#gamesSliderPaged').data('AnythingSlider').updateSlider();
     }

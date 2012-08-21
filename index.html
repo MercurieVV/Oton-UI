@@ -88,11 +88,38 @@
         <div class="createGameForm" style="text-align:center; vertical-align:middle">
             <table>
                 <tr>
-                    <td class="goBack">&lt;&lt;</td>
+                    <td class="goBack">&nbsp;&nbsp;</td>
                     <td width="100%">
-                        <button id="saveToCloudButton" class="button gray glossy" type="button">Save to cloud</button>
-                        <button id="playCreatedButton" class="button gray glossy" type="button">Play</button>
-                        <button id="playCreatedWithFriendsButton" class="button gray glossy" type="button">Play with
+                        <button class="goBack button gray glossy" type="button">Go Back To Edit</button>
+                        <button class="goForward button gray glossy" id="createGameButton" type="button">Create Game</button>
+                    </td>
+
+                    <td class="goForward">&nbsp;&nbsp;</td>
+                </tr>
+            </table>
+        </div>
+    </li>
+    <li>
+        <div>
+            <div class="error ui-progress-bar ui-container" id="progress_bar">
+                <div class="ui-progress" style="width: 1%;">
+              <span class="ui-label">
+                Creating Game
+                <b class="value">0%</b>
+              </span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="createGameForm" style="text-align:center; vertical-align:middle">
+            <table>
+                <tr>
+                    <td class="goBack">&nbsp;&nbsp;</td>
+                    <td width="100%">
+                        <button id="saveToCloudButton" class="goForward button gray glossy" type="button">Save to cloud</button>
+                        <button id="playCreatedButton" class="goForward button gray glossy" type="button">Play</button>
+                        <button id="playCreatedWithFriendsButton" class="goForward button gray glossy" type="button">Play with
                             friends
                         </button>
                     </td>
@@ -102,19 +129,9 @@
             </table>
         </div>
     </li>
-    <li>
-        <div class="error ui-progress-bar ui-container" id="progress_bar">
-            <div class="ui-progress" style="width: 1%;">
-              <span class="ui-label">
-                Creating Game
-                <b class="value">0%</b>
-              </span>
-            </div>
-        </div>
-    </li>
     <li id="gamePanel">
         <div class="createGameForm" style="text-align:center; vertical-align:middle">
-        <img src="images/game1.png" alt="game" style="width: 100%; height: 100%">
+            <img src="images/game1.png" alt="game" style="width: 100%; height: 100%">
 
         </div>
     </li>
@@ -142,19 +159,10 @@
             }
         });
 
-        $("#saveToCloudButton").click(function (event) {
+        $("#createGameButton").click(function (event) {
             $('#createGamePaged').data("AnythingSlider").goForward();
             emulateLoading();
         });
-        $("#playCreatedButton").click(function (event) {
-            $('#createGamePaged').data("AnythingSlider").goForward();
-            emulateLoading();
-        });
-        $("#playCreatedWithFriendsButton").click(function (event) {
-            $('#createGamePaged').data("AnythingSlider").goForward();
-            emulateLoading();
-        });
-
 
         $('#gamesSliderPaged').anythingSlider({
             buildStartStop:false, // This turns off the entire slideshow FUNCTIONALY, not just if it starts running or not
@@ -166,9 +174,7 @@
         $('#createGamePaged').anythingSlider({
             buildStartStop:false, // This turns off the entire slideshow FUNCTIONALY, not just if it starts running or not
 
-            width:'500%',
             infiniteSlides:false,
-            resizeContents:false,
             buildNavigation:false,
             buildArrows:false,
             stopAtEnd:true,
@@ -176,7 +182,7 @@
         });
         applyNavigationRules();
 
-        $("#searchBox").keyup(function() {
+        $("#searchBox").keyup(function () {
             var val = $.trim($(this).val());
             gameIcons.search(val);
         });
@@ -210,7 +216,7 @@
             ,
             {
                 "title":"2.	Select Your Game Skills",
-                description: "Please select the difficult level for your new game. Some options may not be available for this software release.",
+                description:"Please select the difficult level for your new game. Some options may not be available for this software release.",
                 id:1,
                 "options":[
                     {id:3, "text":"Oh?"}
@@ -223,7 +229,7 @@
             ,
             {
                 "title":"3.	Select your Game Level Preference",
-                description: "Please select either a demo, single, multi-level or complete full game level creation.",
+                description:"Please select either a demo, single, multi-level or complete full game level creation.",
                 id:2,
                 "options":[
                     {id:3, "text":"Oh?"}
@@ -236,7 +242,7 @@
             ,
             {
                 "title":"4.	Customize Your Game",
-                description: "Please select custom features and gameplay for your game.",
+                description:"Please select custom features and gameplay for your game.",
                 id:3,
                 "options":[
                     {id:3, "text":"Oh?"}
@@ -249,7 +255,7 @@
             ,
             {
                 "title":"5.	Choose Your Platform",
-                description: "Please select what device you want OTON to make your game playable on.",
+                description:"Please select what device you want OTON to make your game playable on.",
                 id:4,
                 "options":[
                     {id:3, "text":"Oh?"}
@@ -262,7 +268,7 @@
             ,
             {
                 "title":"6.	Select Your Gameplay Device",
-                description: "Please select which device you wish to use during your gameplay for your new OTON created game.",
+                description:"Please select which device you wish to use during your gameplay for your new OTON created game.",
                 id:5,
                 "options":[
                     {id:3, "text":"Oh?"}
@@ -275,7 +281,7 @@
             ,
             {
                 "title":"7.	Develop Your Game Community",
-                description: "Please select your community for your OTON game development. Some options may not be available for this software build.",
+                description:"Please select your community for your OTON game development. Some options may not be available for this software build.",
                 id:6,
                 "options":[
                     {id:3, "text":"Oh?"}
@@ -288,7 +294,7 @@
             ,
             {
                 "title":"8.	Select Your Gameplay Objective",
-                description: "Please select what type of challenge you prefer for your new created OTON game.",
+                description:"Please select what type of challenge you prefer for your new created OTON game.",
                 id:7,
                 "options":[
                     {id:3, "text":"Oh?"}

@@ -47,7 +47,7 @@
     <ul id="gamesSliderPaged" class="pagination">
     </ul>
 </div>
-<div id="createPanel">
+<div id="createPanel" class="modalBox">
     <button id="createButton" class="button orange glossy skew">CREATE</button>
     <div id="createFormsPanel">
         <form style="height: 100%">
@@ -56,6 +56,7 @@
         </form>
     </div>
 </div>
+<div id="mask"></div>
 <input id="searchBox" placeholder="Search..." class="shadow"/>
 
 
@@ -138,6 +139,20 @@
 </script>
 
 <script type="text/javascript">
+    function modalBackground() {
+        var maskHeight = $(document).height();
+        var maskWidth = $(window).width();
+
+        //Set height and width to mask to fill up the whole screen
+        $('#mask').css({'width':maskWidth, 'height':maskHeight});
+
+        //transition effect
+        $('#mask').fadeIn(1000);
+        $('#mask').fadeTo("slow", 0.8);
+    }
+    function unmodalBackground() {
+        $('#mask').hide();
+    }
     $(document).ready(function () {
         var manager = new jsAnimManager();
         var gameIcons = new GameIcons();
@@ -152,9 +167,11 @@
             if ($("#createFormsPanel").is(':hidden')) {
                 $("#createFormsPanel").show();
                 $("#createPanel").transition({ x:'120%' });
+                modalBackground();
             } else {
                 $("#createPanel").transition({ x:'0%' }, function () {
                     $("#createFormsPanel").hide();
+                    unmodalBackground();
                 });
             }
         });

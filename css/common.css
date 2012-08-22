@@ -50,6 +50,15 @@ label {
     display: table-cell; vertical-align: middle; position:absolute; margin: 0 auto; right:0; left: 0;
 }
 */
+#mask {
+    position:absolute;
+    z-index:9000;
+    background-color:#000;
+    display:none;
+}
+.modalBox {
+    z-index:9999;
+}
 
 ::-webkit-input-placeholder {
     color:    #866;

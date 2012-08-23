@@ -60,6 +60,14 @@ label {
     z-index:9999;
 }
 
+.tooltip {
+    background: #d3d3d3;
+    padding: 1%;
+    width: 23%;
+    border-radius: 10px;
+    font-size: 20px
+}
+
 ::-webkit-input-placeholder {
     color:    #866;
 }

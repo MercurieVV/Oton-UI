@@ -8,8 +8,8 @@
 
 function GameIcons() {
     gamesArray = [];
-    GAMES_COLS = 8;
-    GAMES_ROWS = 4;
+    GAMES_COLS = 3;
+    GAMES_ROWS = 2;
     filterString = "";
 
     this.search = function (searchString) {

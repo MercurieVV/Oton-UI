@@ -9,9 +9,10 @@
 
 #gamesSliderPaged li img {
     margin: 0;
-    width: 120px;
-    height: 120px;
-    padding: 4px;
+    width: 160px;
+    height: 160px;
+    margin-left: 130px;
+    margin-top: 50px;
 
 /*
     width: 1%;

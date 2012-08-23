@@ -22,8 +22,9 @@ function GameIcons() {
     };
 
     this.addGame = function () {
-        var iconUrl = "images/game-icon.png";
         var iconsCount = gamesArray.length;
+        var iconId = iconsCount % 13;
+        var iconUrl = "images/game-" + iconId + ".png";
         var gameData = {gameId:iconsCount, iconUrl:iconUrl};
 
         gamesArray.push(gameData);

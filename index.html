@@ -44,6 +44,7 @@
 </form>
 
 <div id="gamesArea">
+    <div id="currentGamesPageNumber">1 of 1</div>
     <ul id="gamesSliderPaged" class="pagination">
     </ul>
 </div>
@@ -153,7 +154,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var manager = new jsAnimManager();
-        var gameIcons = new GameIcons();
 
         var template = $('#createFormTpl').html();
         template = Handlebars.compile(template);
@@ -192,10 +192,15 @@
 
 
         //Games section
+        var gameIcons = new GameIcons();
         $('#gamesSliderPaged').anythingSlider({
             buildStartStop:false,
+            buildNavigation:false,
             width:50,
-            infiniteSlides:false
+            infiniteSlides:false,
+            onSlideComplete: function(slider){
+                gameIcons.updateSliderCurrentPageNr(slider);
+            }
         });
 
 
@@ -216,6 +221,11 @@
 
         //finalizing preparing
         $("#createFormsPanel").hide();
+/*
+        $(window).resize(function(e) {
+            $(".pagination").data("AnythingSlider").checkResize();
+        })
+*/
 
 
         //testing

@@ -37,6 +37,15 @@ function GameIcons() {
 */
     };
 
+    this.updateSliderCurrentPageNr = function(slider) {
+        updatePageNumber(slider);
+    };
+
+    function updatePageNumber(slider) {
+        text = slider.currentPage + " of " + slider.pages;
+        $("#currentGamesPageNumber").text(text);
+    }
+
     function showIcon(gameData) {
         var text = gameData["gameId"].toString().replace(/\s+/g, ' ').toLowerCase();
         return (filterString == "" || ~text.indexOf(filterString));
@@ -74,7 +83,9 @@ function GameIcons() {
     function addNewPage(pageNr) {
         var html = "<li id='gamesPage_" + pageNr + "'></li>";
         $(html).appendTo("#gamesSliderPaged");
-        $('#gamesSliderPaged').data('AnythingSlider').updateSlider();
+        var slider = $('#gamesSliderPaged').data('AnythingSlider');
+        slider.updateSlider();
+        updatePageNumber(slider);
     }
 }
 

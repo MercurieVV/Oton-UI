@@ -59,6 +59,10 @@
 <div id="tooltip" class="tooltip modalBox shadow" style="position:absolute; top: 20%; left: 30%; display: none;"></div>
 <div id="mask"></div>
 <input id="searchBox" placeholder="Search..." class="shadow"/>
+<div id="bottomIcons">
+    <img src="images/home.png" alt="">
+    <img src="images/device_drive_external_usb.png" alt="">
+</div>
 
 
 <script id="createFormTpl" type="text/x-handlebars-template">
@@ -96,17 +100,19 @@
                 <tr>
                     <td>&nbsp;&nbsp;</td>
                     <td width="100%">
+                        <img src="images/Oton.jpg" alt="" width="245" height="245"><br />
                         <button class="goBack button gray glossy" type="button">Go Back To Edit</button>
                         <button class="goForward button gray glossy" id="createGameButton" type="button">Create Game</button>
                     </td>
-
                     <td>&nbsp;&nbsp;</td>
                 </tr>
             </table>
         </div>
     </li>
     <li>
-        <div>
+        <div class="createGameForm" style="text-align:center; vertical-align:middle">
+            <img src="images/Oton.jpg" alt="" width="245" height="245"><br />
+            <h1 style="margin: 2%">Please Standby. Otonomous is completing and creating your new custom game.</h1>
             <div class="error ui-progress-bar ui-container" id="progress_bar">
                 <div class="ui-progress" style="width: 1%;">
               <span class="ui-label">
@@ -123,6 +129,7 @@
                 <tr>
                     <td>&nbsp;&nbsp;</td>
                     <td width="100%">
+                        <img src="images/game-1.png" alt="" width="245" height="245"><br />
                         <button id="saveToCloudButton" class="goForward button gray glossy" type="button">Save to cloud</button>
                         <button id="playCreatedButton" class="goForward button gray glossy" type="button">Play</button>
                         <button id="playCreatedWithFriendsButton" class="goForward button gray glossy" type="button">Play with
@@ -223,7 +230,7 @@
         "forms":[
             {
                 "title":"1.	Select Your Game Genre",
-                "description":"Please select you’re game genre that will be compiled into the OTON game engine. Some genres may have sub-genre selection.",
+                "description":"Please select you\\'re game genre that will be compiled into the OTON game engine. Some genres may have sub-genre selection.",
                 id:0,
                 "options":[
                     {id:0, "text":"Action"}

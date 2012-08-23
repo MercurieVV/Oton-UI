@@ -6,12 +6,6 @@
  * To change this template use File | Settings | File Templates.
  */
 function modalBackground() {
-    var maskHeight = $(document).height();
-    var maskWidth = $(window).width();
-
-    //Set height and width to mask to fill up the whole screen
-    $('#mask').css({'width':maskWidth, 'height':maskHeight});
-
     //transition effect
     $('#mask').fadeIn(1000);
     $('#mask').fadeTo("slow", 0.8);

@@ -8,7 +8,7 @@
 
 function GameIcons() {
     gamesArray = [];
-    GAMES_COLS = 3;
+    GAMES_COLS = 4;
     GAMES_ROWS = 2;
     filterString = "";
 

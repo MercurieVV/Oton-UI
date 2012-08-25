@@ -214,11 +214,13 @@
 			}
 
 			// Hide navigation & player if there is only one page
+/*
 			base.$controls
 				.add(base.$nav)
 				.add(base.$startStop)
 				.add(base.$forward)
 				.add(base.$back)[(base.pages <= 1) ? 'hide' : 'show']();
+*/
 			if (base.pages > 1) {
 				// Build/update navigation tabs
 				base.buildNavigation();

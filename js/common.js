@@ -16,6 +16,9 @@ function unmodalBackground() {
 
 function showHelp(text) {
     var $tooltip = $("#tooltip");
+    if (!$tooltip.is(':hidden')) {
+        return;
+    }
     $tooltip.text(text);
     $tooltip.show();
     $tooltip.css("opacity", "0");
@@ -28,15 +31,16 @@ function showHelp(text) {
 
 function hideHelp() {
     var $tooltip = $("#tooltip");
-    if (!$tooltip.is(':hidden')) {
-        $tooltip.css("opacity", "1");
-        $tooltip.css("scale", "1");
-        $tooltip.transition({
-            opacity:0,
-            scale:2
-        }, function () {
-            $tooltip.hide();
-            $tooltip.text("");
-        });
+    if ($tooltip.is(':hidden')) {
+        return;
     }
+    $tooltip.css("opacity", "1");
+    $tooltip.css("scale", "1");
+    $tooltip.transition({
+        opacity:0,
+        scale:2
+    }, function () {
+        $tooltip.hide();
+        $tooltip.text("");
+    });
 }

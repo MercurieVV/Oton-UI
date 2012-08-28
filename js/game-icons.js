@@ -6,10 +6,11 @@
  * To change this template use File | Settings | File Templates.
  */
 
-function GameIcons() {
-    gamesArray = [];
-    GAMES_COLS = 4;
-    GAMES_ROWS = 2;
+function GameIcons(existedGames) {
+    if (typeof(existedGames) === 'undefined') existedGames = [];
+    gamesArray = existedGames;
+    GAMES_COLS = 4; //if you change this, you also should change #gamesSliderPaged li img
+    GAMES_ROWS = 2; //if you change this, you also should change #gamesSliderPaged li img
     filterString = "";
 
     this.search = function (searchString) {
@@ -21,23 +22,26 @@ function GameIcons() {
         }
     };
 
-    this.addGame = function () {
-        var iconsCount = gamesArray.length;
-        var iconId = iconsCount % 13;
-        var iconUrl = "images/game-" + iconId + ".png";
-        var gameData = {gameId:iconsCount, iconUrl:iconUrl};
-
+    this.addGame = function (newGameData) {
+        if (typeof(newGameData) === 'undefined') {
+            var iconsCount = gamesArray.length;
+            var iconId = iconsCount % 13;
+            var iconUrl = "images/game-" + iconId + ".png";
+            var gameData = {gameId:iconsCount, iconUrl:iconUrl};
+        } else {
+            gameData = newGameData;
+        }
         gamesArray.push(gameData);
         addGameIcon(gameData);
 
-/*
-        var manager = new jsAnimManager();
-        var anim = manager.createAnimObject(iconsCount);
-        anim.add({property:Prop.opacity, from:0.1, to:1, duration:2000});
-*/
+        /*
+         var manager = new jsAnimManager();
+         var anim = manager.createAnimObject(iconsCount);
+         anim.add({property:Prop.opacity, from:0.1, to:1, duration:2000});
+         */
     };
 
-    this.updateSliderCurrentPageNr = function(slider) {
+    this.updateSliderCurrentPageNr = function (slider) {
         updatePageNumber(slider);
     };
 
@@ -87,6 +91,8 @@ function GameIcons() {
         slider.updateSlider();
         updatePageNumber(slider);
     }
+
+    this.search(filterString);
 }
 
 

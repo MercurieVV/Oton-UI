@@ -1,0 +1,8 @@
+To embed this UI in ubuntu, administrator should:
+
+1) download and install Google Chrome for ubuntu: https://www.google.com/intl/en/chrome/browser/?platform=linux
+2) unpack UI archive. Only needed folders are: css, images, fonts, js. Also all *.html files in root folder.
+3) create shortcut or autostart application "chrome-browser --kiosk file:///path/to/splashScreen.html"
+
+To exit from UI user can press Ctrl+F4
+Here's article how to run Chrome in kiosk mode. It's harder than just put --kiosk, but probably it's more advanced and give more functionality: http://www.instructables.com/id/Setting-Up-Ubuntu-as-a-Kiosk-Web-Appliance/

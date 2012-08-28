@@ -1,0 +1,23 @@
+In general:
+
+This UI is Google Chrome browser in --kiosk mode. It use only HTML5, CSS3, and JS at current moment.
+It use JQuery.
+
+
+
+For game developers:
+
+For game can be used any technology that can be embedded in chrome browser (Ubuntu OS), like Web game (embed as frame), Flash, Java applets or even Native application used Native Client.
+To insert already existed game, developer should pass array of games to GameIcons(existedGames) constructor. Array should look like: existedGames[game1:[gameId:"Mario", iconUrl:"img/mario.jpg"], game2:[....],...]
+To insert new game (UI just get notification from internet), developer should use GameIcons.addGame(newGameData) method. newGameData array should look like: newGameData[gameId:"Mario", iconUrl:"img/mario.jpg"]
+To insert Created game in UI, you should replace stubbed picture with your iframe, object,... This image is placed inside <li id="gamePanel"> tag in index.html file.
+
+
+For developers who modify this UI:
+
+For JS template used "handlebars" template library. It use mustache extended syntax.
+This UI use "Anything Slider" for slide Games icons and Create forms. It uses jsAnim and JQuery Transit for animation FXes. Probably jsAnim can be replaced with JQT.
+High level logic placed in *.html file.
+Common logic stored in "js/common.js"
+, game icons use "js/game-icons.ja" and "css/game-icons.css" files
+, game creation use "js/create-game.js" and "css/create-game.css"

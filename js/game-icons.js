@@ -23,7 +23,7 @@ function GameIcons(existedGames) {
     };
 
     this.addGame = function (newGameData) {
-        if (typeof(newGameData) === 'undefined') {
+        if (typeof(newGameData) !== 'array') {
             var iconsCount = gamesArray.length;
             var iconId = iconsCount % 13;
             var iconUrl = "images/game-" + iconId + ".png";

@@ -6,6 +6,8 @@
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.22.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.timers.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <!--<script type="text/javascript" src="js/xauth.js"></script>-->
     <script type="text/javascript" src="js/handlebars-1.0.0.beta.6.js"></script>
     <!--<script type="text/javascript" src="js/chevron.js"></script>-->
     <script type="text/javascript" src="js/jsAnim.js"></script>
@@ -22,6 +24,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/buttons.css"/>
 
+    <script type="text/javascript" src="js/oton.users.js"></script>
     <script type="text/javascript" src="js/game-icons.js"></script>
     <script type="text/javascript" src="js/create-game.js"></script>
     <!--<link rel="template" href="create-form-template.html" id="createFormTpl"/>-->
@@ -35,9 +38,24 @@
     <form action="index.html" class="login">
         <label class="textShadow" for="loginField">Login</label><input id="loginField" class="shadow"/>
         <label class="textShadow" for="passwordField">Password</label><input id="passwordField" type="password" class="shadow"/>
-        <button id="loginButton" class="button orange glossy skew">Login</button>
+        <button id="loginButton" class="button orange glossy skew" type='button'>Login</button>
     </form>
 </div>
+<!--<div id="wrapper">
+    <iframe src="js/blank.html"></iframe>
+</div>-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#loginButton').click(function () {
+            var login = $('#loginField').val();
+            var password = $('#passwordField').val();
+            loginUser($, login, password, function (jqXHR, exception) {
+                if (jqXHR.status == 401)
+                    alert("Cannot login. Wrong username or password")
+            });
+        })
+    });
 
+</script>
 </body>
 </html>

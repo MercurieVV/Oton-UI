@@ -6,6 +6,8 @@
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.22.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.timers.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/xauth.js"></script>
     <script type="text/javascript" src="js/handlebars-1.0.0.beta.6.js"></script>
     <!--<script type="text/javascript" src="js/chevron.js"></script>-->
     <script type="text/javascript" src="js/jsAnim.js"></script>
@@ -22,6 +24,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/buttons.css"/>
 
+    <script type="text/javascript" src="js/oton.users.js"></script>
     <script type="text/javascript" src="js/game-icons.js"></script>
     <script type="text/javascript" src="js/create-game.js"></script>
     <!--<link rel="template" href="create-form-template.html" id="createFormTpl"/>-->
@@ -32,13 +35,41 @@
 </head>
 <body>
 <div style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 50%; height: 40%; margin: auto;">
-    <form action="index.html" class="login">
+    <form action="" class="login">
         <label class="textShadow" for="loginField">Login</label><input id="loginField" class="shadow"/>
-        <label class="textShadow" for="passwordField">Password</label><input id="passwordField" type="password" class="shadow"/>
-        <label class="textShadow" for="passwordRepeatField">Repeat password</label><input id="passwordRepeatField" type="password" class="shadow"/>
-        <button id="signinButton" class="button orange glossy skew shadow">Sign in</button>
+        <label class="textShadow" for="passwordField">Password</label><input id="passwordField" type="password"
+                                                                             class="shadow"/>
+        <label class="textShadow" for="passwordRepeatField">Repeat password</label><input id="passwordRepeatField"
+                                                                                          type="password"
+                                                                                          class="shadow"/>
+        <button id="signinButton" class="button orange glossy skew shadow" type='button'>Sign in</button>
     </form>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#signinButton').click(function () {
+            var login = $('#loginField').val();
+            var password = $('#passwordField').val();
+            $.ajax({
+                data: "userName=wep&password=olo",
+                type: 'POST',
+                url: 'http://localhost:8484/Service-1.0/rest/unchecked/user',
+                contentType:"application/x-www-form-urlencoded",
+                dataType:"json",
 
+                success: function (data, text) {
+                    alert("all saved");
+                    loginUser($, login, password, function (jqXHR, exception) {
+                        alert(jqXHR.status + " something wrong");
+                    })
+                },
+                error: function (jqXHR, exception) {
+                    if (jqXHR.status == 409)
+                        alert("User already exist")
+                }
+            });
+        })
+    });
+</script>
 </body>
 </html>

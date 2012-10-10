@@ -8,6 +8,7 @@
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.22.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.timers.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/handlebars-1.0.0.beta.6.js"></script>
     <!--<script type="text/javascript" src="js/chevron.js"></script>-->
     <script type="text/javascript" src="js/jsAnim.js"></script>
@@ -159,6 +160,16 @@
         template = Handlebars.compile(template);
         html = template(data);
         $(html).appendTo("#createGamePaged");
+        $.cookie.json = true;
+        var $loginButton = $("#loginFormButton");
+        var $signInButton = $("#signInFormButton");
+        if($.cookie('user') != null) {
+            $loginButton.text("Log out " + $.cookie('user').userName);
+            $signInButton.text("Change settings");
+        } else {
+            $loginButton.text("Log in ");
+            $signInButton.text("Sign In");
+        }
 
 
         //Create section

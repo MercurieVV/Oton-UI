@@ -42,32 +42,37 @@
         <label class="textShadow" for="passwordRepeatField">Repeat password</label><input id="passwordRepeatField"
                                                                                           type="password"
                                                                                           class="shadow"/>
+        <a id="showAvatarsButton" href="">Show avatars</a>
+        <input id="avatarUrlHidden" type="hidden"/>
         <button id="signinButton" class="button orange glossy skew shadow" type='button'>Sign in</button>
     </form>
 </div>
+<div id="avatarsSelection" style="visibility: hidden; position: absolute; width: 40%; height: 40%; top: 20%; left: 30%">
+    <img src="images/arrows-metallic.png" alt="">
+    <img src="images/Arrow%20Left%201.png" alt="">
+    <img src="images/arrows-minimalist.png" alt="">
+    <img src="images/cs-portfolio.png" alt="">
+    <img src="images/device_drive_external.png" alt="">
+    <img src="images/game1.png" alt="">
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#signinButton').click(function () {
-            var login = $('#loginField').val();
-            var password = $('#passwordField').val();
-            $.ajax({
-                data: "userName=wep&password=olo",
-                type: 'POST',
-                url: 'http://localhost:8484/Service-1.0/rest/unchecked/user',
-                contentType:"application/x-www-form-urlencoded",
-                dataType:"json",
+        var $avatarsSelectionDiv = $('#avatarsSelection');
+        $('#showAvatarsButton').click(function(){
+            if($avatarsSelectionDiv.is(':visible'))
+                $avatarsSelectionDiv.hide();
+            else
+                $avatarsSelectionDiv.show();
+        });
 
-                success: function (data, text) {
-                    alert("all saved");
-                    loginUser($, login, password, function (jqXHR, exception) {
-                        alert(jqXHR.status + " something wrong");
-                    })
-                },
-                error: function (jqXHR, exception) {
-                    if (jqXHR.status == 409)
-                        alert("User already exist")
-                }
-            });
+        $('#signinButton').click(function () {
+            var user = {
+                login: $('#loginField').val(),
+                password: $('#passwordField').val(),
+                avatarUrl: $('#avatarUrlHidden')
+            };
+
+            signIn($, user);
         })
     });
 </script>

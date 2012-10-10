@@ -164,8 +164,8 @@
         var $loginButton = $("#loginFormButton");
         var $signInButton = $("#signInFormButton");
         if($.cookie('user') != null) {
-            $loginButton.text("Log out " + $.cookie('user').userName);
-            $signInButton.text("Change settings");
+            $loginButton.text("Log out ");
+            $signInButton.text("Settings ");
         } else {
             $loginButton.text("Log in ");
             $signInButton.text("Sign In");

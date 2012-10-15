@@ -7,11 +7,7 @@
  */
 function loginUser($, login, password, errorCallback) {
     saveAuthToCookies($, login, password);
-    loginCookiesUser($, errorCallback);
-}
-
-function loginCookiesUser($, errorCallback) {
-    authGet($, '/rest/user', errorCallback);
+    authGet($, '/rest/unchecked/user?userName='+ login+'&password='+ password, errorCallback);
 }
 
 function signIn($, user) {

@@ -30,6 +30,12 @@ label {
     text-align: right;
     float:left;
 }
+.error {
+    color: #880000;
+    display: block;
+    float: left;
+    width: 90%;
+}
 
 .login label, .login input {
     width: 40%;

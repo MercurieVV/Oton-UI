@@ -38,6 +38,7 @@
     <form action="index.html" class="login">
         <label class="textShadow" for="loginField">Login</label><input id="loginField" class="shadow"/>
         <label class="textShadow" for="passwordField">Password</label><input id="passwordField" type="password" class="shadow"/>
+        <div id="loginError" class="textShadow error input"></div>
         <button id="loginButton" class="button orange glossy skew" type='button'>Login</button>
     </form>
 </div>
@@ -50,8 +51,11 @@
             var login = $('#loginField').val();
             var password = $('#passwordField').val();
             loginUser($, login, password, function (jqXHR, exception) {
-                if (jqXHR.status == 401)
-                    alert("Cannot login. Wrong username or password")
+                var $loginError = $("#loginError");
+                if (jqXHR.status == 503)
+                    $loginError.text("Cannot reach online service. Please check your internet connection or try to login later.");
+                if (jqXHR.status == 401 || jqXHR.status == 403)
+                    $loginError.text("No user exist with this login and password");
             });
         })
     });

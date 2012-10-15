@@ -12,7 +12,7 @@ body {
     text-shadow: 15px 15px 10px rgba(80,80,80,0.45);
 }
 
-input, label {
+input, label, .input {
     height: 35px;
     font-size:30px;
     padding: 3px;

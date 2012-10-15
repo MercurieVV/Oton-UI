@@ -24,6 +24,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/buttons.css"/>
 
+    <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/oton.users.js"></script>
     <script type="text/javascript" src="js/game-icons.js"></script>
     <script type="text/javascript" src="js/create-game.js"></script>
@@ -34,20 +35,26 @@
     <link rel="stylesheet" type="text/css" href="css/create-game.css"/>
 </head>
 <body>
-<div style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 50%; height: 40%; margin: auto;">
-    <form action="" class="login">
-        <label class="textShadow" for="loginField">Login</label><input id="loginField" class="shadow"/>
-        <label class="textShadow" for="passwordField">Password</label><input id="passwordField" type="password"
-                                                                             class="shadow"/>
+<div style="position: absolute; top: 10%; bottom: 0; left: 0; right: 0; width: 50%; height: 80%; margin: auto;">
+    <form action="" class="login" id="signInForm">
+        <label class="textShadow" for="userName">Login</label><input id="userName" name="userName" class="shadow"/>
+        <label class="textShadow" for="password">Password</label><input id="password" name="password" type="password"
+                                                                        class="shadow"/>
         <label class="textShadow" for="passwordRepeatField">Repeat password</label><input id="passwordRepeatField"
+                                                                                          name="passwordRepeatField"
                                                                                           type="password"
                                                                                           class="shadow"/>
-        <a id="showAvatarsButton" href="">Show avatars</a>
-        <input id="avatarUrlHidden" type="hidden"/>
+        <label class="textShadow" for="showAvatarsButton">Avatar</label>
+        <span id="avatar" class="input shadow" style="display: block; float: left; width: 25%; height: 125px"></span>
+        <a id="showAvatarsButton" href="#"
+           class="input textShadow"
+           style="display: block; float: left">change</a>
+        <input id="avatarUrl" name="avatarUrl" type="hidden"/>
         <button id="signinButton" class="button orange glossy skew shadow" type='button'>Sign in</button>
     </form>
 </div>
-<div id="avatarsSelection" style="visibility: hidden; position: absolute; width: 40%; height: 40%; top: 20%; left: 30%">
+<div id="avatarsSelection"
+     style="display: none; position: absolute; background:#0092ef; width: 40%; height: 60%; top: 20%; left: 30%">
     <img src="images/arrows-metallic.png" alt="">
     <img src="images/Arrow%20Left%201.png" alt="">
     <img src="images/arrows-minimalist.png" alt="">
@@ -56,24 +63,43 @@
     <img src="images/game1.png" alt="">
 </div>
 <script type="text/javascript">
+    function showAvatar(src) {
+        $('#avatarUrl').val(src);
+        $('#avatar').html('<img src="' + src + '" />');
+    }
     $(document).ready(function () {
+        $.cookie.json = true;
+        var user = $.cookie('user');
+        var $signinButton = $('#signinButton');
+        if (user != null) {
+            populate("#signInForm", user);
+            $('#password').val('');
+            $('#userName').prop('disabled', true);
+            showAvatar(user.avatarUrl);
+            $signinButton.text("Save");
+        }
+
         var $avatarsSelectionDiv = $('#avatarsSelection');
-        $('#showAvatarsButton').click(function(){
-            if($avatarsSelectionDiv.is(':visible'))
+        $('#showAvatarsButton').click(function () {
+            if ($avatarsSelectionDiv.is(':visible'))
                 $avatarsSelectionDiv.hide();
             else
                 $avatarsSelectionDiv.show();
         });
 
-        $('#signinButton').click(function () {
-            var user = {
-                login: $('#loginField').val(),
-                password: $('#passwordField').val(),
-                avatarUrl: $('#avatarUrlHidden')
-            };
+        $('img', '#avatarsSelection').click(function () {
+            var src = $(this).attr("src");
+            showAvatar(src);
+            $avatarsSelectionDiv.hide();
+        });
 
-            signIn($, user);
-        })
+        $signinButton.click(function () {
+            var user = $('#signInForm').serializeObject();
+            if($.cookie('user') != null)
+                saveUserSettings(user);
+            else
+                signIn($, user);
+        });
     });
 </script>
 </body>

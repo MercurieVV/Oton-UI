@@ -6,52 +6,98 @@
  * To change this template use File | Settings | File Templates.
  */
 function loginUser($, login, password, errorCallback) {
+    saveAuthToCookies($, login, password);
+    loginCookiesUser($, errorCallback);
+}
+
+function loginCookiesUser($, errorCallback) {
+    authGet($, '/rest/user', errorCallback);
+}
+
+function signIn($, user) {
+    post($, '/rest/unchecked/user', user,
+            function (data, text) {
+                loginUser($, data.userName, data.password);
+            },
+            function (jqXHR, exception) {
+                if (jqXHR.status == 409)
+                    alert("User already exist")
+            }
+    );
+}
+
+function saveUserSettings(user) {
+    authPost($, 'rest/user', user,
+                function (data, text) {
+                    $.cookie('user', data);
+                    //saveAuthToCookies($, data.userName, data.password); password is modified on server
+                    loginCookiesUser($);
+                },
+                function (jqXHR, exception) {
+                    if (jqXHR.status == 409)
+                        alert("User already exist")
+                }
+    );
+}
+
+function post($, url, data, successFunc, errorFunc) {
+    $.ajax({
+        data: "data = " + JSON.stringify(data),
+        type:'POST',
+        url:url,
+        contentType:"application/json",
+        dataType:"json"
+    });
+}
+
+function authPost($, url, data, successFunc, errorFunc) {
+    var auth = $.cookie('auth');
+    $.ajax({
+        data: JSON.stringify(data),
+        type:'POST',
+        url:url,
+        contentType:"application/json",
+        dataType:"json",
+        beforeSend:function (xhr) {
+            xhr.setRequestHeader("Authorization", "Basic " + auth);
+        },
+        success: successFunc,
+        error: errorFunc
+    });
+}
+
+function authGet($, url, errorCallback) {
     $.cookie.json = true;
-    $.cookie('login', login);
-    $.cookie('password', password);
-    auth = "Basic " + window.btoa(login + ":" + password);
-    url = '/rest/user';
+    var auth = $.cookie('auth');
     $.ajax({
         type:'GET',
-        url: url,
-        contentType:"application/x-www-form-urlencoded",
+        url:url,
+        contentType:"application/json",
         xhrFields:{
             withCredentials:true
         },
         accept:"application/json",
-        //contentType : "application/json",
         cache:false,
         cookie:false,
-        dataType : "json",
+        dataType:"json",
         beforeSend:function (xhr) {
-            xhr.setRequestHeader("Authorization", auth);
+            xhr.setRequestHeader("Authorization", "Basic " + auth);
         },
         success:function (data, textStatus) {
             $.cookie('user', data);
             window.location.replace("/index.html");
         },
-        error:errorCallback
+        error:function (data, textStatus) {
+            $.cookie('user', null);
+            if (errorCallback != 'undefined')
+                errorCallback(data, textStatus);
+                //on permission denied window.location.replace("/login.html");
+        }
     });
-
-
-    function signIn($, user) {
-        $.ajax({
-            data:user,
-            type:'POST',
-            url:'/rest/unchecked/user',
-            contentType:"application/json",
-            dataType:"json",
-            success:function (data, text) {
-                alert("all saved");
-                loginUser($, login, password, function (jqXHR, exception) {
-                    alert(jqXHR.status + " something wrong");
-                })
-            },
-            error:function (jqXHR, exception) {
-                if (jqXHR.status == 409)
-                    alert("User already exist")
-            }
-        });
-    }
 }
 
+function saveAuthToCookies($, login, password) {
+    $.cookie.json = true;
+    var auth = window.btoa(login + ":" + password);
+    $.cookie('auth', auth);
+}

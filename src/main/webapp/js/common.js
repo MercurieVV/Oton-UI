@@ -14,6 +14,25 @@ function unmodalBackground() {
     $('#mask').hide();
 }
 
+function hideOnClickOutside(element, button) {
+    $('html').click(function () {
+        if (element.is(':hidden')) {
+            return;
+        }
+        element.hide();
+    });
+    element.click(function (event) {
+        event.stopPropagation();
+    });
+    button.click(function (event) {
+        if (element.is(':visible'))
+            element.hide();
+        else
+            element.show();
+        event.stopPropagation();
+    });
+}
+
 function showHelp(text) {
     var $tooltip = $("#tooltip");
     if (!$tooltip.is(':hidden')) {

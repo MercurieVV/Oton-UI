@@ -80,13 +80,8 @@
         }
 
         var $avatarsSelectionDiv = $('#avatarsSelection');
-        $('#showAvatarsButton').click(function () {
-            if ($avatarsSelectionDiv.is(':visible'))
-                $avatarsSelectionDiv.hide();
-            else
-                $avatarsSelectionDiv.show();
-        });
 
+        hideOnClickOutside($avatarsSelectionDiv, $('#showAvatarsButton'));
         $('img', '#avatarsSelection').click(function () {
             var src = $(this).attr("src");
             showAvatar(src);

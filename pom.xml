@@ -20,6 +20,7 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.7</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

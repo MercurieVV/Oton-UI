@@ -47,6 +47,7 @@
 </div>-->
 <script type="text/javascript">
     $(document).ready(function () {
+        $.cookie('user', null);
         $('#loginButton').click(function () {
             var login = $('#loginField').val();
             var password = $('#passwordField').val();
@@ -54,8 +55,10 @@
                 var $loginError = $("#loginError");
                 if (jqXHR.status == 503)
                     $loginError.text("Cannot reach online service. Please check your internet connection or try to login later.");
-                if (jqXHR.status == 401 || jqXHR.status == 403)
+                else if (jqXHR.status == 401 || jqXHR.status == 403)
                     $loginError.text("No user exist with this login and password");
+                else
+                    $loginError.text("Unknown server error.");
             });
         })
     });

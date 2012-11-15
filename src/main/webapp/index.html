@@ -37,8 +37,8 @@
 
 <body>
 
-<form action="login.html">
-    <button id="loginFormButton" class="button orange glass">Login</button>
+<form action="/login.html" method="post">
+    <button id="loginFormButton" class="button orange glass" >Login</button>
 </form>
 <form action="sign-in.html">
     <button id="signInFormButton" class="button orange glassy">Sign In</button>
@@ -154,7 +154,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var manager = new jsAnimManager();
+        //alert("pep");
+        //var manager = new jsAnimManager();
 
         var template = $('#createFormTpl').html();
         template = Handlebars.compile(template);
@@ -174,12 +175,14 @@
 
         //Create section
         $("#createButton").click(function (event) {
-            if ($("#createFormsPanel").is(':hidden')) {
-                $("#createFormsPanel").show();
-                $("#createPanel").transition({ x:'120%' });
+            var $createFormsPanel = $("#createFormsPanel");
+            var $createPanel = $("#createPanel");
+            if ($createFormsPanel.is(':hidden')) {
+                $createFormsPanel.show();
+                $createPanel.transition({ x:'120%' });
                 modalBackground();
             } else {
-                $("#createPanel").transition({ x:'0%' }, function () {
+                $createPanel.transition({ x:'0%' }, function () {
                     $("#createFormsPanel").hide();
                     unmodalBackground();
                 });

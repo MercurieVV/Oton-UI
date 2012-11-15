@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="css/create-game.css"/>
 </head>
 <body>
-<div style="position: absolute; top: 10%; bottom: 0; left: 0; right: 0; width: 50%; height: 80%; margin: auto;">
+<div style="position: absolute; top: 3%; bottom: 0; left: 0; right: 0; width: 50%; height: 94%; margin: auto;">
     <form action="" class="login" id="signInForm">
         <label class="textShadow" for="userName">Login</label><input id="userName" name="userName" class="shadow"/>
         <label class="textShadow" for="password">Password</label><input id="password" name="password" type="password"
@@ -50,6 +50,8 @@
            class="input textShadow"
            style="display: block; float: left">change</a>
         <input id="avatarUrl" name="avatarUrl" type="hidden"/>
+
+        <div id="loginError" class="textShadow error input"></div>
         <button id="signinButton" class="button orange glossy skew shadow" type='button'>Sign in</button>
     </form>
 </div>
@@ -74,7 +76,7 @@
         if (user != null) {
             populate("#signInForm", user);
             $('#password').val('');
-            $('#userName').prop('disabled', true);
+            $('#userName').prop('readonly', 'readonly');
             showAvatar(user.avatarUrl);
             $signinButton.text("Save");
         }
@@ -88,12 +90,23 @@
             $avatarsSelectionDiv.hide();
         });
 
+        var $errorField = $("#loginError");
+        $errorField.text("");
         $signinButton.click(function () {
+            if ($("#password").val() != $("#passwordRepeatField").val()) {
+                $errorField.text("Passwords are not identical");
+                return
+            }
             var user = $('#signInForm').serializeObject();
-            if($.cookie('user') != null)
+            if ($.cookie('user') != null)
                 saveUserSettings(user);
             else
-                signIn($, user);
+                signIn($, user,
+                        function (jqXHR, exception) {
+                            if (jqXHR.status == 409)
+                                $errorField.text("User already exist")
+                        }
+                );
         });
     });
 </script>

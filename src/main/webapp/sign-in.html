@@ -65,49 +65,8 @@
     <img src="images/game1.png" alt="">
 </div>
 <script type="text/javascript">
-    function showAvatar(src) {
-        $('#avatarUrl').val(src);
-        $('#avatar').html('<img src="' + src + '" />');
-    }
     $(document).ready(function () {
-        $.cookie.json = true;
-        var user = $.cookie('user');
-        var $signinButton = $('#signinButton');
-        if (user != null) {
-            populate("#signInForm", user);
-            $('#password').val('');
-            $('#userName').prop('readonly', 'readonly');
-            showAvatar(user.avatarUrl);
-            $signinButton.text("Save");
-        }
-
-        var $avatarsSelectionDiv = $('#avatarsSelection');
-
-        hideOnClickOutside($avatarsSelectionDiv, $('#showAvatarsButton'));
-        $('img', '#avatarsSelection').click(function () {
-            var src = $(this).attr("src");
-            showAvatar(src);
-            $avatarsSelectionDiv.hide();
-        });
-
-        var $errorField = $("#loginError");
-        $errorField.text("");
-        $signinButton.click(function () {
-            if ($("#password").val() != $("#passwordRepeatField").val()) {
-                $errorField.text("Passwords are not identical");
-                return
-            }
-            var user = $('#signInForm').serializeObject();
-            if ($.cookie('user') != null)
-                saveUserSettings(user);
-            else
-                signIn($, user,
-                        function (jqXHR, exception) {
-                            if (jqXHR.status == 409)
-                                $errorField.text("User already exist")
-                        }
-                );
-        });
+        showSigninOrSettingsForm();
     });
 </script>
 </body>

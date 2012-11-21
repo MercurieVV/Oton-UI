@@ -5,32 +5,33 @@
  * Time: 14:47
  * To change this template use File | Settings | File Templates.
  */
-function modalBackground() {
-    //transition effect
-    $('#mask').fadeIn(1000);
-    $('#mask').fadeTo("slow", 0.8);
-}
-function unmodalBackground() {
-    $('#mask').hide();
-}
-
-function hideOnClickOutside(element, button) {
-    $('html').click(function () {
-        if (element.is(':hidden')) {
-            return;
+function initModal(query, showFunc) {
+    var $element = $(query);
+    $element.css({top: "-100%", left: 0});
+    if (showFunc == undefined) {
+        showFunc = function (h) {
+            h.w.show();
+            h.w.transition({ y: '100%' });
         }
-        element.hide();
+    }
+    $element.jqm({
+        onShow: showFunc,
+        onHide: function (h) {
+            //$element.fadeTo("slow", 0);
+            //if(h.o) h.o.remove();
+            h.w.show();
+            h.w.transition({ y: '0%' }, function () {
+                if (h.o) h.o.remove();
+            });
+            //h.w.fadeOut("slow");
+        }
     });
-    element.click(function (event) {
-        event.stopPropagation();
-    });
-    button.click(function (event) {
-        if (element.is(':visible'))
-            element.hide();
-        else
-            element.show();
-        event.stopPropagation();
-    });
+}
+function showModal(query) {
+    $(query).jqmShow()
+}
+function hideModal(query) {
+    $(query).jqmHide()
 }
 
 function showHelp(text) {
@@ -43,8 +44,8 @@ function showHelp(text) {
     $tooltip.css("opacity", "0");
     $tooltip.css("scale", "2");
     $tooltip.transition({
-        opacity:1,
-        scale:1
+        opacity: 1,
+        scale: 1
     });
 }
 
@@ -56,8 +57,8 @@ function hideHelp() {
     $tooltip.css("opacity", "1");
     $tooltip.css("scale", "1");
     $tooltip.transition({
-        opacity:0,
-        scale:2
+        opacity: 0,
+        scale: 2
     }, function () {
         $tooltip.hide();
         $tooltip.text("");
@@ -65,16 +66,15 @@ function hideHelp() {
 }
 
 function populate(frm, data) {
-  $.each(data, function(key, value){
-    $('#'+key, frm).val(value);
-  });
+    $.each(data, function (key, value) {
+        $('#' + key, frm).val(value);
+    });
 }
 
-$.fn.serializeObject = function()
-{
+$.fn.serializeObject = function () {
     var o = {};
     var a = this.serializeArray();
-    $.each(a, function() {
+    $.each(a, function () {
         if (o[this.name] !== undefined) {
             if (!o[this.name].push) {
                 o[this.name] = [o[this.name]];

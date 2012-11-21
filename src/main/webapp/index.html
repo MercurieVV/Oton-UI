@@ -9,6 +9,7 @@
     <script type="text/javascript" src="js/jquery-ui-1.8.22.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.timers.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jqModal.js"></script>
     <script type="text/javascript" src="js/handlebars-1.0.0.beta.6.js"></script>
     <!--<script type="text/javascript" src="js/chevron.js"></script>-->
     <script type="text/javascript" src="js/jsAnim.js"></script>
@@ -27,24 +28,66 @@
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/game-icons.js"></script>
     <script type="text/javascript" src="js/create-game.js"></script>
+    <script type="text/javascript" src="js/oton.users.js"></script>
     <!--<link rel="template" href="create-form-template.html" id="createFormTpl"/>-->
     <link rel="stylesheet" type="text/css" href="css/common.css"/>
     <link rel="stylesheet" type="text/css" href="css/pagination.css"/>
     <link rel="stylesheet" type="text/css" href="css/game-icons.css"/>
     <link rel="stylesheet" type="text/css" href="css/create-game.css"/>
+    <link rel="stylesheet" type="text/css" href="css/oton.users.css"/>
 </head>
 
 
 <body>
 
-<form action="/login.html" method="post">
-    <button id="loginFormButton" class="button orange glass" >Login</button>
-</form>
-<form action="sign-in.html">
-    <button id="signInFormButton" class="button orange glassy">Sign In</button>
-</form>
+<button id="loginFormButton" class="button orange glass" type="button">Login</button>
+<button id="showSignInFormButton" class="button orange glassy">Sign In</button>
+
 
 <img id="logo" alt="Logo" src="images/oton_yellow_ab1.png"/>
+
+<div class="wholePageLayer fillDefaultBackground" id="signinModal" style="display: none">
+    <form action="" class="otonForm" id="signInForm">
+        <label class="textShadow" for="userName">Login</label><input id="userName" name="userName" class="shadow"/>
+        <label class="textShadow" for="password">Password</label><input id="password" name="password" type="password"
+                                                                        class="shadow"/>
+        <label class="textShadow" for="passwordRepeatField">Repeat password</label><input id="passwordRepeatField"
+                                                                                          name="passwordRepeatField"
+                                                                                          type="password"
+                                                                                          class="shadow"/>
+        <label class="textShadow" for="showAvatarsButton">Avatar</label>
+        <span id="avatar" class="input shadow" style="display: block; float: left; width: 25%; height: 125px"></span>
+        <a id="showAvatarsButton" href="#"
+           class="input textShadow"
+           style="display: block; float: left">change</a>
+        <input id="avatarUrl" name="avatarUrl" type="hidden"/>
+
+        <div class="textShadow error input"></div>
+        <button id="signinCancelButton" class="button orange glossy skew" type='button'>Cancel</button>
+        <button id="signinButton" class="button orange glossy skew shadow" type='button'>Sign in</button>
+    </form>
+    <div id="avatarsSelection"
+         style="display: none; position: absolute; background:#0092ef; width: 40%; height: 60%; top: 20%; left: 30%">
+        <img src="images/arrows-metallic.png" alt="">
+        <img src="images/Arrow%20Left%201.png" alt="">
+        <img src="images/arrows-minimalist.png" alt="">
+        <img src="images/cs-portfolio.png" alt="">
+        <img src="images/device_drive_external.png" alt="">
+        <img src="images/game1.png" alt="">
+    </div>
+</div>
+<div class="wholePageLayer fillDefaultBackground" id="loginModal" style="display: none">
+    <form action="" class="otonForm">
+        <label class="textShadow" for="loginField">Login</label><input id="loginField" class="shadow"/>
+        <label class="textShadow" for="passwordField">Password</label><input id="passwordField" type="password"
+                                                                             class="shadow"/>
+
+        <div id="loginError" class="textShadow error input"></div>
+        <button id="loginCancelButton" class="button orange glossy skew" type='button'>Cancel</button>
+        <button id="loginButton" class="button orange glossy skew" type='button'>Login</button>
+    </form>
+</div>
+
 
 <div id="gamesArea">
     <div id="currentGamesPageNumber">1 of 1</div>
@@ -61,8 +104,9 @@
     </div>
 </div>
 <div id="tooltip" class="tooltip modalBox shadow" style="position:absolute; top: 20%; left: 30%; display: none;"></div>
-<div id="mask"></div>
+<div id="createGameModalBackground"></div>
 <input id="searchBox" placeholder="Search..." class="shadow"/>
+
 <div id="bottomIcons">
     <img src="images/home.png" alt="">
     <img src="images/device_drive_external_usb.png" alt="">
@@ -104,9 +148,10 @@
                 <tr>
                     <td>&nbsp;&nbsp;</td>
                     <td width="100%">
-                        <img src="images/yellow_metalic_robot.png" alt="" width="245" height="auto"><br />
+                        <img src="images/yellow_metalic_robot.png" alt="" width="245" height="auto"><br/>
                         <button class="goBack button gray glossy" type="button">Go Back To Edit</button>
-                        <button class="goForward button gray glossy" id="createGameButton" type="button">Create Game</button>
+                        <button class="goForward button gray glossy" id="createGameButton" type="button">Create Game
+                        </button>
                     </td>
                     <td>&nbsp;&nbsp;</td>
                 </tr>
@@ -115,8 +160,10 @@
     </li>
     <li>
         <div class="createGameForm" style="text-align:center; vertical-align:middle">
-            <img src="images/yellow_metalic_robot.png" alt="" width="245" height="auto"><br />
+            <img src="images/yellow_metalic_robot.png" alt="" width="245" height="auto"><br/>
+
             <h1 style="margin: 2%">Please Standby. Otonomous is completing and creating your new custom game.</h1>
+
             <div class="error ui-progress-bar ui-container" id="progress_bar">
                 <div class="ui-progress" style="width: 1%;">
               <span class="ui-label">
@@ -133,10 +180,13 @@
                 <tr>
                     <td>&nbsp;&nbsp;</td>
                     <td width="100%">
-                        <img src="images/game-1.png" alt="" width="245" height="245"><br />
-                        <button id="saveToCloudButton" class="goForward button gray glossy" type="button">Save to cloud</button>
+                        <img src="images/game-1.png" alt="" width="245" height="245"><br/>
+                        <button id="saveToCloudButton" class="goForward button gray glossy" type="button">Save to
+                            cloud
+                        </button>
                         <button id="playCreatedButton" class="goForward button gray glossy" type="button">Play</button>
-                        <button id="playCreatedWithFriendsButton" class="goForward button gray glossy" type="button">Play with
+                        <button id="playCreatedWithFriendsButton" class="goForward button gray glossy" type="button">
+                            Play with
                             friends
                         </button>
                     </td>
@@ -156,38 +206,23 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        //alert("pep");
+        //$("#loginModal").find(".error").text("pp");
         //var manager = new jsAnimManager();
 
         var template = $('#createFormTpl').html();
         template = Handlebars.compile(template);
         html = template(data);
         $(html).appendTo("#createGamePaged");
-        $.cookie.json = true;
-        var $loginButton = $("#loginFormButton");
-        var $signInButton = $("#signInFormButton");
-        if($.cookie('user') != null) {
-            $loginButton.text("Log out ");
-            $signInButton.text("Settings ");
-        } else {
-            $loginButton.text("Log in ");
-            $signInButton.text("Sign In");
-        }
+        setLoginButtonsText();
 
 
-        //Create section
+        //Create game section
         $("#createButton").click(function (event) {
-            var $createFormsPanel = $("#createFormsPanel");
             var $createPanel = $("#createPanel");
-            if ($createFormsPanel.is(':hidden')) {
-                $createFormsPanel.show();
-                $createPanel.transition({ x:'120%' });
-                modalBackground();
+            if ($("#createFormsPanel").is(':hidden')) {
+                showCreateGamePanel();
             } else {
-                $createPanel.transition({ x:'0%' }, function () {
-                    $("#createFormsPanel").hide();
-                    unmodalBackground();
-                });
+                hideCreateGamePanel();
             }
         });
 
@@ -197,12 +232,12 @@
         });
 
         $('#createGamePaged').anythingSlider({
-            buildStartStop:false,
-            infiniteSlides:false,
-            buildNavigation:false,
-            buildArrows:false,
-            stopAtEnd:true,
-            theme:"forms"
+            buildStartStop: false,
+            infiniteSlides: false,
+            buildNavigation: false,
+            buildArrows: false,
+            stopAtEnd: true,
+            theme: "forms"
         });
         applyCreateNavigationRules();
 
@@ -210,12 +245,12 @@
         //Games section
         var gameIcons = new GameIcons();
         $('#gamesSliderPaged').anythingSlider({
-            buildStartStop:false,
-            buildNavigation:false,
-            width:50,
-            infiniteSlides:false,
+            buildStartStop: false,
+            buildNavigation: false,
+            width: 50,
+            infiniteSlides: false,
             stopAtEnd: true,
-            onSlideComplete: function(slider){
+            onSlideComplete: function (slider) {
                 gameIcons.updateSliderCurrentPageNr(slider);
             }
         });
@@ -229,20 +264,51 @@
 
 
         //tooltips section
-        $('html').click(function() {
+        $('html').click(function () {
             hideHelp();
         });
-        $('.tooltip').click(function(event){
+        $('.tooltip').click(function (event) {
             event.stopPropagation();
+        });
+
+
+        //login section
+        initModal("#loginModal");
+        var $loginButton = $("#loginFormButton");
+        $loginButton.click(function () {
+            $.cookie('user', null);
+            setLoginButtonsText();
+            showModal("#loginModal")
+        });
+        $("#loginCancelButton").click(function () {
+            hideModal("#loginModal");
+        });
+        $('#loginButton').click(function () {
+            tryToLogin();
+        });
+
+        //signin section
+        initModal("#signinModal");
+        var $showSigninFormButton = $("#showSignInFormButton");
+        $showSigninFormButton.click(function () {
+            showModal("#signinModal")
+        });
+        $("#signinCancelButton").click(function () {
+            hideModal("#signinModal");
+        });
+        var $signinButton = $('#signinButton');
+        showHideAvatars();
+        $signinButton.click(function () {
+            saveUser();
         });
 
         //finalizing preparing
         $("#createFormsPanel").hide();
-/*
-        $(window).resize(function(e) {
-            $(".pagination").data("AnythingSlider").checkResize();
-        })
-*/
+        /*
+         $(window).resize(function(e) {
+         $(".pagination").data("AnythingSlider").checkResize();
+         })
+         */
 
 
         //testing
@@ -254,114 +320,148 @@
 
 <script type="text/javascript">
     data = {
-        "forms":[
+        "forms": [
             {
-                "title":"1.	Select Your Game Genre",
-                "description":"Please select you\\'re game genre that will be compiled into the OTON game engine. Some genres may have sub-genre selection.",
-                id:0,
-                "options":[
-                    {id:0, "text":"Action"}
+                "title": "1.	Select Your Game Genre",
+                "description": "Please select you\\'re game genre that will be compiled into the OTON game engine. Some genres may have sub-genre selection.",
+                id: 0,
+                "options": [
+                    {id: 0, "text": "Action"}
                     ,
-                    {id:1, "text":"Shooter"}
+                    {id: 1, "text": "Shooter"}
                     ,
-                    {id:2, "text":"Action adventure"}
-                    ,{id:3, "text":"Adventure"}
-                    ,{id:4, "text":"Role playing"}
-                    ,{id:5, "text":"Strategy"}
-                    ,{id:6, "text":"Other"}
-                    ,{id:7, "text":"Surprise me"}
+                    {id: 2, "text": "Action adventure"}
+                    ,
+                    {id: 3, "text": "Adventure"}
+                    ,
+                    {id: 4, "text": "Role playing"}
+                    ,
+                    {id: 5, "text": "Strategy"}
+                    ,
+                    {id: 6, "text": "Other"}
+                    ,
+                    {id: 7, "text": "Surprise me"}
                 ]
             }
             ,
             {
-                "title":"2.	Select Your Game Skills",
-                description:"Please select the difficult level for your new game. Some options may not be available for this software release.",
-                id:1,
-                "options":[
-                    {id:0, "text":"Easy"}
-                    ,{id:1, "text":"Medium"}
-                    ,{id:2, "text":"Hard"}
-                    ,{id:3, "text":"Otonomous hard"}
-                    ,{id:4, "text":"Default skill level"}
+                "title": "2.	Select Your Game Skills",
+                description: "Please select the difficult level for your new game. Some options may not be available for this software release.",
+                id: 1,
+                "options": [
+                    {id: 0, "text": "Easy"}
+                    ,
+                    {id: 1, "text": "Medium"}
+                    ,
+                    {id: 2, "text": "Hard"}
+                    ,
+                    {id: 3, "text": "Otonomous hard"}
+                    ,
+                    {id: 4, "text": "Default skill level"}
                 ]
             }
             ,
             {
-                "title":"3.	Select your Game Level Preference",
-                description:"Please select either a demo, single, multi-level or complete full game level creation.",
-                id:2,
-                "options":[
-                    {id:0, "text":"Demo"}
-                    ,{id:1, "text":"Multi levels"}
-                    ,{id:2, "text":"Full game"}
-                    ,{id:3, "text":"Default level"}
+                "title": "3.	Select your Game Level Preference",
+                description: "Please select either a demo, single, multi-level or complete full game level creation.",
+                id: 2,
+                "options": [
+                    {id: 0, "text": "Demo"}
+                    ,
+                    {id: 1, "text": "Multi levels"}
+                    ,
+                    {id: 2, "text": "Full game"}
+                    ,
+                    {id: 3, "text": "Default level"}
                 ]
             }
             ,
             {
-                "title":"4.	Customize Your Game",
-                description:"Please select custom features and gameplay for your game.",
-                id:3,
-                "options":[
-                    {id:0, "text":"Level style"}
-                    ,{id:1, "text":"Music"}
-                    ,{id:2, "text":"Gameplay"}
-                    ,{id:3, "text":"Hero"}
-                    ,{id:4, "text":"Enemies"}
-                    ,{id:5, "text":"Boss"}
-                    ,{id:6, "text":"Skip customize"}
+                "title": "4.	Customize Your Game",
+                description: "Please select custom features and gameplay for your game.",
+                id: 3,
+                "options": [
+                    {id: 0, "text": "Level style"}
+                    ,
+                    {id: 1, "text": "Music"}
+                    ,
+                    {id: 2, "text": "Gameplay"}
+                    ,
+                    {id: 3, "text": "Hero"}
+                    ,
+                    {id: 4, "text": "Enemies"}
+                    ,
+                    {id: 5, "text": "Boss"}
+                    ,
+                    {id: 6, "text": "Skip customize"}
                 ]
             }
             ,
             {
-                "title":"5.	Choose Your Platform",
-                description:"Please select what device you want OTON to make your game playable on.",
-                id:4,
-                "options":[
-                    {id:0, "text":"Mobile app"}
-                    ,{id:1, "text":"Tablet"}
-                    ,{id:2, "text":"PC/Linux"}
-                    ,{id:3, "text":"Tv"}
-                    ,{id:4, "text":"Social"}
-                    ,{id:5, "text":"Skip"}
+                "title": "5.	Choose Your Platform",
+                description: "Please select what device you want OTON to make your game playable on.",
+                id: 4,
+                "options": [
+                    {id: 0, "text": "Mobile app"}
+                    ,
+                    {id: 1, "text": "Tablet"}
+                    ,
+                    {id: 2, "text": "PC/Linux"}
+                    ,
+                    {id: 3, "text": "Tv"}
+                    ,
+                    {id: 4, "text": "Social"}
+                    ,
+                    {id: 5, "text": "Skip"}
                 ]
             }
             ,
             {
-                "title":"6.	Select Your Gameplay Device",
-                description:"Please select which device you wish to use during your gameplay for your new OTON created game.",
-                id:5,
-                "options":[
-                    {id:0, "text":"Gamepad"}
-                    ,{id:1, "text":"Keyboard/Mouse"}
-                    ,{id:2, "text":"Voice"}
-                    ,{id:3, "text":"Motion"}
-                    ,{id:4, "text":"Combo"}
-                    ,{id:5, "text":"Default (gamepad)"}
+                "title": "6.	Select Your Gameplay Device",
+                description: "Please select which device you wish to use during your gameplay for your new OTON created game.",
+                id: 5,
+                "options": [
+                    {id: 0, "text": "Gamepad"}
+                    ,
+                    {id: 1, "text": "Keyboard/Mouse"}
+                    ,
+                    {id: 2, "text": "Voice"}
+                    ,
+                    {id: 3, "text": "Motion"}
+                    ,
+                    {id: 4, "text": "Combo"}
+                    ,
+                    {id: 5, "text": "Default (gamepad)"}
                 ]
             }
             ,
             {
-                "title":"7.	Develop Your Game Community",
-                description:"Please select your community for your OTON game development. Some options may not be available for this software build.",
-                id:6,
-                "options":[
-                    {id:0, "text":"Co developer with community"}
-                    ,{id:1, "text":"Co developer with friend"}
-                    ,{id:2, "text":"Co developer with Oton network"}
-                    ,{id:3, "text":"Develop with licenses content"}
-                    ,{id:4, "text":"Crowd source"}
-                    ,{id:5, "text":"Self development"}
+                "title": "7.	Develop Your Game Community",
+                description: "Please select your community for your OTON game development. Some options may not be available for this software build.",
+                id: 6,
+                "options": [
+                    {id: 0, "text": "Co developer with community"}
+                    ,
+                    {id: 1, "text": "Co developer with friend"}
+                    ,
+                    {id: 2, "text": "Co developer with Oton network"}
+                    ,
+                    {id: 3, "text": "Develop with licenses content"}
+                    ,
+                    {id: 4, "text": "Crowd source"}
+                    ,
+                    {id: 5, "text": "Self development"}
                 ]
             }
             ,
             {
-                "title":"8.	Select Your Gameplay Objective",
-                description:"Please select what type of challenge you prefer for your new created OTON game.",
-                id:7,
-                "options":[
-                    {id:0, "text":"Goal Base Game"}
-                    ,{id:1, "text":"Time Base Game"}
+                "title": "8.	Select Your Gameplay Objective",
+                description: "Please select what type of challenge you prefer for your new created OTON game.",
+                id: 7,
+                "options": [
+                    {id: 0, "text": "Goal Base Game"}
+                    ,
+                    {id: 1, "text": "Time Base Game"}
                 ]
             }
 

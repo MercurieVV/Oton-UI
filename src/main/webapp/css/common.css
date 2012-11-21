@@ -105,18 +105,24 @@ label {
     color:    #866;
 }
 
-#loginFormButton, #showSignInFormButton {
-    position: absolute;
-    right: 20%;
+#userControlPanel{
     top: 0;
+    padding: 0;
+    margin: 1%;
+    border: 0;
     z-index: 2;
-    padding: 10px;
-}
-#loginFormButton {
-    right: 20%;
-}
-#showSignInFormButton {
+    position: absolute;
     right: 10%;
+    width: 30%;
+    text-align: right;
+}
+#userControlPanel button {
+    padding: 10px;
+    vertical-align: top;
+}
+#userControlPanel img{
+    height: 7%;
+    width: auto;
 }
 
 #bottomIcons {

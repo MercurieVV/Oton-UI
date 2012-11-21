@@ -10,7 +10,7 @@ function tryToLogin() {
         else
             $loginError.text("Unknown server error.");
     });
-    setLoginButtonsText();
+    processCurrentUserChange();
 }
 /**
  * Created with JetBrains WebStorm.
@@ -23,7 +23,12 @@ function tryToLogin() {
 
 function showAvatar(src) {
     $('#avatarUrl').val(src);
-    $('#avatar').html('<img src="' + src + '" />');
+    $('.avatarHolder').html('<img src="' + src + '" />');
+}
+
+function hideAvatar() {
+    $('#avatarUrl').val("");
+    $('.avatarHolder').html('');
 }
 
 function showSigninOrSettingsForm() {
@@ -34,17 +39,22 @@ function showSigninOrSettingsForm() {
         populate("#signInForm", user);
         $('#password').val('');
         $('#userName').prop('readonly', 'readonly');
-        showAvatar(user.avatarUrl);
         $signinButton.text("Save");
     }
 }
 
-function setLoginButtonsText() {
+function processCurrentUserChange() {
     showSigninOrSettingsForm();
     $.cookie.json = true;
+    var user = $.cookie('user');
+    var isUserLoggedIn = user != null;
+    if(isUserLoggedIn)
+        showAvatar(user.avatarUrl);
+    else
+        hideAvatar();
     var $loginButton = $("#loginFormButton");
     var $signInButton = $("#showSignInFormButton");
-    if ($.cookie('user') != null) {
+    if (isUserLoggedIn) {
         $loginButton.text("Log out ");
         $signInButton.text("Settings ");
     } else {
@@ -114,7 +124,7 @@ function saveUserSettings(user) {
     authPost($, 'rest/user', user,
             function (data, text) {
                 $.cookie('user', data);
-                setLoginButtonsText();
+                processCurrentUserChange();
                 if (user.password != "") {
                     loginUser($, user.userName, user.password);
                 }
@@ -129,7 +139,7 @@ function loginUser($, login, password, errorCallback) {
             function (data, textStatus) {
                 $.cookie('user', data);
                 hideModal("#loginModal");
-                setLoginButtonsText();
+                processCurrentUserChange();
             }
             , errorCallback);
 }

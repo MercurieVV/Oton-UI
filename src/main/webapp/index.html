@@ -40,9 +40,11 @@
 
 <body>
 
+<span id="userControlPanel">
+<span class="avatarHolder" style="display:inline-block"></span>
 <button id="loginFormButton" class="button orange glass" type="button">Login</button>
 <button id="showSignInFormButton" class="button orange glassy">Sign In</button>
-
+</span>
 
 <img id="logo" alt="Logo" src="images/oton_yellow_ab1.png"/>
 
@@ -56,7 +58,7 @@
                                                                                           type="password"
                                                                                           class="shadow"/>
         <label class="textShadow" for="showAvatarsButton">Avatar</label>
-        <span id="avatar" class="input shadow" style="display: block; float: left; width: 25%; height: 125px"></span>
+        <span class="input shadow avatarHolder" style="display: block; float: left; width: 25%; height: 125px"></span>
         <a id="showAvatarsButton" href="#"
            class="input textShadow"
            style="display: block; float: left">change</a>
@@ -208,7 +210,7 @@
         template = Handlebars.compile(template);
         html = template(data);
         $(html).appendTo("#createGamePaged");
-        setLoginButtonsText();
+        processCurrentUserChange();
 
 
         //Create game section
@@ -272,7 +274,7 @@
         var $loginButton = $("#loginFormButton");
         $loginButton.click(function () {
             $.cookie('user', null);
-            setLoginButtonsText();
+            processCurrentUserChange();
             showModal("#loginModal")
         });
         $("#loginCancelButton").click(function () {

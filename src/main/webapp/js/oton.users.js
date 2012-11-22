@@ -59,7 +59,7 @@ function processCurrentUserChange() {
         $signInButton.text("Settings ");
     } else {
         $loginButton.text("Log in ");
-        $signInButton.text("Sign In");
+        $signInButton.text("Register");
     }
 }
 
@@ -83,13 +83,20 @@ function hideAvatarsOnClickOutside(element, button) {
 }
 
 function showHideAvatars() {
-    var $avatarsSelectionDiv = $('#avatarsSelection');
-    hideAvatarsOnClickOutside($avatarsSelectionDiv, $('#showAvatarsButton'));
+    var $showAvatarsButton = $("#showAvatarsButton");
+    initFadingModal('#avatarsSelection');
+    $showAvatarsButton.click(function(){
+        showModal('#avatarsSelection');
+    });
     $('img', '#avatarsSelection').click(function () {
         var src = $(this).attr("src");
         showAvatar(src);
-        $avatarsSelectionDiv.hide();
+        hideModal("#avatarsSelection");
     });
+/*
+    var $avatarsSelectionDiv = $('#avatarsSelection');
+    hideAvatarsOnClickOutside($avatarsSelectionDiv, $('#showAvatarsButton'));
+*/
 }
 
 function saveUser() {

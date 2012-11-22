@@ -5,17 +5,14 @@
  * Time: 14:47
  * To change this template use File | Settings | File Templates.
  */
-function initModal(query, showFunc) {
+function initScrollingModal(query) {
     var $element = $(query);
     $element.css({top: "-100%", left: 0});
-    if (showFunc == undefined) {
-        showFunc = function (h) {
+    $element.jqm({
+        onShow: function (h) {
             h.w.show();
             h.w.transition({ y: '100%' });
-        }
-    }
-    $element.jqm({
-        onShow: showFunc,
+        },
         onHide: function (h) {
             //$element.fadeTo("slow", 0);
             //if(h.o) h.o.remove();
@@ -24,8 +21,13 @@ function initModal(query, showFunc) {
                 if (h.o) h.o.remove();
             });
             //h.w.fadeOut("slow");
-        }
+        },
+        modal: true
     });
+}
+function initFadingModal(query) {
+    var $element = $(query);
+    return $element.jqm({modal:true});
 }
 function showModal(query) {
     $(query).jqmShow()

@@ -11,6 +11,8 @@ body {
 .textShadow {
     text-shadow: 15px 15px 10px rgba(80,80,80,0.45);
 }
+.jqmOverlay { background-color: #000; }
+.jqmAbove { z-index: 5000}
 
 .wholePageLayer{
     position: absolute;
@@ -113,16 +115,21 @@ label {
     z-index: 2;
     position: absolute;
     right: 10%;
-    width: 30%;
+    width: 35%;
     text-align: right;
+}
+#userControlPanel .avatarHolder {
+    padding-right: 2%;
+    padding-top: 1%;
 }
 #userControlPanel button {
     padding: 10px;
     vertical-align: top;
 }
 #userControlPanel img{
-    height: 7%;
+    height: 10%;
     width: auto;
+    margin: 3%;
 }
 
 #bottomIcons {

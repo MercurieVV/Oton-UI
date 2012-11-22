@@ -1,0 +1,39 @@
+#avatarsSelection{
+    display: none;
+    position: absolute;
+    background:#778877;
+    width: 40%;
+    height: 55%;
+    top: 20%;
+    left: 30%
+}
+#avatarsSelection img{
+    text-align: center;
+    vertical-align: middle;
+    height: auto;
+    width: 60%;
+}
+#avatarsSelection img:hover{
+    height: auto;
+    width: 65%;
+    -webkit-transform: rotate(5deg); }
+
+#avatarsSelection table {
+    width: 100%;
+    height: 100%;
+}
+#avatarsSelection tr {
+    width: 100%;
+    height: 50%;
+}
+#avatarsSelection td {
+    text-align: center;
+    vertical-align: middle;
+    width: 30%;
+    height: 50%;
+}
+
+#signInForm .avatarHolder img{
+    width: 30%;
+    height: auto;
+}

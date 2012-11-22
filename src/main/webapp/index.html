@@ -41,9 +41,9 @@
 <body>
 
 <span id="userControlPanel">
-<span class="avatarHolder" style="display:inline-block"></span>
+<span class="avatarHolder" style="display:inline-block; width: auto; height: 100%"></span>
 <button id="loginFormButton" class="button orange glass" type="button">Login</button>
-<button id="showSignInFormButton" class="button orange glassy">Sign In</button>
+<button id="showSignInFormButton" class="button orange glassy">Register</button>
 </span>
 
 <img id="logo" alt="Logo" src="images/oton_yellow_ab1.png"/>
@@ -66,17 +66,22 @@
 
         <div class="textShadow error input"></div>
         <button id="signinCancelButton" class="button orange glossy skew" type='button'>Cancel</button>
-        <button id="signinButton" class="button orange glossy skew shadow" type='button'>Sign in</button>
+        <button id="signinButton" class="button orange glossy skew shadow" type='button'>Register</button>
     </form>
-    <div id="avatarsSelection"
-         style="display: none; position: absolute; background:#0092ef; width: 40%; height: 60%; top: 20%; left: 30%">
-        <img src="images/arrows-metallic.png" alt="">
-        <img src="images/Arrow%20Left%201.png" alt="">
-        <img src="images/arrows-minimalist.png" alt="">
-        <img src="images/cs-portfolio.png" alt="">
-        <img src="images/device_drive_external.png" alt="">
-        <img src="images/game1.png" alt="">
-    </div>
+</div>
+<div id="avatarsSelection" class="jqmAbove">
+    <table>
+        <tr>
+            <td height="100%"><img src="images/avatars/game_box_edit.png" alt=""></td>
+            <td><img src="images/avatars/Game_controller_avatar.jpg" alt=""></td>
+            <td><img src="images/avatars/goldcoin.png" alt=""></td>
+        </tr>
+        <tr>
+            <td height="100%"><img src="images/avatars/metalic_robot.png" alt=""></td>
+            <td><img src="images/avatars/Qlogo.png" alt=""></td>
+            <td><img src="images/avatars/yumtyme_clock.png" alt=""></td>
+        </tr>
+    </table>
 </div>
 <div class="wholePageLayer fillDefaultBackground" id="loginModal" style="display: none">
     <form action="" class="otonForm">
@@ -270,7 +275,7 @@
 
 
         //login section
-        initModal("#loginModal");
+        initScrollingModal("#loginModal");
         var $loginButton = $("#loginFormButton");
         $loginButton.click(function () {
             $.cookie('user', null);
@@ -285,7 +290,7 @@
         });
 
         //signin section
-        initModal("#signinModal");
+        initScrollingModal("#signinModal");
         var $showSigninFormButton = $("#showSignInFormButton");
         $showSigninFormButton.click(function () {
             showModal("#signinModal")
@@ -294,10 +299,10 @@
             hideModal("#signinModal");
         });
         var $signinButton = $('#signinButton');
-        showHideAvatars();
         $signinButton.click(function () {
             saveUser();
         });
+        showHideAvatars();
 
         //finalizing preparing
         $("#createFormsPanel").hide();
@@ -305,6 +310,7 @@
          $(window).resize(function(e) {
          $(".pagination").data("AnythingSlider").checkResize();
          })
+
          */
 
 

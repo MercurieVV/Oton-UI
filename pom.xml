@@ -17,6 +17,11 @@
     <dependencies>
 
         <dependency>
+            <groupId>imported</groupId>
+            <artifactId>httpProxyPackage</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.7</version>
@@ -54,7 +59,7 @@
                     <execution>
                         <phase>validate</phase>
                         <goals>
-                            <goal>copy</goal>
+                            <goal>unpack</goal>
                         </goals>
                         <configuration>
                             <outputDirectory>${endorsed.dir}</outputDirectory>

@@ -38,7 +38,7 @@
 </head>
 
 
-<body>
+<body class="fillDefaultBackground">
 
 <span id="userControlPanel">
 <span class="avatarHolder" style="display:inline-block; width: auto; height: 100%"></span>
@@ -59,21 +59,36 @@
                                                                                           class="shadow"/>
         <label class="textShadow" for="showAvatarsButton">Avatar</label>
         <span class="input shadow avatarHolder" style="display: block; float: left; width: 25%; height: 125px"></span>
-        <a id="showAvatarsButton" href="#"
-           class="input textShadow"
-           style="display: block; float: left">change</a>
+        <a id="showAvatarsButton" href="#" class="input textShadow" style="display: block; float: left">change</a>
         <input id="avatarUrl" name="avatarUrl" type="hidden"/>
+        <label class="textShadow" for="showBackgroundsButton">Background</label>
+        <a id="showBackgroundsButton" href="#" class="input textShadow" style="display: block; float: left">change</a>
+        <input id="backgroundUrl" name="backgroundUrl" type="hidden"/>
 
         <div class="textShadow error input"></div>
         <button id="signinCancelButton" class="button orange glossy skew" type='button'>Cancel</button>
         <button id="signinButton" class="button orange glossy skew shadow" type='button'>Register</button>
     </form>
 </div>
-<div id="avatarsSelection" class="jqmAbove">
+<div id="avatarsSelection" class="jqmAbove selectImgInUserSettings">
     <table>
         <tr>
             <td height="100%"><img src="images/avatars/game_box_edit.png" alt=""></td>
             <td><img src="images/avatars/Game_controller_avatar.jpg" alt=""></td>
+            <td><img src="images/avatars/goldcoin.png" alt=""></td>
+        </tr>
+        <tr>
+            <td height="100%"><img src="images/avatars/metalic_robot.png" alt=""></td>
+            <td><img src="images/avatars/Qlogo.png" alt=""></td>
+            <td><img src="images/avatars/yumtyme_clock.png" alt=""></td>
+        </tr>
+    </table>
+</div>
+<div id="backgroundSelection" class="jqmAbove selectImgInUserSettings">
+    <table>
+        <tr>
+            <td height="100%"><img src="images/background.png" alt=""></td>
+            <td><img src="images/Plain_Blak_Gray1.jpg" alt=""></td>
             <td><img src="images/avatars/goldcoin.png" alt=""></td>
         </tr>
         <tr>
@@ -215,7 +230,7 @@
         template = Handlebars.compile(template);
         html = template(data);
         $(html).appendTo("#createGamePaged");
-        processCurrentUserChange();
+        applyUserSettings();
 
 
         //Create game section
@@ -277,13 +292,14 @@
         //login section
         initScrollingModal("#loginModal");
         var $loginButton = $("#loginFormButton");
+        var $loginModal = $("#loginModal");
         $loginButton.click(function () {
             $.cookie('user', null);
-            processCurrentUserChange();
-            showModal("#loginModal")
+            applyUserSettings();
+            showModal($loginModal)
         });
         $("#loginCancelButton").click(function () {
-            hideModal("#loginModal");
+            hideModal($loginModal);
         });
         $('#loginButton').click(function () {
             tryToLogin();
@@ -292,17 +308,19 @@
         //signin section
         initScrollingModal("#signinModal");
         var $showSigninFormButton = $("#showSignInFormButton");
+        var $signinModal = $("#signinModal");
         $showSigninFormButton.click(function () {
-            showModal("#signinModal")
+            showModal($signinModal)
         });
         $("#signinCancelButton").click(function () {
-            hideModal("#signinModal");
+            hideModal($signinModal);
         });
         var $signinButton = $('#signinButton');
         $signinButton.click(function () {
             saveUser();
         });
-        showHideAvatars();
+        initImageSelectionInUserSettings($('#avatarsSelection'), $("#showAvatarsButton"), showAvatar);
+        initImageSelectionInUserSettings($('#backgroundSelection'), $('#showBackgroundsButton'), setBackground);
 
         //finalizing preparing
         $("#createFormsPanel").hide();

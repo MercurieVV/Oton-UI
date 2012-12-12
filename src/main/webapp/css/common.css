@@ -2,7 +2,8 @@ html,body {
     height:100%;
     margin: 0; padding: 0; border: 0;
 }
-body {
+
+.fillDefaultBackground{
     background-image: url(../images/Plain_Blak_Gray1.jpg);
 }
 .shadow {
@@ -22,10 +23,6 @@ body {
     height: 100%;
     margin: 0; padding: 0; border: 0;
     /*z-index: 10000;*/
-}
-
-.fillDefaultBackground{
-    background-image: url(../images/Plain_Blak_Gray1.jpg);
 }
 
 #logo {

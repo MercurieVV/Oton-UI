@@ -25,15 +25,14 @@ function initScrollingModal(query) {
         modal: true
     });
 }
-function initFadingModal(query) {
-    var $element = $(query);
+function initFadingModal($element) {
     return $element.jqm({modal:true});
 }
-function showModal(query) {
-    $(query).jqmShow()
+function showModal($element) {
+    $element.jqmShow()
 }
-function hideModal(query) {
-    $(query).jqmHide()
+function hideModal($element) {
+    $element.jqmHide()
 }
 
 function showHelp(text) {

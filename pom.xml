@@ -78,6 +78,38 @@
             </plugin>
 
             <plugin>
+                <groupId>org.glassfish.maven.plugin</groupId>
+                <artifactId>maven-glassfish-plugin</artifactId>
+                <configuration>
+                    <terse>true</terse>
+                    <echo>true</echo>
+                    <debug>true</debug>
+                    <glassfishDirectory>${glassfish.glassfishDirectory}</glassfishDirectory>
+                    <user>${glassfish.user}</user>
+                    <adminPassword>${glassfish.adminPassword}</adminPassword>
+                    <domain>
+                        <name>${glassfish.domain.name}</name>
+                        <host>${glassfish.domain.host}</host>
+                        <adminPort>${glassfish.domain.adminPort}</adminPort>
+                    </domain>
+                    <components>
+                        <component>
+                            <name>${glassfish.projectName}</name>
+                            <artifact>${project.build.directory}/${project.build.finalName}.war</artifact>
+                        </component>
+                    </components>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>redeploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.9</version>
@@ -95,4 +127,30 @@
         </repository>
     </repositories>
 
+    <profiles>
+        <profile>
+            <id>release</id>
+            <properties>
+                <glassfish.projectName>UI-1.0</glassfish.projectName>
+                <glassfish.user>admin</glassfish.user>
+                <glassfish.adminPassword>console55</glassfish.adminPassword>
+                <glassfish.domain.name>domain1</glassfish.domain.name>
+                <glassfish.domain.host>173.230.151.203</glassfish.domain.host>
+                <glassfish.domain.adminPort>4848</glassfish.domain.adminPort>
+                <glassfish.glassfishDirectory>/home/glassfish</glassfish.glassfishDirectory>
+            </properties>
+        </profile>
+        <profile>
+            <id>pre-release</id>
+            <properties>
+                <glassfish.projectName>UI-1.0-pre-release</glassfish.projectName>
+                <glassfish.user>admin</glassfish.user>
+                <glassfish.adminPassword>console55</glassfish.adminPassword>
+                <glassfish.domain.name>domain1</glassfish.domain.name>
+                <glassfish.domain.host>173.230.151.203</glassfish.domain.host>
+                <glassfish.domain.adminPort>4848</glassfish.domain.adminPort>
+                <glassfish.glassfishDirectory>c:\Program Files Portable\Programming\Java\glassfish3\</glassfish.glassfishDirectory>
+            </properties>
+        </profile>
+    </profiles>
 </project>

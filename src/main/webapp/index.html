@@ -119,6 +119,10 @@
 <div id="createPanel" class="modalBox">
     <button id="createButton" class="button orange glossy skew">CREATE</button>
     <div id="createFormsPanel">
+        <div id="informOnInactivity">Do you need help with form?<br />
+            Please click on <b>"?"</b> mark for help or contact Engeniux staff.<br />
+            Thanks.
+        </div>
         <form style="height: 100%">
             <ul id="createGamePaged" class="pagination">
             </ul>
@@ -242,6 +246,7 @@
                 hideCreateGamePanel();
             }
         });
+        $(".createGameOptionLine input").change(function(){informUserOnInactivityStop()});
 
         $("#createGameButton").click(function (event) {
             $('#createGamePaged').data("AnythingSlider").goForward();

@@ -35,6 +35,7 @@ function hideModal($element) {
 }
 
 function showHelp(text) {
+    playSound("Click2-Sebastian-OTON_Question_mark.mp3");
     var $tooltip = $("#tooltip");
     if (!$tooltip.is(':hidden')) {
         return;
@@ -86,3 +87,10 @@ $.fn.serializeObject = function () {
     });
     return o;
 };
+
+function playSound(fileName){
+    var $sound = $("#sound");
+    $sound.html('<source src="sounds/' + fileName + '" />');
+    $("#sound")[0].play();
+    //$("#soundsSet")[nr].play();
+}

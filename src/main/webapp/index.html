@@ -43,8 +43,8 @@
 
 <span id="userControlPanel">
 <span class="avatarHolder" style="display:inline-block; width: auto; height: 100%"></span>
-<button id="loginFormButton" class="button orange glass" type="button">Login</button>
-<button id="showSignInFormButton" class="button orange glassy">Register</button>
+<button id="loginFormButton" class="button orange glass" type="button" onclick="playSound('Ting-Popup_Pixels-OTON_extra.mp3');">Login</button>
+<button id="showSignInFormButton" class="button orange glassy" onclick="playSound('Ting-Popup_Pixels-OTON_extra.mp3');">Register</button>
 </span>
 
 <img id="logo" alt="Logo" src="images/oton_yellow_ab1_animated-tr.gif"/>
@@ -130,7 +130,7 @@
     </ul>
 </div>
 <div id="createPanel" class="modalBox">
-    <button id="createButton" class="button orange glossy skew">CREATE</button>
+    <button id="createButton" class="button orange glossy skew" onclick="playSound('Electrical_Sweep-Sweeper-OTON_createGame.mp3')">CREATE</button>
     <div id="createFormsPanel">
         <div id="informOnInactivity">Do you need help with form?<br />
             Please click on <b>"?"</b> mark for help or contact Engeniux staff.<br />
@@ -145,6 +145,7 @@
 <div id="tooltip" class="tooltip modalBox shadow" style="position:absolute; top: 20%; left: 30%; display: none;"></div>
 <div id="createGameModalBackground"></div>
 <input id="searchBox" placeholder="Search..." class="shadow"/>
+<audio id="sound" />
 
 
 <script id="createFormTpl" type="text/x-handlebars-template">
@@ -164,7 +165,7 @@
                         {{#options}}
                         <div class="createGameOptionLine">
                             <label for="option-{{id}}" class="shadow">{{text}}
-                                <input type="radio" id="option-{{id}}" value="option-{{id}}" name="form-{{../id}}"/>
+                                <input type="radio" id="option-{{id}}" value="option-{{id}}" name="form-{{../id}}" onclick="playSound('Button_Click_On-SoundBible.com-OTON.mp3')"/>
                             </label>
                         </div>
                         {{/options}}
@@ -271,7 +272,14 @@
             buildNavigation: false,
             buildArrows: false,
             stopAtEnd: true,
-            theme: "forms"
+            theme: "forms",
+            onSlideBegin: function(){
+                slider = $('#createGamePaged').data('AnythingSlider');
+                if (slider.currentPage < slider.pages - 3)
+                    playSound("Waxing_Eyebrows_OTON_Tab_select.mp3");
+                if(slider.currentPage == slider.pages - 1)
+                    playSound("Robot_blip_2-Marianne_Gagnon-OTON_extra.mp3");
+            }
         });
         applyCreateNavigationRules();
 
@@ -286,6 +294,9 @@
             stopAtEnd: true,
             onSlideComplete: function (slider) {
                 gameIcons.updateSliderCurrentPageNr(slider);
+            },
+            onSlideBegin: function(){
+                playSound("Thrown_Shuriken-Cody_Mahan-OTON_Form.mp3");
             }
         });
 

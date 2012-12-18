@@ -78,7 +78,9 @@ function GameIcons(existedGames) {
     }
 
     function addNewGameIcon(destinationElement, data) {
-        var template = '<div class="table"><div class="tableCell"><img src="{{iconUrl}}" class="shadow gameIcon" title="{{gameId}}" alt="{{gameId}}" id="{{gameId}}" /></div></div>';
+        var template = '<div class="table"><div class="tableCell">' +
+                '<a href="javascript: void(0);" onclick="playSound(\'Robot_blip-Marianne_Gagnon-OTON_.mp3\');"><img src="{{iconUrl}}" class="shadow gameIcon" title="{{gameId}}" alt="{{gameId}}" id="{{gameId}}" /></a>' +
+                '</div></div>';
         //var template = '<div class="table"><div class="tableCell">olo</div></div>';
         template = Handlebars.compile(template);
         var html = template(data);

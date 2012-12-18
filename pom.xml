@@ -59,6 +59,11 @@
                 <version>2.1.1</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webResources>
+                        <resource>
+                            <directory>src/production/webapp</directory>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
             <plugin>
@@ -159,7 +164,8 @@
                 <glassfish.domain.name>domain1</glassfish.domain.name>
                 <glassfish.domain.host>173.230.151.203</glassfish.domain.host>
                 <glassfish.domain.adminPort>4848</glassfish.domain.adminPort>
-                <glassfish.glassfishDirectory>c:\Program Files Portable\Programming\Java\glassfish3\</glassfish.glassfishDirectory>
+                <glassfish.glassfishDirectory>c:\Program Files Portable\Programming\Java\glassfish3\
+                </glassfish.glassfishDirectory>
             </properties>
         </profile>
     </profiles>

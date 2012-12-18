@@ -1,9 +1,10 @@
 package oton.ui.services;
 
-import oton.service.services.EmailConfirmationVerification;
+import oton.service.entities.ConfirmedEmail;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -25,8 +26,10 @@ import java.net.URLDecoder;
 //@WebFilter("/*")
     @Stateless
 public class EmailConfirmationFilter implements Filter {
-    @Inject
-    private EmailConfirmationVerification emailConfirmationVerification;
+//    @Inject
+//    private EmailConfirmationVerification emailConfirmationVerification;
+    @PersistenceContext
+    private EntityManager entityManager;
     private FilterConfig filterConfig;
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
@@ -46,7 +49,8 @@ public class EmailConfirmationFilter implements Filter {
         }
         String email = getParam(httpServletRequest, "email");
         String code = getParam(httpServletRequest, "code");
-        Boolean emailConfirmed = emailConfirmationVerification.isEmailConfirmationOk(email, code);
+        entityManager.find(ConfirmedEmail.class, "o");
+        Boolean emailConfirmed = isEmailConfirmationOk(email, code);
         if (emailConfirmed) {
             filterChain.doFilter(request, response);
             return;
@@ -54,6 +58,21 @@ public class EmailConfirmationFilter implements Filter {
         httpServletRequest.getRequestDispatcher("/confirm_email_form.html").forward(request, response);
         //filterChain.doFilter(request, response);
     }
+
+    public Boolean isEmailConfirmationOk(String email, String code) {
+        if(email == null || email.equals(""))
+            return false;
+        if(code == null || code.equals(""))
+            return false;
+        ConfirmedEmail confirmedEmail = entityManager.find(ConfirmedEmail.class, email);
+        if(confirmedEmail == null)
+            return false;
+        if(!confirmedEmail.getVerificationCode().equals(code))
+            return false;
+        confirmedEmail.setVerified(true);
+        return true;
+    }
+
 
     private String getParam(HttpServletRequest httpServletRequest, String paramName) {
         try {

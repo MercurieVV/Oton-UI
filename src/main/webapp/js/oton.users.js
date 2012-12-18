@@ -1,7 +1,6 @@
-function showEmailConfirmationIfNeeded() {
-    var $confirmEmailModal = $("#confirmEmailModal");
-    initFadingModal($confirmEmailModal);
-    showModal($confirmEmailModal);
+function saveEmailConfirmation() {
+    saveParamFromUrlToCookie("email");
+    saveParamFromUrlToCookie("code");
 }
 
 function sendEmailConfirmation() {
@@ -211,4 +210,9 @@ function saveAuthToCookies($, login, password) {
     $.cookie.json = true;
     var auth = window.btoa(login + ":" + password);
     $.cookie('auth', auth);
+}
+function saveParamFromUrlToCookie(paramName) {
+    var param = $.url().param(paramName);
+    if (param != undefined)
+        $.cookie(paramName, param);
 }

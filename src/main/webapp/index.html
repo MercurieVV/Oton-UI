@@ -3,13 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Untitled Document</title>
+    <title>Oton</title>
 
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.22.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.timers.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/jqModal.js"></script>
+    <script type="text/javascript" src="js/jquery.purl.js"></script>
     <script type="text/javascript" src="js/handlebars-1.0.0.beta.6.js"></script>
     <!--<script type="text/javascript" src="js/chevron.js"></script>-->
     <script type="text/javascript" src="js/jsAnim.js"></script>
@@ -109,6 +110,18 @@
         <button id="loginButton" class="button orange glossy skew" type='button'>Login</button>
     </form>
 </div>
+<!--
+<div class="wholePageLayer fillDefaultBackground" id="confirmEmailModal" style="display: none">
+    <form action="" class="otonForm">
+        <h1>Please, confirm your email.</h1>
+        <label class="textShadow" for="emailField">Email</label><input id="emailField" class="shadow"/>
+
+        <div class="textShadow info input" style="display: none">Confirmation has been sent. Please check your email for instructions</div>
+        <div class="textShadow error input"></div>
+        <button id="sendConfirmationButton" class="button orange glossy skew" type='button'>Send Confirmation</button>
+    </form>
+</div>
+-->
 
 
 <div id="gamesArea">
@@ -227,8 +240,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        //$("#loginModal").find(".error").text("pp");
-        //var manager = new jsAnimManager();
+        //showEmailConfirmationIfNeeded();
 
         var template = $('#createFormTpl').html();
         template = Handlebars.compile(template);
@@ -295,9 +307,9 @@
 
 
         //login section
-        initScrollingModal("#loginModal");
-        var $loginButton = $("#loginFormButton");
         var $loginModal = $("#loginModal");
+        initScrollingModal($loginModal);
+        var $loginButton = $("#loginFormButton");
         $loginButton.click(function () {
             $.cookie('user', null);
             applyUserSettings();
@@ -311,9 +323,9 @@
         });
 
         //signin section
-        initScrollingModal("#signinModal");
-        var $showSigninFormButton = $("#showSignInFormButton");
         var $signinModal = $("#signinModal");
+        initScrollingModal($signinModal);
+        var $showSigninFormButton = $("#showSignInFormButton");
         $showSigninFormButton.click(function () {
             showModal($signinModal)
         });

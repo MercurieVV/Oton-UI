@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm email Oton</title>
+
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="css/oton.users.css"/>
+
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery.purl.js"></script>
+
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/oton.users.js"></script>
+</head>
+<body>
+<div class="wholePageLayer fillDefaultBackground" id="confirmEmailModal"">
+    <form action="" class="otonForm">
+        <h1>Please, confirm your email.</h1>
+        <label class="textShadow" for="emailField">Email</label><input id="emailField" class="shadow"/>
+
+        <div class="textShadow info input" style="display: none">Confirmation has been sent. Please check your email for instructions</div>
+        <div class="textShadow error input"></div>
+        <button id="sendConfirmationButton" class="button orange glossy skew" type='button'>Send Confirmation</button>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //email confirm section
+        var $confirmEmailModal = $("#confirmEmailModal");
+        $("#sendConfirmationButton").click(function(){
+            sendEmailConfirmation();
+        });
+    });
+</script>
+</body>
+</html>

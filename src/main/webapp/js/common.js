@@ -5,8 +5,7 @@
  * Time: 14:47
  * To change this template use File | Settings | File Templates.
  */
-function initScrollingModal(query) {
-    var $element = $(query);
+function initScrollingModal($element) {
     $element.css({top: "-100%", left: 0});
     $element.jqm({
         onShow: function (h) {

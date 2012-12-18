@@ -1,14 +1,28 @@
+function showEmailConfirmationIfNeeded() {
+    var $confirmEmailModal = $("#confirmEmailModal");
+    initFadingModal($confirmEmailModal);
+    showModal($confirmEmailModal);
+}
+
+function sendEmailConfirmation() {
+    var email = $("#emailField", "#confirmEmailModal").val();
+    post($, "/rest/unchecked/emailConfirmation?email=" + email, "", function (data, textStatus) {
+        $.cookie("confirmationEmail", email);
+        $(".info", "#confirmEmailModal").show();
+    });
+}
+
 function tryToLogin() {
     var login = $('#loginField').val();
     var password = $('#passwordField').val();
     loginUser($, login, password, function (jqXHR, exception) {
-        var $loginError = $("#loginModal").find(".error");
+        var $errorField = $("#loginModal").find(".error");
         if (jqXHR.status == 503)
-            $loginError.text("Cannot reach online service. Please check your internet connection or try to login later.");
+            $errorField.text("Cannot reach online service. Please check your internet connection or try to login later.");
         else if (jqXHR.status == 401 || jqXHR.status == 403)
-            $loginError.text("No user exist with this login and password");
+            $errorField.text("No user exist with this login and password");
         else
-            $loginError.text("Unknown server error.");
+            $errorField.text("Unknown server error.");
     });
     applyUserSettings();
 }
@@ -22,7 +36,7 @@ function tryToLogin() {
 
 
 function showAvatar(src) {
-    if(src == null)
+    if (src == null)
         src = 'images/empty.gif';
     $('#avatarUrl').val(src);
     $('.avatarHolder').html('<img src="' + src + '" />');
@@ -46,7 +60,7 @@ function showSigninOrSettingsForm() {
 }
 
 function setBackground(url) {
-    if(url == null)
+    if (url == null)
         url = 'images/Plain_Blak_Gray1.jpg';
     $('#backgroundUrl').val(url);
     $(".fillDefaultBackground").css('background-image', 'url(' + url + ')');
@@ -77,7 +91,7 @@ function initImageSelectionInUserSettings($modal, $showButton, onImageSelect) {
         showModal($modal);
     });
     $('img', $modal).click(function () {
-        if(onImageSelect != undefined) {
+        if (onImageSelect != undefined) {
             var src = $(this).attr("src");
             onImageSelect(src);
         }

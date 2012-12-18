@@ -1,16 +1,15 @@
 package oton.ui.services;
 
-import oton.service.entities.ConfirmedEmail;
+import oton.service.services.EmailConfirmationVerification;
 
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -23,13 +22,10 @@ import java.net.URLDecoder;
  * Date: 12.17.12
  * Time: 01:19
  */
-//@WebFilter("/*")
-    @Stateless
+@WebFilter("/*")
 public class EmailConfirmationFilter implements Filter {
-//    @Inject
-//    private EmailConfirmationVerification emailConfirmationVerification;
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Inject
+    private EmailConfirmationVerification emailConfirmationVerification;
     private FilterConfig filterConfig;
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
@@ -49,8 +45,7 @@ public class EmailConfirmationFilter implements Filter {
         }
         String email = getParam(httpServletRequest, "email");
         String code = getParam(httpServletRequest, "code");
-        entityManager.find(ConfirmedEmail.class, "o");
-        Boolean emailConfirmed = isEmailConfirmationOk(email, code);
+        Boolean emailConfirmed = emailConfirmationVerification.isEmailConfirmationOk(email, code);
         if (emailConfirmed) {
             filterChain.doFilter(request, response);
             return;
@@ -58,21 +53,6 @@ public class EmailConfirmationFilter implements Filter {
         httpServletRequest.getRequestDispatcher("/confirm_email_form.html").forward(request, response);
         //filterChain.doFilter(request, response);
     }
-
-    public Boolean isEmailConfirmationOk(String email, String code) {
-        if(email == null || email.equals(""))
-            return false;
-        if(code == null || code.equals(""))
-            return false;
-        ConfirmedEmail confirmedEmail = entityManager.find(ConfirmedEmail.class, email);
-        if(confirmedEmail == null)
-            return false;
-        if(!confirmedEmail.getVerificationCode().equals(code))
-            return false;
-        confirmedEmail.setVerified(true);
-        return true;
-    }
-
 
     private String getParam(HttpServletRequest httpServletRequest, String paramName) {
         try {

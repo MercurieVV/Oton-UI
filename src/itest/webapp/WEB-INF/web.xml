@@ -22,15 +22,4 @@
         <servlet-name>HttpProxy</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
-
-    <filter>
-        <filter-name>EmailConfirm</filter-name>
-        <filter-class>oton.ui.services.EmailConfirmationFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>EmailConfirm</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
 </web-app>

@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/common.css"/>
     <link rel="stylesheet" type="text/css" href="css/oton.users.css"/>
+    <link rel="stylesheet" type="text/css" href="css/buttons.css"/>
 
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
@@ -15,12 +16,16 @@
     <script type="text/javascript" src="js/oton.users.js"></script>
 </head>
 <body>
-<div class="wholePageLayer fillDefaultBackground" id="confirmEmailModal">
+<div class="wholePageLayer fillDefaultBackground" id="confirmEmailModal" style="text-align: center">
     <form action="" class="otonForm">
-        <h1>Please, confirm your email.</h1>
+        <h1 style="text-align: center">Please, confirm your email.</h1>
         <label class="textShadow" for="emailField">Email</label><input id="emailField" class="shadow"/>
 
-        <div class="textShadow info input" style="display: none">Confirmation has been sent. Please check your email for instructions</div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="textShadow info input" style="text-align: center; display: none">Confirmation has been sent. Please check your email for instructions</div>
         <div class="textShadow error input"></div>
         <button id="sendConfirmationButton" class="button orange glossy skew" type='button'>Send Confirmation</button>
     </form>

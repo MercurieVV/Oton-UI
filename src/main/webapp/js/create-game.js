@@ -18,7 +18,10 @@ function applyCreateNavigationRules() {
     $(".goBack").click(function(event){
         $("#createGamePaged").data('AnythingSlider').goBack();
         informUserOnInactivityRestart();
-    })
+    });
+    $("button[type=reset]", ".createGameForm").click(function(){
+        $("#createGamePaged").data('AnythingSlider').gotoPage(1);
+    });
 }
 
 function showCreateGamePanel() {

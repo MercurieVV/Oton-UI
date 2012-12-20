@@ -40,6 +40,7 @@
     </dependencies>
 
     <build>
+        <finalName>${ui.projectName}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -56,12 +57,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.1.1</version>
+                <version>2.2</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <webResources>
                         <resource>
-                            <directory>src/production/webapp</directory>
+                            <directory>src/main/webapp</directory>
+                            <filtering>true</filtering>
                         </resource>
                     </webResources>
                 </configuration>
@@ -109,7 +111,7 @@
                     </domain>
                     <components>
                         <component>
-                            <name>${glassfish.projectName}</name>
+                            <name>${ui.projectName}</name>
                             <artifact>${project.build.directory}/${project.build.finalName}.war</artifact>
                         </component>
                     </components>
@@ -141,32 +143,4 @@
             <url>https://maven.java.net/content/repositories/releases/</url>
         </repository>
     </repositories>
-
-    <profiles>
-        <profile>
-            <id>release</id>
-            <properties>
-                <glassfish.projectName>UI-1.0</glassfish.projectName>
-                <glassfish.user>admin</glassfish.user>
-                <glassfish.adminPassword>console55</glassfish.adminPassword>
-                <glassfish.domain.name>domain1</glassfish.domain.name>
-                <glassfish.domain.host>173.230.151.203</glassfish.domain.host>
-                <glassfish.domain.adminPort>4848</glassfish.domain.adminPort>
-                <glassfish.glassfishDirectory>/home/glassfish</glassfish.glassfishDirectory>
-            </properties>
-        </profile>
-        <profile>
-            <id>pre-release</id>
-            <properties>
-                <glassfish.projectName>UI-1.0-pre-release</glassfish.projectName>
-                <glassfish.user>admin</glassfish.user>
-                <glassfish.adminPassword>console55</glassfish.adminPassword>
-                <glassfish.domain.name>domain1</glassfish.domain.name>
-                <glassfish.domain.host>173.230.151.203</glassfish.domain.host>
-                <glassfish.domain.adminPort>4848</glassfish.domain.adminPort>
-                <glassfish.glassfishDirectory>c:\Program Files Portable\Programming\Java\glassfish3\
-                </glassfish.glassfishDirectory>
-            </properties>
-        </profile>
-    </profiles>
 </project>

@@ -3,7 +3,7 @@ html,body {
     margin: 0; padding: 0; border: 0;
 }
 body {
-    background-image: url(../images/Plain_Blak_Gray1.jpg);
+    background-image: url(../images/backgrounds/MONSTER1.jpg);
 }
 .shadow {
     box-shadow: 15px 15px 15px 2px rgba(80,80,80,0.2);
@@ -35,17 +35,21 @@ body {
 }
 
 input, label, .input {
-    height: 35px;
-    font-size:30px;
-    padding: 3px;
-    margin: 0.5%;
+	height: 35px;
+	font-size:18px;
+	margin: 0.5%;
+	padding-top: 3px;
+	padding-right: 3px;
+	padding-bottom: 3px;
+	padding-left: 8px;
 }
 input {
-    display: block;
-    background: #d0aa0d;
-    float:left;
-    border-radius: 10px;
-    border: 2px solid #80321d;
+	display: block;
+	float:left;
+	border-radius: 10px;
+	border: 0px none #80321d;
+	background-image: url(../images/search.png);
+	background-repeat: no-repeat;
 }
 label {
     display: inline-block;
@@ -71,9 +75,10 @@ label {
 }
 
 #searchBox {
-    position: absolute;
-    bottom: 3%;
-    right: 15%;
+	position: absolute;
+	bottom: 38px;
+	right: 151px;
+	width: 331px;
 }
 
 /*

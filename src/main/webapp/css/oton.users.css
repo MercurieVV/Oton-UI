@@ -1,7 +1,7 @@
 #avatarsSelection{
     display: none;
     position: absolute;
-    background:#778877;
+    background: url(../images/white_gradient.png);
     width: 40%;
     height: 55%;
     top: 20%;

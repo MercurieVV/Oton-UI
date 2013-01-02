@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Untitled Document</title>
+    <title>OTON</title>
 
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.22.custom.min.js"></script>
@@ -35,6 +35,12 @@
     <link rel="stylesheet" type="text/css" href="css/game-icons.css"/>
     <link rel="stylesheet" type="text/css" href="css/create-game.css"/>
     <link rel="stylesheet" type="text/css" href="css/oton.users.css"/>
+    <style type="text/css">
+<!--
+.style1 {font-size: 14px}
+.style2 {color: #333333}
+-->
+    </style>
 </head>
 
 
@@ -42,8 +48,8 @@
 
 <span id="userControlPanel">
 <span class="avatarHolder" style="display:inline-block; width: auto; height: 100%"></span>
-<button id="loginFormButton" class="button orange glass" type="button">Login</button>
-<button id="showSignInFormButton" class="button orange glassy">Register</button>
+<button type="button" class="button orange glass style1" id="loginFormButton">Login</button>
+<button class="button orange glassy style1" id="showSignInFormButton">Register</button>
 </span>
 
 <img id="logo" alt="Logo" src="images/oton_yellow_ab1.png"/>
@@ -102,8 +108,8 @@
     </ul>
 </div>
 <div id="createPanel" class="modalBox">
-    <button id="createButton" class="button orange glossy skew">CREATE</button>
-    <div id="createFormsPanel">
+    <button class="button orange glossy skew xs xs" id="createButton">CREATE</button>
+<div id="createFormsPanel">
         <form style="height: 100%">
             <ul id="createGamePaged" class="pagination">
             </ul>
@@ -112,9 +118,7 @@
 </div>
 <div id="tooltip" class="tooltip modalBox shadow" style="position:absolute; top: 20%; left: 30%; display: none;"></div>
 <div id="createGameModalBackground"></div>
-<input id="searchBox" placeholder="Search..." class="shadow"/>
-
-
+<input name="searchBox" class="shadow" id="searchBox" placeholder="Search..."/>
 <script id="createFormTpl" type="text/x-handlebars-template">
     {{#forms}}
     <li>
@@ -188,8 +192,8 @@
                         </button>
                         <button id="playCreatedButton" class="goForward button gray glossy" type="button">Play</button>
                         <button id="playCreatedWithFriendsButton" class="goForward button gray glossy" type="button">
-                            Play with
-                            friends
+                            Play With
+                            Friends
                         </button>
                     </td>
 
@@ -205,6 +209,7 @@
         </div>
     </li>
 </script>
+<span class="xs"></span><span class="xs"></span>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -320,35 +325,61 @@
         //$("#createButton").click();
     });
 </script>
-
+<span class="style2"></span><span class="style2"></span>
 <script type="text/javascript">
     data = {
         "forms": [
+		            {
+                "title": "1. Type In Your New Game Title.",
+                "description": "Please select you're game genre that will be compiled into the OTON game engine. Some genres may have sub-genre selection.",
+                id: 0,
+                "options": [
+                  
+                ]
+            }
+            ,
+{
+                "title": "2.	Set Game Rating.",
+                "description": "Please select the rating system content on your game. Control the level suitable gameplay content. Parents can set password settings in user account or unlock additional rating category. OTON will filter your request for gameplay.",
+                id: 0,
+                "options": [
+                    {id: 0, "text": "K-Kids (For Young Kids)"}
+                    ,
+                    {id: 1, "text": "S-Safe For Everyone"}
+                    ,
+                    {id: 2, "text": "S+10-Safe and suitable for all ages 10 and up"}
+                    ,
+                    {id: 3, "text": "T-Teen-Suitable for ages 13 and up"}
+                    ,
+                    {id: 4, "text": "M-Mature-Suitable for ages 17 and up"}
+                ]
+            }
+			,
             {
-                "title": "1.	Select Your Game Genre",
-                "description": "Please select you\\'re game genre that will be compiled into the OTON game engine. Some genres may have sub-genre selection.",
+                "title": "3.	Select Your Game Genre",
+                "description": "Please select you're game genre that will be compiled into the OTON game engine. Some genres may have sub-genre selection.",
                 id: 0,
                 "options": [
                     {id: 0, "text": "Action"}
                     ,
                     {id: 1, "text": "Shooter"}
                     ,
-                    {id: 2, "text": "Action adventure"}
+                    {id: 2, "text": "Action Adventure"}
                     ,
                     {id: 3, "text": "Adventure"}
                     ,
-                    {id: 4, "text": "Role playing"}
+                    {id: 4, "text": "Role Playing"}
                     ,
                     {id: 5, "text": "Strategy"}
                     ,
                     {id: 6, "text": "Other"}
                     ,
-                    {id: 7, "text": "Surprise me"}
+                    {id: 7, "text": "Surprise Me"}
                 ]
             }
             ,
             {
-                "title": "2.	Select Your Game Skills",
+                "title": "4.	Select Your Game Skills",
                 description: "Please select the difficult level for your new game. Some options may not be available for this software release.",
                 id: 1,
                 "options": [
@@ -358,33 +389,33 @@
                     ,
                     {id: 2, "text": "Hard"}
                     ,
-                    {id: 3, "text": "Otonomous hard"}
+                    {id: 3, "text": "Otonomous Hard"}
                     ,
-                    {id: 4, "text": "Default skill level"}
+                    {id: 4, "text": "Default Skill Level"}
                 ]
             }
             ,
             {
-                "title": "3.	Select your Game Level Preference",
+                "title": "5.	Select Your Game Level Preference",
                 description: "Please select either a demo, single, multi-level or complete full game level creation.",
                 id: 2,
                 "options": [
                     {id: 0, "text": "Demo"}
                     ,
-                    {id: 1, "text": "Multi levels"}
+                    {id: 1, "text": "Multi Levels"}
                     ,
-                    {id: 2, "text": "Full game"}
+                    {id: 2, "text": "Full Game"}
                     ,
-                    {id: 3, "text": "Default level"}
+                    {id: 3, "text": "Default Level"}
                 ]
             }
             ,
             {
-                "title": "4.	Customize Your Game",
+                "title": "6.	Customize Your Game",
                 description: "Please select custom features and gameplay for your game.",
                 id: 3,
                 "options": [
-                    {id: 0, "text": "Level style"}
+                    {id: 0, "text": "Level Style"}
                     ,
                     {id: 1, "text": "Music"}
                     ,
@@ -396,31 +427,33 @@
                     ,
                     {id: 5, "text": "Boss"}
                     ,
-                    {id: 6, "text": "Skip customize"}
+                    {id: 6, "text": "Skip Customize"}
                 ]
             }
             ,
             {
-                "title": "5.	Choose Your Platform",
+                "title": "7.	Choose Your Platform",
                 description: "Please select what device you want OTON to make your game playable on.",
                 id: 4,
                 "options": [
-                    {id: 0, "text": "Mobile app"}
+                    {id: 0, "text": "Mobile App"}
                     ,
                     {id: 1, "text": "Tablet"}
                     ,
                     {id: 2, "text": "PC/Linux"}
                     ,
-                    {id: 3, "text": "Tv"}
+                    {id: 3, "text": "TV"}
                     ,
                     {id: 4, "text": "Social"}
+					 ,
+                    {id: 5, "text": "OTON AyR"}
                     ,
-                    {id: 5, "text": "Skip"}
+                    {id: 6, "text": "Skip"}
                 ]
             }
             ,
             {
-                "title": "6.	Select Your Gameplay Device",
+                "title": "8.	Select Your Gameplay Device",
                 description: "Please select which device you wish to use during your gameplay for your new OTON created game.",
                 id: 5,
                 "options": [
@@ -434,37 +467,39 @@
                     ,
                     {id: 4, "text": "Combo"}
                     ,
-                    {id: 5, "text": "Default (gamepad)"}
+                    {id: 5, "text": "Default (Gamepad)"}
                 ]
             }
             ,
-            {
-                "title": "7.	Develop Your Game Community",
-                description: "Please select your community for your OTON game development. Some options may not be available for this software build.",
-                id: 6,
-                "options": [
-                    {id: 0, "text": "Co developer with community"}
-                    ,
-                    {id: 1, "text": "Co developer with friend"}
-                    ,
-                    {id: 2, "text": "Co developer with Oton network"}
-                    ,
-                    {id: 3, "text": "Develop with licenses content"}
-                    ,
-                    {id: 4, "text": "Crowd source"}
-                    ,
-                    {id: 5, "text": "Self development"}
-                ]
-            }
-            ,
-            {
-                "title": "8.	Select Your Gameplay Objective",
+			  {
+                "title": "9. Select Your Gameplay Objective",
                 description: "Please select what type of challenge you prefer for your new created OTON game.",
                 id: 7,
                 "options": [
-                    {id: 0, "text": "Goal Base Game"}
+                    {id: 0, "text": "Points"}
                     ,
-                    {id: 1, "text": "Time Base Game"}
+                    {id: 1, "text": "Coins"}
+					 ,
+                    {id: 2, "text": "Enemies Killed"}
+                ]
+            }
+			,
+            {
+                "title": "10.	Develop Your Game Community",
+                description: "Please select your community for your OTON game development. Some options may not be available for this software build.",
+                id: 6,
+                "options": [
+                    {id: 0, "text": "Co-Developer With Community"}
+                    ,
+                    {id: 1, "text": "Co-Developer With Friend"}
+                    ,
+                    {id: 2, "text": "Co-Developer With OTON Network"}
+                    ,
+                    {id: 3, "text": "Develop With Licenses Content"}
+                    ,
+                    {id: 4, "text": "Crowd Source"}
+                    ,
+                    {id: 5, "text": "Self Development"}
                 ]
             }
 

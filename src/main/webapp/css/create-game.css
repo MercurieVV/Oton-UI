@@ -10,22 +10,22 @@
 #createFormsPanel {
     width: 90%;
     height: 95%;
-    background-image: url(../images/Plain_Blak_Gray1.jpg);
-    border: 2px solid #309000;
+    background-image: url(../images/backgrounds/white_gradient.png);
+    border: 2px solid #FFFFFF;
     border-radius: 5px;
 }
 
 #createButton {
-    -moz-transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-    position: absolute;
-    top: 45%;
-    left: 87%;
-    margin-top: auto;
-    margin-bottom: auto;
+	-moz-transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
+	position: absolute;
+	top: 45%;
+	left: 88%;
+	margin-top: auto;
+	margin-bottom: auto;
 }
 
 #createGamePaged li div table {
@@ -42,9 +42,9 @@
     left: 50%;
 }
 .createGameOptionLine label {
-    border: 2px solid #80321d;
+    border: 0px solid #80321d;
     /*border-color:;*/
-    background: #d0aa0d;
+    background:url(../images/gametxt_bg.png) no-repeat;
     padding: 5px;
     margin: 5px auto;
     border-radius: 5px;

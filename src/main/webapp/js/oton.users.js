@@ -1,16 +1,29 @@
+function saveEmailConfirmation() {
+    saveParamFromUrlToCookie("email");
+    saveParamFromUrlToCookie("code");
+}
+
+function sendEmailConfirmation() {
+    var email = $("#emailField", "#confirmEmailModal").val();
+    post($, "/rest/unchecked/emailConfirmation?email=" + email, "", function (data, textStatus) {
+        $.cookie("confirmationEmail", email);
+        $(".info", "#confirmEmailModal").show();
+    });
+}
+
 function tryToLogin() {
     var login = $('#loginField').val();
     var password = $('#passwordField').val();
     loginUser($, login, password, function (jqXHR, exception) {
-        var $loginError = $("#loginModal").find(".error");
+        var $errorField = $("#loginModal").find(".error");
         if (jqXHR.status == 503)
-            $loginError.text("Cannot reach online service. Please check your internet connection or try to login later.");
+            $errorField.text("Cannot reach online service. Please check your internet connection or try to login later.");
         else if (jqXHR.status == 401 || jqXHR.status == 403)
-            $loginError.text("No user exist with this login and password");
+            $errorField.text("No user exist with this login and password");
         else
-            $loginError.text("Unknown server error.");
+            $errorField.text("Unknown server error.");
     });
-    processCurrentUserChange();
+    applyUserSettings();
 }
 /**
  * Created with JetBrains WebStorm.
@@ -22,6 +35,8 @@ function tryToLogin() {
 
 
 function showAvatar(src) {
+    if (src == null)
+        src = 'images/empty.gif';
     $('#avatarUrl').val(src);
     $('.avatarHolder').html('<img src="' + src + '" />');
 }
@@ -43,60 +58,44 @@ function showSigninOrSettingsForm() {
     }
 }
 
-function processCurrentUserChange() {
+function setBackground(url) {
+    if (url == null)
+        url = 'images/Plain_Blak_Gray1.jpg';
+    $('#backgroundUrl').val(url);
+    $(".fillDefaultBackground").css('background-image', 'url(' + url + ')');
+}
+function applyUserSettings() {
     showSigninOrSettingsForm();
     $.cookie.json = true;
     var user = $.cookie('user');
     var isUserLoggedIn = user != null;
-    if(isUserLoggedIn)
-        showAvatar(user.avatarUrl);
-    else
-        hideAvatar();
     var $loginButton = $("#loginFormButton");
     var $signInButton = $("#showSignInFormButton");
     if (isUserLoggedIn) {
+        showAvatar(user.avatarUrl);
         $loginButton.text("Log out ");
         $signInButton.text("Settings ");
+        setBackground(user.backgroundUrl);
     } else {
+        hideAvatar();
         $loginButton.text("Log in ");
         $signInButton.text("Register");
+        setBackground('../images/Plain_Blak_Gray1.jpg');
     }
 }
 
-function hideAvatarsOnClickOutside(element, button) {
-    $('html').click(function () {
-        if (element.is(':hidden')) {
-            return;
+function initImageSelectionInUserSettings($modal, $showButton, onImageSelect) {
+    initFadingModal($modal);
+    $showButton.click(function () {
+        showModal($modal);
+    });
+    $('img', $modal).click(function () {
+        if (onImageSelect != undefined) {
+            var src = $(this).attr("src");
+            onImageSelect(src);
         }
-        element.hide();
+        hideModal($modal);
     });
-    element.click(function (event) {
-        event.stopPropagation();
-    });
-    button.click(function (event) {
-        if (element.is(':visible'))
-            element.hide();
-        else
-            element.show();
-        event.stopPropagation();
-    });
-}
-
-function showHideAvatars() {
-    var $showAvatarsButton = $("#showAvatarsButton");
-    initFadingModal('#avatarsSelection');
-    $showAvatarsButton.click(function(){
-        showModal('#avatarsSelection');
-    });
-    $('img', '#avatarsSelection').click(function () {
-        var src = $(this).attr("src");
-        showAvatar(src);
-        hideModal("#avatarsSelection");
-    });
-/*
-    var $avatarsSelectionDiv = $('#avatarsSelection');
-    hideAvatarsOnClickOutside($avatarsSelectionDiv, $('#showAvatarsButton'));
-*/
 }
 
 function saveUser() {
@@ -131,11 +130,11 @@ function saveUserSettings(user) {
     authPost($, 'rest/user', user,
             function (data, text) {
                 $.cookie('user', data);
-                processCurrentUserChange();
+                applyUserSettings();
                 if (user.password != "") {
                     loginUser($, user.userName, user.password);
                 }
-                hideModal("#signinModal");
+                hideModal($("#signinModal"));
             }
     );
 }
@@ -145,8 +144,8 @@ function loginUser($, login, password, errorCallback) {
     authGet($, '/rest/unchecked/user?userName=' + login + '&password=' + password,
             function (data, textStatus) {
                 $.cookie('user', data);
-                hideModal("#loginModal");
-                processCurrentUserChange();
+                hideModal($("#loginModal"));
+                applyUserSettings();
             }
             , errorCallback);
 }
@@ -211,4 +210,9 @@ function saveAuthToCookies($, login, password) {
     $.cookie.json = true;
     var auth = window.btoa(login + ":" + password);
     $.cookie('auth', auth);
+}
+function saveParamFromUrlToCookie(paramName) {
+    var param = $.url().param(paramName);
+    if (param != undefined)
+        $.cookie(paramName, param);
 }

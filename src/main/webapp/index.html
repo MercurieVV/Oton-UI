@@ -10,6 +10,7 @@
     <script type="text/javascript" src="js/jquery.timers.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/jqModal.js"></script>
+    <script type="text/javascript" src="js/jquery.purl.js"></script>
     <script type="text/javascript" src="js/handlebars-1.0.0.beta.6.js"></script>
     <!--<script type="text/javascript" src="js/chevron.js"></script>-->
     <script type="text/javascript" src="js/jsAnim.js"></script>
@@ -44,15 +45,15 @@
 </head>
 
 
-<body>
+<body class="fillDefaultBackground">
 
 <span id="userControlPanel">
 <span class="avatarHolder" style="display:inline-block; width: auto; height: 100%"></span>
-<button type="button" class="button orange glass style1" id="loginFormButton">Login</button>
-<button class="button orange glassy style1" id="showSignInFormButton">Register</button>
+<button id="loginFormButton" class="button orange glass style1" type="button" onclick="playSound('Ting-Popup_Pixels-OTON_extra.mp3');">Login</button>
+<button id="showSignInFormButton" class="button orange glassy style1" onclick="playSound('Ting-Popup_Pixels-OTON_extra.mp3');">Register</button>
 </span>
 
-<img id="logo" alt="Logo" src="images/oton_yellow_ab1.png"/>
+<img id="logo" alt="Logo" src="images/oton_yellow_ab1_animated-tr.gif"/>
 
 <div class="wholePageLayer fillDefaultBackground" id="signinModal" style="display: none">
     <form action="" class="otonForm" id="signInForm">
@@ -65,21 +66,36 @@
                                                                                           class="shadow"/>
         <label class="textShadow" for="showAvatarsButton">Avatar</label>
         <span class="input shadow avatarHolder" style="display: block; float: left; width: 25%; height: 125px"></span>
-        <a id="showAvatarsButton" href="#"
-           class="input textShadow"
-           style="display: block; float: left">change</a>
+        <a id="showAvatarsButton" href="#" class="input textShadow" style="display: block; float: left">change</a>
         <input id="avatarUrl" name="avatarUrl" type="hidden"/>
+        <label class="textShadow" for="showBackgroundsButton">Background</label>
+        <a id="showBackgroundsButton" href="#" class="input textShadow" style="display: block; float: left">change</a>
+        <input id="backgroundUrl" name="backgroundUrl" type="hidden"/>
 
         <div class="textShadow error input"></div>
         <button id="signinCancelButton" class="button orange glossy skew" type='button'>Cancel</button>
         <button id="signinButton" class="button orange glossy skew shadow" type='button'>Register</button>
     </form>
 </div>
-<div id="avatarsSelection" class="jqmAbove">
+<div id="avatarsSelection" class="jqmAbove selectImgInUserSettings">
     <table>
         <tr>
             <td height="100%"><img src="images/avatars/game_box_edit.png" alt=""></td>
             <td><img src="images/avatars/Game_controller_avatar.jpg" alt=""></td>
+            <td><img src="images/avatars/goldcoin.png" alt=""></td>
+        </tr>
+        <tr>
+            <td height="100%"><img src="images/avatars/metalic_robot.png" alt=""></td>
+            <td><img src="images/avatars/Qlogo.png" alt=""></td>
+            <td><img src="images/avatars/yumtyme_clock.png" alt=""></td>
+        </tr>
+    </table>
+</div>
+<div id="backgroundSelection" class="jqmAbove selectImgInUserSettings">
+    <table>
+        <tr>
+            <td height="100%"><img src="images/background.png" alt=""></td>
+            <td><img src="images/Plain_Blak_Gray1.jpg" alt=""></td>
             <td><img src="images/avatars/goldcoin.png" alt=""></td>
         </tr>
         <tr>
@@ -100,6 +116,18 @@
         <button id="loginButton" class="button orange glossy skew" type='button'>Login</button>
     </form>
 </div>
+<!--
+<div class="wholePageLayer fillDefaultBackground" id="confirmEmailModal" style="display: none">
+    <form action="" class="otonForm">
+        <h1>Please, confirm your email.</h1>
+        <label class="textShadow" for="emailField">Email</label><input id="emailField" class="shadow"/>
+
+        <div class="textShadow info input" style="display: none">Confirmation has been sent. Please check your email for instructions</div>
+        <div class="textShadow error input"></div>
+        <button id="sendConfirmationButton" class="button orange glossy skew" type='button'>Send Confirmation</button>
+    </form>
+</div>
+-->
 
 
 <div id="gamesArea">
@@ -108,8 +136,12 @@
     </ul>
 </div>
 <div id="createPanel" class="modalBox">
-    <button class="button orange glossy skew xs xs" id="createButton">CREATE</button>
+    <button id="createButton" class="button orange glossy skew xs xs" onclick="playSound('Electrical_Sweep-Sweeper-OTON_createGame.mp3')">CREATE</button>
 <div id="createFormsPanel">
+        <div id="informOnInactivity">Do you need help with form?<br />
+            Please click on <b>"?"</b> mark for help or contact Engeniux staff.<br />
+            Thanks.
+        </div>
         <form style="height: 100%">
             <ul id="createGamePaged" class="pagination">
             </ul>
@@ -119,6 +151,7 @@
 <div id="tooltip" class="tooltip modalBox shadow" style="position:absolute; top: 20%; left: 30%; display: none;"></div>
 <div id="createGameModalBackground"></div>
 <input name="searchBox" class="shadow" id="searchBox" placeholder="Search..."/>
+<audio id="sound" />
 <script id="createFormTpl" type="text/x-handlebars-template">
     {{#forms}}
     <li>
@@ -126,7 +159,11 @@
             <table>
                 <tr>
                     <td>
-                        <a href="#" class="goBack"><img src="images/Arrow%20Right%203.png"></a>
+                        <table style="height:100%">
+                            <tr><td height="33%">&nbsp;</td></tr>
+                            <tr><td height="33%"><a href="#" class="goBack"><img src="images/Arrow%20Right%203.png"></a></td></tr>
+                            <tr><td height="33%"><button type="reset" class="button orange">Reset</button></td></tr>
+                        </table>
                     </td>
                     <td width="100%">
                         <h1>
@@ -136,7 +173,7 @@
                         {{#options}}
                         <div class="createGameOptionLine">
                             <label for="option-{{id}}" class="shadow">{{text}}
-                                <input type="radio" id="option-{{id}}" value="option-{{id}}" name="form-{{../id}}"/>
+                                <input type="radio" id="option-{{id}}" value="option-{{id}}" name="form-{{../id}}" onclick="playSound('Button_Click_On-SoundBible.com-OTON.mp3')"/>
                             </label>
                         </div>
                         {{/options}}
@@ -213,14 +250,13 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        //$("#loginModal").find(".error").text("pp");
-        //var manager = new jsAnimManager();
+        //showEmailConfirmationIfNeeded();
 
         var template = $('#createFormTpl').html();
         template = Handlebars.compile(template);
         html = template(data);
         $(html).appendTo("#createGamePaged");
-        processCurrentUserChange();
+        applyUserSettings();
 
 
         //Create game section
@@ -232,6 +268,7 @@
                 hideCreateGamePanel();
             }
         });
+        $(".createGameOptionLine input").change(function(){informUserOnInactivityStop()});
 
         $("#createGameButton").click(function (event) {
             $('#createGamePaged').data("AnythingSlider").goForward();
@@ -244,7 +281,14 @@
             buildNavigation: false,
             buildArrows: false,
             stopAtEnd: true,
-            theme: "forms"
+            theme: "forms",
+            onSlideBegin: function(){
+                slider = $('#createGamePaged').data('AnythingSlider');
+                if (slider.currentPage < slider.pages - 3)
+                    playSound("Waxing_Eyebrows_OTON_Tab_select.mp3");
+                if(slider.currentPage == slider.pages - 1)
+                    playSound("Robot_blip_2-Marianne_Gagnon-OTON_extra.mp3");
+            }
         });
         applyCreateNavigationRules();
 
@@ -259,6 +303,9 @@
             stopAtEnd: true,
             onSlideComplete: function (slider) {
                 gameIcons.updateSliderCurrentPageNr(slider);
+            },
+            onSlideBegin: function(){
+                playSound("Thrown_Shuriken-Cody_Mahan-OTON_Form.mp3");
             }
         });
 
@@ -280,34 +327,39 @@
 
 
         //login section
-        initScrollingModal("#loginModal");
+        var $loginModal = $("#loginModal");
+        initScrollingModal($loginModal);
         var $loginButton = $("#loginFormButton");
         $loginButton.click(function () {
             $.cookie('user', null);
-            processCurrentUserChange();
-            showModal("#loginModal")
+            applyUserSettings();
+            showModal($loginModal)
         });
         $("#loginCancelButton").click(function () {
-            hideModal("#loginModal");
+            hideModal($loginModal);
         });
         $('#loginButton').click(function () {
             tryToLogin();
         });
 
         //signin section
-        initScrollingModal("#signinModal");
+        var $signinModal = $("#signinModal");
+        initScrollingModal($signinModal);
         var $showSigninFormButton = $("#showSignInFormButton");
         $showSigninFormButton.click(function () {
-            showModal("#signinModal")
+            showModal($signinModal)
         });
         $("#signinCancelButton").click(function () {
-            hideModal("#signinModal");
+            hideModal($signinModal);
         });
         var $signinButton = $('#signinButton');
         $signinButton.click(function () {
             saveUser();
         });
-        showHideAvatars();
+        initImageSelectionInUserSettings($('#avatarsSelection'), $("#showAvatarsButton"), showAvatar);
+        initImageSelectionInUserSettings($('#backgroundSelection'), $('#showBackgroundsButton'), setBackground);
+
+        saveEmailConfirmation();
 
         //finalizing preparing
         $("#createFormsPanel").hide();

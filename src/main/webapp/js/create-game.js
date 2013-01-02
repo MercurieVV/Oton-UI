@@ -13,10 +13,15 @@ function CreateGame() {
 function applyCreateNavigationRules() {
     $(".goForward").click(function(event){
         $("#createGamePaged").data('AnythingSlider').goForward();
+        informUserOnInactivityRestart();
     });
     $(".goBack").click(function(event){
         $("#createGamePaged").data('AnythingSlider').goBack();
-    })
+        informUserOnInactivityRestart();
+    });
+    $("button[type=reset]", ".createGameForm").click(function(){
+        $("#createGamePaged").data('AnythingSlider').gotoPage(1);
+    });
 }
 
 function showCreateGamePanel() {
@@ -27,6 +32,7 @@ function showCreateGamePanel() {
     var $outerModal = $('#createGameModalBackground');
     $outerModal.fadeIn(1000);
     $outerModal.fadeTo("slow", 0.8);
+    informUserOnInactivityStart();
 }
 function hideCreateGamePanel() {
     var $createPanel = $("#createPanel");
@@ -34,4 +40,24 @@ function hideCreateGamePanel() {
         $("#createFormsPanel").hide();
         $('#createGameModalBackground').hide();
     });
+}
+
+function informUserOnInactivity(){
+    if($('#createGamePaged').data('AnythingSlider').currentPage > data.forms.length)
+        return;
+    var $informOnInactivity = $("#informOnInactivity");
+    $informOnInactivity.fadeIn(1000).delay(15000).fadeOut(1000);
+}
+function informUserOnInactivityStart(){
+    $("#createPanel").oneTime(3000, "userInactivityAlert", function(){
+        informUserOnInactivity();
+    });
+}
+function informUserOnInactivityStop(){
+    $("#createPanel").stopTime("userInactivityAlert");
+    $("#informOnInactivity").hide();
+}
+function informUserOnInactivityRestart(){
+    informUserOnInactivityStop();
+    informUserOnInactivityStart();
 }

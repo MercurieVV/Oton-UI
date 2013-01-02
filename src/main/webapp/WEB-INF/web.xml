@@ -11,30 +11,15 @@
         <servlet-class>com.jsos.httpproxy.HttpProxyServlet</servlet-class>
         <init-param>
             <param-name>host</param-name>
-            <param-value>http://173.230.151.203:8080/Service-1.0/rest/</param-value>
+            <param-value>${rest.rootUrl}</param-value>
         </init-param>
         <init-param>
             <param-name>uri</param-name>
             <param-value>/rest*</param-value>
         </init-param>
-
-        <!--
-                <init-param>
-                    <param-name>proxyHost</param-name>
-                    <param-value>10.114.7.95</param-value>
-                </init-param>
-
-                <init-param>
-                    <param-name>proxyPort</param-name>
-                    <param-value>80</param-value>
-                </init-param>
-        -->
     </servlet>
-
     <servlet-mapping>
         <servlet-name>HttpProxy</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
-
-
 </web-app>

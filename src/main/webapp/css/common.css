@@ -2,8 +2,19 @@ html,body {
     height:100%;
     margin: 0; padding: 0; border: 0;
 }
-body {
+.fillDefaultBackground{
     background-image: url(../images/backgrounds/MONSTER1.jpg);
+}
+.table{
+    display: inline-table;
+    float: left;
+}
+.tableCell{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 100%;
+    width: 100%;
 }
 .shadow {
     box-shadow: 15px 15px 15px 2px rgba(80,80,80,0.2);
@@ -22,10 +33,6 @@ body {
     height: 100%;
     margin: 0; padding: 0; border: 0;
     /*z-index: 10000;*/
-}
-
-.fillDefaultBackground{
-    background-image: url(../images/Plain_Blak_Gray1.jpg);
 }
 
 #logo {

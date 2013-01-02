@@ -1,18 +1,26 @@
 #gamesArea {
     width: 90%;
-    height: 80%;
-    top: 3%;
+    height: 85%;
+    top: 7%;
     left: 7%;
     position: absolute;
 }
 
-
+#gamesSliderPaged li .table {
+    height: 50%;
+    width: 25%;
+}
 #gamesSliderPaged li img {
-    margin:  -webkit-calc(12% - 80px); /*1/4 of container space - image space*/
-    margin:  -moz-calc(12% - 80px); /*1/4 of container space - image space*/
     width: 160px;
     height: 160px;
 }
+
+#gamesSliderPaged li img:hover{
+    width: 170px;
+    height: 170px;
+    /*-webkit-transform: rotate(5deg); */
+}
+
 
 #currentGamesPageNumber{
     position: absolute;

@@ -5,8 +5,7 @@
  * Time: 14:47
  * To change this template use File | Settings | File Templates.
  */
-function initScrollingModal(query) {
-    var $element = $(query);
+function initScrollingModal($element) {
     $element.css({top: "-100%", left: 0});
     $element.jqm({
         onShow: function (h) {
@@ -25,18 +24,18 @@ function initScrollingModal(query) {
         modal: true
     });
 }
-function initFadingModal(query) {
-    var $element = $(query);
+function initFadingModal($element) {
     return $element.jqm({modal:true});
 }
-function showModal(query) {
-    $(query).jqmShow()
+function showModal($element) {
+    $element.jqmShow()
 }
-function hideModal(query) {
-    $(query).jqmHide()
+function hideModal($element) {
+    $element.jqmHide()
 }
 
 function showHelp(text) {
+    playSound("Click2-Sebastian-OTON_Question_mark.mp3");
     var $tooltip = $("#tooltip");
     if (!$tooltip.is(':hidden')) {
         return;
@@ -88,3 +87,10 @@ $.fn.serializeObject = function () {
     });
     return o;
 };
+
+function playSound(fileName){
+    var $sound = $("#sound");
+    $sound.html('<source src="sounds/' + fileName + '" />');
+    $("#sound")[0].play();
+    //$("#soundsSet")[nr].play();
+}

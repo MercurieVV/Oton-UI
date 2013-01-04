@@ -60,7 +60,7 @@ function showSigninOrSettingsForm() {
 
 function setBackground(url) {
     if (url == null)
-        url = 'images/Plain_Blak_Gray1.jpg';
+        url = 'images/backgrounds/MONSTER1.jpg';
     $('#backgroundUrl').val(url);
     $(".fillDefaultBackground").css('background-image', 'url(' + url + ')');
 }
@@ -80,7 +80,7 @@ function applyUserSettings() {
         hideAvatar();
         $loginButton.text("Log in ");
         $signInButton.text("Register");
-        setBackground('../images/Plain_Blak_Gray1.jpg');
+        setBackground('images/backgrounds/MONSTER1.jpg');
     }
 }
 

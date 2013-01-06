@@ -56,6 +56,7 @@ input {
 	border-radius: 10px;
 	border: 0px none #80321d;
 	background-image: url(../images/search.png);
+    background-size: 100%;
 	background-repeat: no-repeat;
 }
 label {

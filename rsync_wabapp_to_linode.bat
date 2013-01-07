@@ -1,0 +1,1 @@
+rsync -avz --exclude 'WEB-INF' /cygdrive/c/Users/dell/ProgrammingProjects/Freelance/UbuntuGame/UI/src/main/webapp/ glassfish@173.230.151.203:/home/glassfish/glassfish/domains/domain1/applications/UI-1.0-pre-release/

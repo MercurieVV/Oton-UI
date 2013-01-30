@@ -5,7 +5,7 @@
  * Time: 14:47
  * To change this template use File | Settings | File Templates.
  */
-function initScrollingModal($element) {
+function initScrollingFromTopModal($element) {
     $element.css({top: "-100%", left: 0});
     $element.jqm({
         onShow: function (h) {
@@ -13,15 +13,28 @@ function initScrollingModal($element) {
             h.w.transition({ y: '100%' });
         },
         onHide: function (h) {
-            //$element.fadeTo("slow", 0);
-            //if(h.o) h.o.remove();
             h.w.show();
             h.w.transition({ y: '0%' }, function () {
                 if (h.o) h.o.remove();
             });
-            //h.w.fadeOut("slow");
         },
         modal: true
+    });
+}
+function initScrollingFromBottomModal($element) {
+    $element.css({top: "100%", left: 0});
+    $element.jqm({
+        onShow: function (h) {
+            $element.show();
+            $element.transition({ y: '-100%' });
+        },
+        onHide: function (h) {
+            //h.w.show();
+            $element.transition({ y: '0%' }, function () {
+                $element.hide();
+                if (h.o) h.o.remove();
+            });
+        }
     });
 }
 function initFadingModal($element) {

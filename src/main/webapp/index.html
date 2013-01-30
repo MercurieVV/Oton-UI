@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>OTON</title>
 
-    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.22.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.timers.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
@@ -37,10 +37,16 @@
     <link rel="stylesheet" type="text/css" href="css/create-game.css"/>
     <link rel="stylesheet" type="text/css" href="css/oton.users.css"/>
     <style type="text/css">
-<!--
-.style1 {font-size: 14px}
-.style2 {color: #333333}
--->
+        <!--
+        .style1 {
+            font-size: 14px
+        }
+
+        .style2 {
+            color: #333333
+        }
+
+        -->
     </style>
 </head>
 
@@ -49,11 +55,28 @@
 
 <span id="userControlPanel">
 <span class="avatarHolder" style="display:inline-block; width: auto; height: 100%"></span>
-<button id="loginFormButton" class="button orange glass style1" type="button" onclick="playSound('Ting-Popup_Pixels-OTON_extra.mp3');">Login</button>
-<button id="showSignInFormButton" class="button orange glassy style1" onclick="playSound('Ting-Popup_Pixels-OTON_extra.mp3');">Register</button>
+<button id="loginFormButton" class="button orange glass style1" type="button"
+        onclick="playSound('Ting-Popup_Pixels-OTON_extra.mp3');">Login
+</button>
+<button id="showSignInFormButton" class="button orange glassy style1"
+        onclick="playSound('Ting-Popup_Pixels-OTON_extra.mp3');">Register
+</button>
 </span>
 
 <img id="logo" alt="Logo" src="images/oton_yellow_ab1_animated-tr.gif"/>
+
+<div class="wholePageLayer fillDefaultBackground" id="storeModal" style="display: none">
+    STORE
+    <button type="button" name="closeModal">Cancel</button>
+</div>
+<div class="wholePageLayer fillDefaultBackground" id="communityModal" style="display: none">
+    COMMUNITY
+    <button type="button" name="closeModal">Cancel</button>
+</div>
+<div class="wholePageLayer fillDefaultBackground" id="newsModal" style="display: none">
+    NEWS
+    <button type="button" name="closeModal">Cancel</button>
+</div>
 
 <div class="wholePageLayer fillDefaultBackground" id="signinModal" style="display: none">
     <form action="" class="otonForm" id="signInForm">
@@ -122,14 +145,14 @@
     <ul id="gamesSliderPaged" class="pagination">
     </ul>
 </div>
-<div id="createPanel" class="modalBox">
-    <button id="createButton" class="button orange glossy skew xs xs" onclick="playSound('Electrical_Sweep-Sweeper-OTON_createGame.mp3')">CREATE</button>
-<div id="createFormsPanel">
-        <div id="informOnInactivity">Do you need help with form?<br />
-            Please click on <b>"?"</b> mark for help or contact Engeniux staff.<br />
+<div id="createPanel" class="modalBox" style="display: none">
+    <button id="createButton" class="button orange glossy skew xs xs">CREATE</button>
+    <div id="createFormsPanel">
+        <div id="informOnInactivity">Do you need help with form?<br/>
+            Please click on <b>"?"</b> mark for help or contact Engeniux staff.<br/>
             Thanks.
         </div>
-        <form style="height: 100%">
+        <form id="createGameForm" style="height: 100%">
             <ul id="createGamePaged" class="pagination">
             </ul>
         </form>
@@ -137,14 +160,23 @@
 </div>
 <div id="tooltip" class="tooltip modalBox shadow" style="position:absolute; top: 20%; left: 30%; display: none;"></div>
 <div id="createGameModalBackground"></div>
-<input name="searchBox" class="shadow" id="searchBox" placeholder="Search..."/>
-<audio id="sound" />
+
+<div id="bottomButtons" class="textShadow">
+    <span id="storeButton"><img src="images/STORE_ICON.png" alt="store">STORE</span>
+    <span id="communityButton"><img src="images/COMMUNITY.png" alt="community">COMMUNITY</span>
+    <span id="newsButton"><img src="images/NEWS.png" alt="news">NEWS</span>
+</div>
+
+<div id="searchArea">
+    <img src="images/search_icon2.png" alt="search">
+    <input name="searchBox" class="shadow" id="searchBox" placeholder="Search..."/>
+</div>
+<audio id="sound"/>
 <span class="xs"></span><span class="xs"></span>
+
 
 <script type="text/javascript">
     $(document).ready(function () {
-        //showEmailConfirmationIfNeeded();
-
         var template = $('#createFormTpl').html();
         template = Handlebars.compile(template);
         html = template(data);
@@ -159,9 +191,13 @@
                 showCreateGamePanel();
             } else {
                 hideCreateGamePanel();
+                $("#createGameForm")[0].reset();
+                $("#createGamePaged").data('AnythingSlider').gotoPage(1);
             }
         });
-        $(".createGameOptionLine input").change(function(){informUserOnInactivityStop()});
+        $(".createGameOptionLine input").change(function () {
+            informUserOnInactivityStop()
+        });
 
         $("#createGameButton").click(function (event) {
             $('#createGamePaged').data("AnythingSlider").goForward();
@@ -175,11 +211,11 @@
             buildArrows: false,
             stopAtEnd: true,
             theme: "forms",
-            onSlideBegin: function(){
+            onSlideBegin: function () {
                 slider = $('#createGamePaged').data('AnythingSlider');
                 if (slider.currentPage < slider.pages - 3)
                     playSound("Waxing_Eyebrows_OTON_Tab_select.mp3");
-                if(slider.currentPage == slider.pages - 1)
+                if (slider.currentPage == slider.pages - 1)
                     playSound("Robot_blip_2-Marianne_Gagnon-OTON_extra.mp3");
             }
         });
@@ -197,7 +233,7 @@
             onSlideComplete: function (slider) {
                 gameIcons.updateSliderCurrentPageNr(slider);
             },
-            onSlideBegin: function(){
+            onSlideBegin: function () {
                 playSound("Thrown_Shuriken-Cody_Mahan-OTON_Form.mp3");
             }
         });
@@ -221,7 +257,7 @@
 
         //login section
         var $loginModal = $("#loginModal");
-        initScrollingModal($loginModal);
+        initScrollingFromTopModal($loginModal);
         var $loginButton = $("#loginFormButton");
         $loginButton.click(function () {
             $.cookie('user', null);
@@ -237,7 +273,7 @@
 
         //signin section
         var $signinModal = $("#signinModal");
-        initScrollingModal($signinModal);
+        initScrollingFromTopModal($signinModal);
         var $showSigninFormButton = $("#showSignInFormButton");
         $showSigninFormButton.click(function () {
             showModal($signinModal)
@@ -254,6 +290,28 @@
 
         saveEmailConfirmation();
 
+        //bottom buttons
+        var $storeModal = $("#storeModal");
+        initScrollingFromBottomModal($storeModal);
+        $("#storeButton").click(function () {
+            showModal($storeModal)
+        });
+        $("[name = closeModal]", $storeModal).click(function () {
+            hideModal($storeModal)
+        });
+
+        var $communityModal = $("#communityModal");
+        initScrollingFromBottomModal($communityModal);
+        $("#communityButton").click(function () {
+            showModal($communityModal)
+        });
+        var $newsModal = $("#newsModal");
+        initScrollingFromBottomModal($newsModal);
+        $("#newsButton").click(function () {
+            showModal($newsModal)
+        });
+
+
         //finalizing preparing
         $("#createFormsPanel").hide();
         /*
@@ -266,7 +324,10 @@
 
         //testing
         gameIcons.addGame();
-        $(gameIcons).everyTime(1000, "", gameIcons.addGame);//todo: probably it isn't correct
+        gameIcons.addGame();
+        gameIcons.addGame();
+        gameIcons.addGame();
+        $(gameIcons).everyTime(40000, "", gameIcons.addGame);//todo: probably it isn't correct
         //$("#createButton").click();
     });
 </script>
@@ -279,9 +340,16 @@
                 <tr>
                     <td>
                         <table style="height:100%">
-                            <tr><td height="33%">&nbsp;</td></tr>
-                            <tr><td height="33%"><a href="#" class="goBack"><img src="images/Arrow%20Right%203.png"></a></td></tr>
-                            <tr><td height="33%"><button type="reset" class="button orange">Reset</button></td></tr>
+                            <tr>
+                                <td height="33%">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height="33%"><a href="#" class="goBack"><img src="images/Arrow%20Right%203.png"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="33%">&nbsp;</td>
+                            </tr>
                         </table>
                     </td>
                     <td width="100%">
@@ -291,9 +359,17 @@
                         </h1>
                         {{#options}}
                         <div class="createGameOptionLine">
+                            <!--
+                                                        {{!todo: find more efficent way determine type}}
+                                                        {{#if type}}
+                                                            <input type="text" placeholder="{{text}}" id="text-{{id}}" name="form-{{../id}}" />
+                                                        {{else}}
+                            -->
                             <label for="option-{{id}}" class="shadow">{{text}}
-                                <input type="radio" id="option-{{id}}" value="option-{{id}}" name="form-{{../id}}" onclick="playSound('Button_Click_On-SoundBible.com-OTON.mp3')"/>
+                                <input type="radio" id="option-{{id}}" value="option-{{id}}" name="form-{{../id}}"
+                                       onclick="playSound('Button_Click_On-SoundBible.com-OTON.mp3')"/>
                             </label>
+                            <!--{{/if}}-->
                         </div>
                         {{/options}}
                     </td>
@@ -324,7 +400,7 @@
         <div class="createGameForm" style="text-align:center; vertical-align:middle">
             <img src="images/yellow_metalic_robot.png" alt="" width="245" height="auto"><br/>
 
-            <h1 style="margin: 2%">Please Standby. Otonomous is completing and creating your new custom game.</h1>
+            <h1 style="margin: 2%">Please Standby. OTONomous is completing and creating your new custom game.</h1>
 
             <div class="error ui-progress-bar ui-container" id="progress_bar">
                 <div class="ui-progress" style="width: 1%;">
@@ -368,16 +444,16 @@
 <script type="text/javascript">
     data = {
         "forms": [
-		            {
+            {
                 "title": "1. Type In Your New Game Title.",
                 "description": "Please select you're game genre that will be compiled into the OTON game engine. Some genres may have sub-genre selection.",
                 id: 0,
                 "options": [
-                  
+                    {id: 0, "text": "Game Title", type: "text"}
                 ]
             }
             ,
-{
+            {
                 "title": "2.	Set Game Rating.",
                 "description": "Please select the rating system content on your game. Control the level suitable gameplay content. Parents can set password settings in user account or unlock additional rating category. OTON will filter your request for gameplay.",
                 id: 0,
@@ -393,7 +469,7 @@
                     {id: 4, "text": "M-Mature-Suitable for ages 17 and up"}
                 ]
             }
-			,
+            ,
             {
                 "title": "3.	Select Your Game Genre",
                 "description": "Please select you're game genre that will be compiled into the OTON game engine. Some genres may have sub-genre selection.",
@@ -484,7 +560,7 @@
                     {id: 3, "text": "TV"}
                     ,
                     {id: 4, "text": "Social"}
-					 ,
+                    ,
                     {id: 5, "text": "OTON AyR"}
                     ,
                     {id: 6, "text": "Skip"}
@@ -510,7 +586,7 @@
                 ]
             }
             ,
-			  {
+            {
                 "title": "9. Select Your Gameplay Objective",
                 description: "Please select what type of challenge you prefer for your new created OTON game.",
                 id: 7,
@@ -518,11 +594,11 @@
                     {id: 0, "text": "Points"}
                     ,
                     {id: 1, "text": "Coins"}
-					 ,
+                    ,
                     {id: 2, "text": "Enemies Killed"}
                 ]
             }
-			,
+            ,
             {
                 "title": "10.	Develop Your Game Community",
                 description: "Please select your community for your OTON game development. Some options may not be available for this software build.",

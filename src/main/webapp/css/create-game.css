@@ -10,7 +10,8 @@
 #createFormsPanel {
     width: 90%;
     height: 95%;
-    background-image: url(../images/backgrounds/white_gradient.png);
+    background-image: url(../images/backgrounds/white_gradient_small.png);
+    background-size: 100%;
     border: 2px solid #FFFFFF;
     border-radius: 5px;
 }
@@ -85,8 +86,13 @@ p, h1, form, button{border:0; margin:0; padding:0;}
     text-align:right;
     width:100%;
 }
-.createGameForm input{
+.createGameForm input[type="radio"]{
     width:18px;
+}
+.createGameForm input[type="text"]{
+    width:50%;
+}
+.createGameForm input{
     margin-left: 10px;
     margin-top: 0;
     margin-bottom: 0;

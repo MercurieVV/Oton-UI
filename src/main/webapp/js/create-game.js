@@ -11,15 +11,15 @@ function CreateGame() {
 }
 
 function applyCreateNavigationRules() {
-    $(".goForward").click(function(event){
+    $(".goForward").click(function (event) {
         $("#createGamePaged").data('AnythingSlider').goForward();
         informUserOnInactivityRestart();
     });
-    $(".goBack").click(function(event){
+    $(".goBack").click(function (event) {
         $("#createGamePaged").data('AnythingSlider').goBack();
         informUserOnInactivityRestart();
     });
-    $("button[type=reset]", ".createGameForm").click(function(){
+    $("button[type=reset]", ".createGameForm").click(function () {
         $("#createGamePaged").data('AnythingSlider').gotoPage(1);
     });
 }
@@ -28,10 +28,12 @@ function showCreateGamePanel() {
     var $createFormsPanel = $("#createFormsPanel");
     var $createPanel = $("#createPanel");
     $createFormsPanel.show();
-    $createPanel.transition({ x: '120%' });
     var $outerModal = $('#createGameModalBackground');
-    $outerModal.fadeIn(1000);
-    $outerModal.fadeTo("slow", 0.8);
+    $createPanel.transition({ x: '120%' }, 500, 'linear', function () {
+        $outerModal.css("opacity", "0");
+        $outerModal.show();
+        $outerModal.transition({opacity: 0.9}).transition({opacity: 0.8});
+    });
     informUserOnInactivityStart();
 }
 function hideCreateGamePanel() {
@@ -42,22 +44,22 @@ function hideCreateGamePanel() {
     });
 }
 
-function informUserOnInactivity(){
-    if($('#createGamePaged').data('AnythingSlider').currentPage > data.forms.length)
+function informUserOnInactivity() {
+    if ($('#createGamePaged').data('AnythingSlider').currentPage > data.forms.length)
         return;
     var $informOnInactivity = $("#informOnInactivity");
     $informOnInactivity.fadeIn(1000).delay(15000).fadeOut(1000);
 }
-function informUserOnInactivityStart(){
-    $("#createPanel").oneTime(3000, "userInactivityAlert", function(){
+function informUserOnInactivityStart() {
+    $("#createPanel").oneTime(30000, "userInactivityAlert", function () {
         informUserOnInactivity();
     });
 }
-function informUserOnInactivityStop(){
+function informUserOnInactivityStop() {
     $("#createPanel").stopTime("userInactivityAlert");
     $("#informOnInactivity").hide();
 }
-function informUserOnInactivityRestart(){
+function informUserOnInactivityRestart() {
     informUserOnInactivityStop();
     informUserOnInactivityStart();
 }

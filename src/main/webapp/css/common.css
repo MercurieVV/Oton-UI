@@ -1,9 +1,11 @@
 html,body {
     height:100%;
     margin: 0; padding: 0; border: 0;
+    overflow: hidden;
 }
 .fillDefaultBackground{
-    background-image: url(../images/backgrounds/MONSTER1.jpg);
+    background-image: url(../images/backgrounds/silver_small.jpg);
+    background-size: 100%;
 }
 .table{
     display: inline-table;
@@ -27,8 +29,10 @@ html,body {
 
 .wholePageLayer{
     position: absolute;
+/*
     top: 0;
     left: 0;
+*/
     width: 100%;
     height: 100%;
     margin: 0; padding: 0; border: 0;
@@ -81,14 +85,42 @@ label {
     float:right;
     margin: 1%;
 }
-
-#searchBox {
-	position: absolute;
-	bottom: 38px;
-	right: 151px;
-	width: 331px;
+#searchArea{
+    position: absolute;
+   	bottom: 38px;
+   	right: 7%;
+    width: 30%;
 }
-
+#searchArea input {
+    float: left;
+    width: 80%;
+}
+#searchArea img{
+    float: left;
+    width: 11%;
+    height: auto;
+    padding-right: 2%;
+    text-align: center;
+    vertical-align: middle;
+}
+#bottomButtons{
+    position: absolute;
+   	bottom: 38px;
+   	left: 7%;
+   	width: 50%;
+}
+#bottomButtons span {
+    font-family: Arial;
+    color: #222;
+    font-size: 23px;
+    padding-right: 2%;
+}
+#bottomButtons span img{
+    height: auto;
+    width: 6%;
+    text-align: center;
+    vertical-align: middle;
+}
 /*
 .center{
     display: table-cell; vertical-align: middle; position:absolute; margin: 0 auto; right:0; left: 0;

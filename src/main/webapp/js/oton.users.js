@@ -25,6 +25,30 @@ function tryToLogin() {
     });
     applyUserSettings();
 }
+
+function applyUserSettings() {
+    showSigninOrSettingsForm();
+    $.cookie.json = true;
+    var user = $.cookie('user');
+    var isUserLoggedIn = user != null;
+    var $loginButton = $("#loginFormButton");
+    var $signInButton = $("#showSignInFormButton");
+    var $createPanel = $("#createPanel");
+    if (isUserLoggedIn) {
+        showAvatar(user.avatarUrl);
+        $loginButton.text("Log out ");
+        $signInButton.text("Settings ");
+        setBackground(user.backgroundUrl);
+        $createPanel.show();
+    } else {
+        hideAvatar();
+        $loginButton.text("Log in ");
+        $signInButton.text("Register");
+        setBackground();
+        $createPanel.hide();
+    }
+}
+
 /**
  * Created with JetBrains WebStorm.
  * User: MercurieVV
@@ -60,28 +84,9 @@ function showSigninOrSettingsForm() {
 
 function setBackground(url) {
     if (url == null)
-        url = 'images/backgrounds/MONSTER1.jpg';
+        url = 'images/backgrounds/silver_small.jpg';
     $('#backgroundUrl').val(url);
     $(".fillDefaultBackground").css('background-image', 'url(' + url + ')');
-}
-function applyUserSettings() {
-    showSigninOrSettingsForm();
-    $.cookie.json = true;
-    var user = $.cookie('user');
-    var isUserLoggedIn = user != null;
-    var $loginButton = $("#loginFormButton");
-    var $signInButton = $("#showSignInFormButton");
-    if (isUserLoggedIn) {
-        showAvatar(user.avatarUrl);
-        $loginButton.text("Log out ");
-        $signInButton.text("Settings ");
-        setBackground(user.backgroundUrl);
-    } else {
-        hideAvatar();
-        $loginButton.text("Log in ");
-        $signInButton.text("Register");
-        setBackground('images/backgrounds/MONSTER1.jpg');
-    }
 }
 
 function initImageSelectionInUserSettings($modal, $showButton, onImageSelect) {

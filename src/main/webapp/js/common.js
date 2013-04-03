@@ -79,6 +79,16 @@ function hideHelp() {
     });
 }
 
+function initBottomModal($modal, $showModalButton) {
+    initScrollingFromBottomModal($modal);
+    $showModalButton.click(function () {
+        showModal($modal)
+    });
+    $("[name = closeModal]", $modal).click(function () {
+        hideModal($modal)
+    });
+}
+
 function populate(frm, data) {
     $.each(data, function (key, value) {
         $('#' + key, frm).val(value);

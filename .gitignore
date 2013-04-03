@@ -1,0 +1,6 @@
+from_derrick/
+.idea/
+logs/
+target/
+tmp/
+UI.iml

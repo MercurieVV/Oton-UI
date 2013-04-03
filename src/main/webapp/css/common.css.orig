@@ -3,6 +3,7 @@ html,body {
     margin: 0; padding: 0; border: 0;
     overflow: hidden;
 }
+<<<<<<< HEAD
 .fillDefaultBackground{
     background-image: url(../images/backgrounds/silver_small.jpg);
     background-size: 100%;
@@ -17,6 +18,10 @@ html,body {
     text-align: center;
     height: 100%;
     width: 100%;
+=======
+body {
+    background-image: url(../images/backgrounds/monstorland2.jpg);
+>>>>>>> Sherri_changes
 }
 .shadow {
     box-shadow: 15px 15px 15px 2px rgba(80,80,80,0.2);
@@ -109,14 +114,13 @@ label {
    	left: 7%;
    	width: 50%;
 }
-#bottomButtons a {
+#bottomButtons span {
     font-family: Arial;
     color: #222;
     font-size: 23px;
     padding-right: 2%;
-    text-decoration: none;
 }
-#bottomButtons a img{
+#bottomButtons span img{
     height: auto;
     width: 6%;
     text-align: center;

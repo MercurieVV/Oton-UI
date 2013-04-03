@@ -33,17 +33,22 @@ function applyUserSettings() {
     var isUserLoggedIn = user != null;
     var $loginButton = $("#loginFormButton");
     var $signInButton = $("#showSignInFormButton");
+    var $settingsButton = $("#settingsButton");
     var $createPanel = $("#createPanel");
     if (isUserLoggedIn) {
         showAvatar(user.avatarUrl);
         $loginButton.text("Log out ");
+        $signInButton.hide();
+        $settingsButton.show();
         $signInButton.text("Settings ");
         setBackground(user.backgroundUrl);
         $createPanel.show();
     } else {
         hideAvatar();
         $loginButton.text("Log in ");
+        $signInButton.show();
         $signInButton.text("Register");
+        $settingsButton.hide();
         setBackground();
         $createPanel.hide();
     }

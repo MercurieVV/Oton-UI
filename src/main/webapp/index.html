@@ -78,6 +78,7 @@
     <button type="button" name="closeModal">Cancel</button>
 </div>
 
+
 <div class="wholePageLayer fillDefaultBackground" id="signinModal" style="display: none">
     <form action="" class="otonForm" id="signInForm">
         <label class="textShadow" for="userName">Login</label><input id="userName" name="userName" class="shadow"/>
@@ -162,9 +163,10 @@
 <div id="createGameModalBackground"></div>
 
 <div id="bottomButtons" class="textShadow">
-    <span id="storeButton"><img src="images/STORE_ICON.png" alt="store">STORE</span>
-    <span id="communityButton"><img src="images/COMMUNITY.png" alt="community">COMMUNITY</span>
-    <span id="newsButton"><img src="images/NEWS.png" alt="news">NEWS</span>
+    <a href="#" id="storeButton"><img src="images/STORE_ICON.png" alt="store">STORE</a>
+    <a href="#" id="communityButton"><img src="images/COMMUNITY.png" alt="community">COMMUNITY</a>
+    <a href="#" id="newsButton"><img src="images/NEWS.png" alt="news">NEWS</a>
+    <a href="#" id="settingsButton"><img src="images/settings.png" alt="settings">SETTINGS</a>
 </div>
 
 <div id="searchArea">
@@ -291,25 +293,10 @@
         saveEmailConfirmation();
 
         //bottom buttons
-        var $storeModal = $("#storeModal");
-        initScrollingFromBottomModal($storeModal);
-        $("#storeButton").click(function () {
-            showModal($storeModal)
-        });
-        $("[name = closeModal]", $storeModal).click(function () {
-            hideModal($storeModal)
-        });
-
-        var $communityModal = $("#communityModal");
-        initScrollingFromBottomModal($communityModal);
-        $("#communityButton").click(function () {
-            showModal($communityModal)
-        });
-        var $newsModal = $("#newsModal");
-        initScrollingFromBottomModal($newsModal);
-        $("#newsButton").click(function () {
-            showModal($newsModal)
-        });
+        initBottomModal($("#storeModal"), $("#storeButton"));
+        initBottomModal($("#communityModal"), $("#communityButton"));
+        initBottomModal($("#newsModal"), $("#newsButton"));
+        initBottomModal($("#signinModal"), $("#settingsButton"));
 
 
         //finalizing preparing
@@ -327,7 +314,7 @@
         gameIcons.addGame();
         gameIcons.addGame();
         gameIcons.addGame();
-        $(gameIcons).everyTime(40000, "", gameIcons.addGame);//todo: probably it isn't correct
+        $(gameIcons).everyTime(40000, "", gameIcons.addGame);
         //$("#createButton").click();
     });
 </script>

@@ -82,7 +82,10 @@ function hideHelp() {
 function initBottomModal($modal, $showModalButton) {
     initScrollingFromBottomModal($modal);
     $showModalButton.click(function () {
-        showModal($modal)
+        if($modal.is(':hidden'))
+            showModal($modal);
+        else
+            hideModal($modal);
     });
     $("[name = closeModal]", $modal).click(function () {
         hideModal($modal)
